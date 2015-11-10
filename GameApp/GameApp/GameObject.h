@@ -8,7 +8,7 @@ protected:
 	float ypos_;
 	float xspeed_;
 	float yspeed_;
-	//GameScreen* screen;
+	//GameScreen* screen asdfghjkl;
 
 public:
 	GameObject(float xpos, float ypos, float xspeed, float yspeed) : 
