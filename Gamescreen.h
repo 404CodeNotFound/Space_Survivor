@@ -23,7 +23,7 @@ private:
 
 	//pekare till rymdskepp
 	Gameobject *mGameobject;
-
+	Gameobject *mEnemy;
 
 public:
 	Gamescreen();

@@ -3,6 +3,7 @@
 #include "GameApp.h"
 #include "Graphics.h"
 #include "Rymdskepp.h"
+#include "Enemy.h"
 #include "Res.h"
 #include <stdio.h>
 #include <math.h>
@@ -104,6 +105,7 @@ void Gamescreen::Update() {
 	if (mBGX < -640.0) mBGX += 640.0;
 
 	mGameobject->Update();
+	mEnemy->Update();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -117,6 +119,7 @@ void Gamescreen::Draw(Graphics *g) {
 	// Rita ut ansikte.
 	//g->DrawImage(mFaceSurface, mFaceX, mFaceY);
 	mGameobject->Draw(g);
+	mEnemy->Draw(g);
 
 
 }
@@ -125,6 +128,7 @@ void Gamescreen::SetGameobject(Gameobject *gameobject) {
 	if (gameobject) gameobject->SetGamescreen(this);
 	if (mGameobject == 0) {
 		mGameobject = gameobject;
+		mEnemy = new Enemy();
 	}
 /*	else {
 		mNewScreen = screen;
