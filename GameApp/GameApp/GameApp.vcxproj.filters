@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Framework H">
+      <UniqueIdentifier>{ffe04396-d2ae-4eed-8096-612bfcea19bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework SRC">
+      <UniqueIdentifier>{bc465d76-953b-49cd-b4de-6cd8dc56dfab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game H">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Game SRC">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Game SRC</Filter>
+    </ClCompile>
+    <ClCompile Include="MyGameApp.cpp">
+      <Filter>Game SRC</Filter>
+    </ClCompile>
+    <ClCompile Include="TestScreen.cpp">
+      <Filter>Game SRC</Filter>
+    </ClCompile>
+    <ClCompile Include="GameApp.cpp">
+      <Filter>Framework SRC</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics.cpp">
+      <Filter>Framework SRC</Filter>
+    </ClCompile>
+    <ClCompile Include="BlinkScreen.cpp">
+      <Filter>Game SRC</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Framework SRC</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="MyGameApp.h">
+      <Filter>Game H</Filter>
+    </ClInclude>
+    <ClInclude Include="TestScreen.h">
+      <Filter>Game H</Filter>
+    </ClInclude>
+    <ClInclude Include="GameApp.h">
+      <Filter>Framework H</Filter>
+    </ClInclude>
+    <ClInclude Include="Screen.h">
+      <Filter>Framework H</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics.h">
+      <Filter>Framework H</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprite.h">
+      <Filter>Framework H</Filter>
+    </ClInclude>
+    <ClInclude Include="BlinkScreen.h">
+      <Filter>Game H</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Framework H</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
