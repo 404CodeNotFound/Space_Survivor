@@ -1,24 +1,32 @@
 #pragma once
 
 class Graphics;
+class Gamescreen;
 
-class GameObject {
+class Gameobject {
 protected:
-	float xpos_;
-	float ypos_;
-	float xspeed_;
-	float yspeed_;
-	//GameScreen* screen;
+	float mX;
+	float mY;
+	float mSpeedX;
+	float mSpeedY;
+
+private:
+	Gamescreen *mGamescreen;
 
 public:
-	GameObject(float ypos, float xpos, float xspeed, float yspeed) : 
-		xpos_(xpos), ypos_(ypos), xspeed_(xspeed), yspeed_(yspeed){}
+	Gameobject() {};
+	virtual ~Gameobject() {};
 
-	~GameObject();
+	virtual void Update() {}
+	virtual void Draw(Graphics *g) {}
 
-	virtual void Update();
-	virtual void Draw(Graphics *g, float xpos, float ypos);
+	virtual void SetSpeed(float SpeedX, float SpeedY) {}
+	void SetGamescreen(Gamescreen *gamescreen) {mGamescreen = gamescreen;}
+	Gamescreen *Gamescreen() {return mGamescreen;}
 
-	void Overlap(GameObject* go);
+	/*void SetGameApp(GameApp *gameApp) {mGameApp = gameApp;}
+	GameApp *GameApp() {return mGameApp;}*/
+
+	bool Overlap(Gameobject *gameobject);
 
 };
