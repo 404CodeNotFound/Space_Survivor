@@ -1,6 +1,7 @@
-#include "Rymdskepp.h"
+#include "ProjectileSpaceship.h"
 #include "GameApp.h"
 #include "Graphics.h"
+#include "Gamescreen.h"
 #include "Res.h"
 #include <stdio.h>
 #include <math.h>
@@ -9,32 +10,30 @@
 ////////////////////////////////////////////////////////////////////////////////
 // 
 ////////////////////////////////////////////////////////////////////////////////
-Rymdskepp::Rymdskepp() {
+ProjectileSpaceship::ProjectileSpaceship(float x, float y) {
 	// Läs in en bild av ett ansikte.
 	//mFaceSurface = SDL_LoadBMP("assets/face.bmp");
 	//SDL_SetColorKey(mFaceSurface, SDL_TRUE, RGB(255, 0, 255));
-	mFaceSurface = FACE_SURFACE;
+	mBigbulletSurface = BIGBULLET_SURFACE;
 
 	//mBGSurface = SDL_LoadBMP("assets/background.bmp");
 
 
 	// Ansiktets position och hastighet.
-	mX = 100;
-	mY = 100;
-	mSpeedX = 0;
+	mX = x + 60;
+	mY = y + 30;
+	mSpeedX = 1.0;
 	mSpeedY = 0;
 
 	//mBGX = 0.0f;
 
-	w = mFaceSurface->w;
-	printf("bredd = %d\n", w);
-	h = mFaceSurface->h;
+
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // 
 ////////////////////////////////////////////////////////////////////////////////
-Rymdskepp::~Rymdskepp() {
+ProjectileSpaceship::~ProjectileSpaceship() {
 	// Frigör bild.
 	//SDL_FreeSurface(mFaceSurface);
 	//SDL_FreeSurface(mBGSurface);
@@ -52,18 +51,14 @@ Rymdskepp::~Rymdskepp() {
 ////////////////////////////////////////////////////////////////////////////////
 // Anropas 100 gånger per sekund. Utför all logik här. 
 ////////////////////////////////////////////////////////////////////////////////
-void Rymdskepp::Update() {
+void ProjectileSpaceship::Update() {
 	// Flytta ansiktet.
 	mX += mSpeedX;
-	if (mX < 0)
-		mX = 0;
-	else if (mX > (640.0 - w))
-		mX = 640.0 - w;
 	mY += mSpeedY;
-	if (mY < 0)
-		mY = 0;
-	else if (mY > 480.0 - h)
-		mY = 480.0 - h;
+	if(mX>640) {
+		mGamescreen->KillObject(this);
+	}
+
 	//mBGX = mBGX - 5.5f;
 	//if (mBGX < -640.0) mBGX += 640.0;
 }
@@ -71,18 +66,18 @@ void Rymdskepp::Update() {
 ////////////////////////////////////////////////////////////////////////////////
 // Utför all utritning här.
 ////////////////////////////////////////////////////////////////////////////////
-void Rymdskepp::Draw(Graphics *g) {
+void ProjectileSpaceship::Draw(Graphics *g) {
 	// Rensa skärmen.
 	//g->Clear(RGB(255, 255, 255));
 	//g->DrawImage(mBGSurface, (int)mBGX, 0);
 	//g->DrawImage(mBGSurface, (int)(mBGX + 640.0), 0);
 	// Rita ut ansikte.
-	g->DrawImage(mFaceSurface, mX, mY);
+	g->DrawImage(mBigbulletSurface, mX, mY);
 
 
 }
 ////////////////////////////////7
-void Rymdskepp::SetSpeed(float SpeedX, float SpeedY){
+void ProjectileSpaceship::SetSpeed(float SpeedX, float SpeedY){
 	mSpeedX = SpeedX;
 	mSpeedY = SpeedY;
 }

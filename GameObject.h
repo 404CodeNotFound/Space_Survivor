@@ -3,20 +3,21 @@
 class Graphics;
 class Gamescreen;
 
-class GameObject {
+class Gameobject {
 protected:
-	float mY;
 	float mX;
-	float mSpeedY;
+	float mY;
 	float mSpeedX;
+	float mSpeedY;
 
 private:
-	Gamescreen *mGamescreen; 
+protected:
+	Gamescreen *mGamescreen;
 
 public:
-	GameObject() : mY(320), mX(100), mSpeedY(2), mSpeedX(2) {}
-	GameObject(float ypos, float xpos, float yspeed, float xspeed) : mY(ypos), mX(xpos), mSpeedY(yspeed), mSpeedX(xspeed)  {}
-	virtual ~GameObject() {};
+	Gameobject() {};
+	//GameObject(float xpos, float ypos, float xspeed, float yspeed) : mX(xpos), mY(ypos), mSpeedX(xspeed), mSpeedY(yspeed)  {}
+	virtual ~Gameobject() {};
 
 	virtual void Update() {}
 	virtual void Draw(Graphics *g) {}
@@ -24,10 +25,12 @@ public:
 	virtual void SetSpeed(float SpeedX, float SpeedY) {}
 	void SetGamescreen(Gamescreen *gamescreen) {mGamescreen = gamescreen;}
 	Gamescreen *Gamescreen() {return mGamescreen;}
+	float GetPosX() {return mX;}
+	float GetPosY () {return mY;}
 
 	/*void SetGameApp(GameApp *gameApp) {mGameApp = gameApp;}
 	GameApp *GameApp() {return mGameApp;}*/
 
-	bool Overlap(GameObject *gameobject);
+	bool Overlap(Gameobject *gameobject);
 
 };

@@ -3,8 +3,8 @@
 #include "GameApp.h"
 #include "Graphics.h"
 #include "Rymdskepp.h"
-#include "Enemy.h"
 #include "Res.h"
+#include "ProjectileSpaceship.h"
 #include <stdio.h>
 #include <math.h>
 
@@ -38,9 +38,9 @@ Gamescreen::Gamescreen() {
 
 	//skapa rymdskepp
 
-	SetGameobject(new Rymdskepp());
-
-
+	//SetGameobject(new Rymdskepp());
+	mGameobject = new Rymdskepp();
+	mGameobject->SetGamescreen(this);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -74,6 +74,9 @@ void Gamescreen::KeyDown(SDL_Keycode keyCode) {
 		//mFaceSpeedY = 1;
 		mGameobject->SetSpeed(0.0, 1.0);
 	}
+	else if (keyCode == SDLK_SPACE) {
+		GenerateProjectileSpaceship(mGameobject->GetPosX(), mGameobject->GetPosY());
+	}
 	else if (keyCode == SDLK_ESCAPE) {
 		GameApp()->SetScreen(new BlinkScreen());
 	}
@@ -105,7 +108,20 @@ void Gamescreen::Update() {
 	if (mBGX < -640.0) mBGX += 640.0;
 
 	mGameobject->Update();
-	mEnemy->Update();
+	for (std::list<ProjectileSpaceship*>::iterator it=herobullets.begin(); it != herobullets.end(); ++it) {
+		(*it)->Update();
+	}
+	for (std::list<ProjectileSpaceship*>::iterator it=killedherobullets.begin(); it != killedherobullets.end(); ++it) {
+		herobullets.remove(*it);
+		delete *it;
+
+		//(*it)->Update();
+		//herobullets.remove(projectile);
+	/*delete ProjectileSpaceship;*/
+	//delete projectile;
+	printf("Finally killed projectile!\n");
+	}
+	killedherobullets.clear();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -119,7 +135,13 @@ void Gamescreen::Draw(Graphics *g) {
 	// Rita ut ansikte.
 	//g->DrawImage(mFaceSurface, mFaceX, mFaceY);
 	mGameobject->Draw(g);
-	mEnemy->Draw(g);
+	/*for (std::list<int>::iterator it=mylist.begin(); it != mylist.end(); ++it)
+    std::cout << ' ' << *it;
+	std::list<ProjectileSpaceship*> herobullets;
+	*/
+	for (std::list<ProjectileSpaceship*>::iterator it=herobullets.begin(); it != herobullets.end(); ++it) {
+		(*it)->Draw(g);
+	}
 
 
 }
@@ -128,9 +150,23 @@ void Gamescreen::SetGameobject(Gameobject *gameobject) {
 	if (gameobject) gameobject->SetGamescreen(this);
 	if (mGameobject == 0) {
 		mGameobject = gameobject;
-		mEnemy = new Enemy();
 	}
 /*	else {
 		mNewScreen = screen;
 	}*/
+}
+//////////////////
+void Gamescreen::GenerateProjectileSpaceship(float x, float y) {
+	ProjectileSpaceship *tempbullet = new ProjectileSpaceship(x, y);
+	tempbullet->SetGamescreen(this);
+	herobullets.push_back(tempbullet);
+	printf("Gave birth to projectile!\n");
+}
+/////////////////////////////
+void Gamescreen::KillObject(ProjectileSpaceship *projectile) {
+	//herobullets.remove(projectile);
+	/*delete ProjectileSpaceship;*/
+	//delete projectile;
+	killedherobullets.push_back(projectile);
+	printf("Killed projectile!\n");
 }

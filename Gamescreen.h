@@ -2,8 +2,10 @@
 #define __GAME_SCREEN_H__
 
 #include "Screen.h"
+#include <list>
 
 class Gameobject;
+class ProjectileSpaceship;
 struct SDL_Surface;
 
 class Gamescreen : public Screen {
@@ -23,7 +25,10 @@ private:
 
 	//pekare till rymdskepp
 	Gameobject *mGameobject;
-	Gameobject *mEnemy;
+	//lista med pekare till rymdskeppets projektiler
+	std::list<ProjectileSpaceship*> herobullets;
+	std::list<ProjectileSpaceship*> killedherobullets;
+
 
 public:
 	Gamescreen();
@@ -34,6 +39,9 @@ public:
 	virtual void Update();
 	virtual void Draw(Graphics *g);
 	void SetGameobject(Gameobject *gameobject);
+	void GenerateProjectileSpaceship(float x, float y);
+	void KillObject(ProjectileSpaceship *projectile);
+	void FinalKill();
 	
 };
 

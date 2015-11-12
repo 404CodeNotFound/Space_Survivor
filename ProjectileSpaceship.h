@@ -1,31 +1,29 @@
-#ifndef __RYMD_SKEPP_H__
-#define __RYMD_SKEPP_H__
+#ifndef __PROJECTILE_SPACESHIP_H__
+#define __PROJECTILE_SPACESHIP_H__
 
 #include "Gameobject.h"
 
 struct SDL_Surface;
 
-class Rymdskepp : public Gameobject {
+class ProjectileSpaceship : public Gameobject {
 private:
 	// Ansiktsbild.
-	SDL_Surface *mFaceSurface;
-	SDL_Surface *mBGSurface;
+	SDL_Surface *mBigbulletSurface;
+	//SDL_Surface *mBGSurface;
 
 	// Position för ansikte.
-	//float mX;
-	//float mY;
+	float mX;
+	float mY;
 	// Hastighet för ansikte.
 	float mSpeedX;
 	float mSpeedY;
 	// Position för bakgrund.
 	//float mBGX;
-	int w;
-	int h;
 
 
 public:
-	Rymdskepp();
-	~Rymdskepp();
+	ProjectileSpaceship(float x, float y);
+	~ProjectileSpaceship();
 
 	//virtual void KeyDown(SDL_Keycode keyCode);
 	//virtual void KeyUp(SDL_Keycode keyCode);
