@@ -21,6 +21,8 @@ private:
 	//float mBGX;
 	int w;
 	int h;
+	int mFirerate = 20;
+	int mFiredelay = 0;
 
 
 public:
@@ -32,6 +34,10 @@ public:
 	virtual void Update();
 	virtual void SetSpeed(float SpeedX, float SpeedY);
 	virtual void Draw(Graphics *g);
+
+	virtual void Fire();
+
+	virtual void Overlap(Gameobject *gameobject);
 };
 
 #endif

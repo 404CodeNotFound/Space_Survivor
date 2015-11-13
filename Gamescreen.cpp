@@ -60,22 +60,22 @@ void Gamescreen::KeyDown(SDL_Keycode keyCode) {
 	// Sätt hastighet för ansiktet.
 	if (keyCode == SDLK_LEFT) {
 		//mFaceSpeedX = -1;
-		mGameobject->SetSpeed(-1.0, 0.0);
+		mGameobject->SetSpeed(-2.0, 0.0);
 	}
 	else if (keyCode == SDLK_RIGHT) {
 		//mFaceSpeedX = 1;
-		mGameobject->SetSpeed(1.0, 0.0);
+		mGameobject->SetSpeed(2.0, 0.0);
 	}
 	else if (keyCode == SDLK_UP) {
 		//mFaceSpeedY = -1;
-		mGameobject->SetSpeed(0.0, -1.0);
+		mGameobject->SetSpeed(0.0, -2.0);
 	}
 	else if (keyCode == SDLK_DOWN) {
 		//mFaceSpeedY = 1;
-		mGameobject->SetSpeed(0.0, 1.0);
+		mGameobject->SetSpeed(0.0, 2.0);
 	}
 	else if (keyCode == SDLK_SPACE) {
-		GenerateProjectileSpaceship(mGameobject->GetPosX(), mGameobject->GetPosY());
+		mGameobject->Fire();
 	}
 	else if (keyCode == SDLK_ESCAPE) {
 		GameApp()->SetScreen(new BlinkScreen());
@@ -104,7 +104,7 @@ void Gamescreen::Update() {
 	//mFaceX += mFaceSpeedX;
 	//mFaceY += mFaceSpeedY;
 
-	mBGX = mBGX - 3.0f;
+	mBGX = mBGX - 1.0f;
 	if (mBGX < -640.0) mBGX += 640.0;
 
 	mGameobject->Update();

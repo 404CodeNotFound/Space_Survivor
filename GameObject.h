@@ -10,9 +10,10 @@ protected:
 	float mSpeedX;
 	float mSpeedY;
 
-private:
-protected:
+
 	Gamescreen *mGamescreen;
+private:
+	
 
 public:
 	Gameobject() {};
@@ -27,10 +28,10 @@ public:
 	Gamescreen *Gamescreen() {return mGamescreen;}
 	float GetPosX() {return mX;}
 	float GetPosY () {return mY;}
-
+	virtual void Fire() {}
 	/*void SetGameApp(GameApp *gameApp) {mGameApp = gameApp;}
 	GameApp *GameApp() {return mGameApp;}*/
 
-	bool Overlap(Gameobject *gameobject);
+	virtual void Overlap(Gameobject *gameobject) {}
 
 };

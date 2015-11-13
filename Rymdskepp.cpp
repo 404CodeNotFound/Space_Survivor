@@ -4,6 +4,8 @@
 #include "Res.h"
 #include <stdio.h>
 #include <math.h>
+#include "Screen.h"
+#include "Gamescreen.h"
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -64,6 +66,9 @@ void Rymdskepp::Update() {
 		mY = 0;
 	else if (mY > 480.0 - h)
 		mY = 480.0 - h;
+
+	if (mFiredelay > 0)
+		mFiredelay--;
 	//mBGX = mBGX - 5.5f;
 	//if (mBGX < -640.0) mBGX += 640.0;
 }
@@ -86,3 +91,21 @@ void Rymdskepp::SetSpeed(float SpeedX, float SpeedY){
 	mSpeedX = SpeedX;
 	mSpeedY = SpeedY;
 }
+
+
+void Rymdskepp::Fire()
+{
+	if (mFiredelay == 0)
+	{
+		mGamescreen->GenerateProjectileSpaceship(mX, mY);
+		mFiredelay = mFirerate;
+	}
+}
+
+void Rymdskepp::Overlap(Gameobject *gameobject)
+{
+	
+}
+
+
+
