@@ -22,7 +22,9 @@ private:
 	//int mFaceSpeedY;
 	// Position för bakgrund.
 	float mBGX;
-
+	bool mSpace = false;
+	bool mDown = false;
+	bool mUp = false;
 	//pekare till rymdskepp
 	Gameobject *mGameobject;
 	//lista med pekare till rymdskeppets projektiler

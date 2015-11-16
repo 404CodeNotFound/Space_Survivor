@@ -68,14 +68,17 @@ void Gamescreen::KeyDown(SDL_Keycode keyCode) {
 	}
 	else if (keyCode == SDLK_UP) {
 		//mFaceSpeedY = -1;
-		mGameobject->SetSpeed(0.0, -2.0);
+		//mGameobject->SetSpeed(0.0, -2.0);
+		mUp = true;
 	}
 	else if (keyCode == SDLK_DOWN) {
+		mDown = true;
 		//mFaceSpeedY = 1;
-		mGameobject->SetSpeed(0.0, 2.0);
+		//mGameobject->SetSpeed(0.0, 2.0);
 	}
 	else if (keyCode == SDLK_SPACE) {
-		mGameobject->Fire();
+		mSpace = true;
+		//mGameobject->Fire();
 	}
 	else if (keyCode == SDLK_ESCAPE) {
 		GameApp()->SetScreen(new BlinkScreen());
@@ -90,9 +93,18 @@ void Gamescreen::KeyUp(SDL_Keycode keyCode) {
 		//mFaceSpeedX = 0;
 		mGameobject->SetSpeed(0.0, 0.0);
 	}
-	else if (keyCode == SDLK_UP || keyCode == SDLK_DOWN) {
+	else if (keyCode == SDLK_UP) {
 		//mFaceSpeedY = 0;
+		mUp = false;
 		mGameobject->SetSpeed(0.0, 0.0);
+	}
+	else if (keyCode == SDLK_DOWN) {
+		//mFaceSpeedY = 0;
+		mDown = false;
+		mGameobject->SetSpeed(0.0, 0.0);
+	}
+	else if (keyCode == SDLK_SPACE) {
+		mSpace = false;
 	}
 }
 
@@ -121,6 +133,14 @@ void Gamescreen::Update() {
 	//delete projectile;
 	printf("Finally killed projectile!\n");
 	}
+	if (mSpace)
+		mGameobject->Fire();
+
+	if (mUp)		
+		mGameobject->SetSpeed(0.0, -2.0);
+
+	if (mDown)
+		mGameobject->SetSpeed(0.0, 2.0);
 	killedherobullets.clear();
 }
 
