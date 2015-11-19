@@ -8,7 +8,7 @@ struct SDL_Surface;
 class ProjectileSpaceship : public Gameobject {
 private:
 	// Ansiktsbild.
-	SDL_Surface *mBigbulletSurface;
+	SDL_Surface *mBigbullet;
 	//SDL_Surface *mBGSurface;
 
 	// Position för ansikte.
@@ -17,6 +17,8 @@ private:
 	// Hastighet för ansikte.
 	float mSpeedX;
 	float mSpeedY;
+	//int w;
+	//int h;
 	// Position för bakgrund.
 	//float mBGX;
 

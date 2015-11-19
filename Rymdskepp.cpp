@@ -2,10 +2,9 @@
 #include "GameApp.h"
 #include "Graphics.h"
 #include "Res.h"
+#include "Gamescreen.h"
 #include <stdio.h>
 #include <math.h>
-#include "Screen.h"
-#include "Gamescreen.h"
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -15,7 +14,7 @@ Rymdskepp::Rymdskepp() {
 	// Läs in en bild av ett ansikte.
 	//mFaceSurface = SDL_LoadBMP("assets/face.bmp");
 	//SDL_SetColorKey(mFaceSurface, SDL_TRUE, RGB(255, 0, 255));
-	mFaceSurface = FACE_SURFACE;
+	mShipSurface = SHIP_SURFACE;
 
 	//mBGSurface = SDL_LoadBMP("assets/background.bmp");
 
@@ -28,9 +27,12 @@ Rymdskepp::Rymdskepp() {
 
 	//mBGX = 0.0f;
 
-	w = mFaceSurface->w;
+	w = mShipSurface->w;
 	printf("bredd = %d\n", w);
-	h = mFaceSurface->h;
+	h = mShipSurface->h;
+	mFirerate = 20; 
+	mFiredelay = 0; 
+	mHealth = 100;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -66,7 +68,6 @@ void Rymdskepp::Update() {
 		mY = 0;
 	else if (mY > 480.0 - h)
 		mY = 480.0 - h;
-
 	if (mFiredelay > 0)
 		mFiredelay--;
 	//mBGX = mBGX - 5.5f;
@@ -82,30 +83,29 @@ void Rymdskepp::Draw(Graphics *g) {
 	//g->DrawImage(mBGSurface, (int)mBGX, 0);
 	//g->DrawImage(mBGSurface, (int)(mBGX + 640.0), 0);
 	// Rita ut ansikte.
-	g->DrawImage(mFaceSurface, mX, mY);
+	g->DrawImage(mShipSurface, mX, mY);
 
 
 }
 ////////////////////////////////7
-void Rymdskepp::SetSpeed(float SpeedX, float SpeedY){
+void Rymdskepp::SetSpeedX(float SpeedX){
 	mSpeedX = SpeedX;
+}
+////////////////////////////
+void Rymdskepp::SetSpeedY(float SpeedY){
 	mSpeedY = SpeedY;
 }
-
-
-void Rymdskepp::Fire()
-{
-	if (mFiredelay == 0)
-	{
-		mGamescreen->GenerateProjectileSpaceship(mX, mY);
-		mFiredelay = mFirerate;
-	}
+/////////////////////////7
+void Rymdskepp::Fire() { 
+	if (mFiredelay == 0) { 
+		mGamescreen->GenerateProjectileSpaceship(mX, mY); 
+		mFiredelay = mFirerate; 
+ 	} 
+ } 
+///////////////////////
+void Rymdskepp::Overlap(Gameobject *gameobject){
+	mHealth = mHealth - 10;
+	printf("Livnivå=%d\n", mHealth);
+	if (mHealth <= 0)
+		mGamescreen->KillSpaceship();
 }
-
-void Rymdskepp::Overlap(Gameobject *gameobject)
-{
-	
-}
-
-
-

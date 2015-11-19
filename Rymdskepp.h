@@ -8,8 +8,7 @@ struct SDL_Surface;
 class Rymdskepp : public Gameobject {
 private:
 	// Ansiktsbild.
-	SDL_Surface *mFaceSurface;
-	SDL_Surface *mBGSurface;
+	SDL_Surface *mShipSurface;
 
 	// Position för ansikte.
 	//float mX;
@@ -19,10 +18,12 @@ private:
 	float mSpeedY;
 	// Position för bakgrund.
 	//float mBGX;
-	int w;
-	int h;
-	int mFirerate = 20;
-	int mFiredelay = 0;
+	//int w;
+	//int h;
+	int mFirerate; 
+	int mFiredelay; 
+	int mHealth;
+
 
 
 public:
@@ -32,11 +33,10 @@ public:
 	//virtual void KeyDown(SDL_Keycode keyCode);
 	//virtual void KeyUp(SDL_Keycode keyCode);
 	virtual void Update();
-	virtual void SetSpeed(float SpeedX, float SpeedY);
+	virtual void SetSpeedX(float SpeedX);
+	virtual void SetSpeedY(float SpeedY);
 	virtual void Draw(Graphics *g);
-
 	virtual void Fire();
-
 	virtual void Overlap(Gameobject *gameobject);
 };
 

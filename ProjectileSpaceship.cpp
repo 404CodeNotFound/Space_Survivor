@@ -14,7 +14,7 @@ ProjectileSpaceship::ProjectileSpaceship(float x, float y) {
 	// Läs in en bild av ett ansikte.
 	//mFaceSurface = SDL_LoadBMP("assets/face.bmp");
 	//SDL_SetColorKey(mFaceSurface, SDL_TRUE, RGB(255, 0, 255));
-	mBigbulletSurface = BIGBULLET_SURFACE;
+	mBigbullet = BIGBULLET_SURFACE;
 
 	//mBGSurface = SDL_LoadBMP("assets/background.bmp");
 
@@ -22,8 +22,11 @@ ProjectileSpaceship::ProjectileSpaceship(float x, float y) {
 	// Ansiktets position och hastighet.
 	mX = x + 60;
 	mY = y + 30;
-	mSpeedX = 1.0;
+	mSpeedX = 3.0;
 	mSpeedY = 0;
+
+	w = mBigbullet->w;
+	h = mBigbullet->h;
 
 	//mBGX = 0.0f;
 
@@ -37,7 +40,7 @@ ProjectileSpaceship::~ProjectileSpaceship() {
 	// Frigör bild.
 	//SDL_FreeSurface(mFaceSurface);
 	//SDL_FreeSurface(mBGSurface);
-	printf("Testscreen destroyed\n");
+	printf("Herobullet destroyed\n");
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -72,7 +75,7 @@ void ProjectileSpaceship::Draw(Graphics *g) {
 	//g->DrawImage(mBGSurface, (int)mBGX, 0);
 	//g->DrawImage(mBGSurface, (int)(mBGX + 640.0), 0);
 	// Rita ut ansikte.
-	g->DrawImage(mBigbulletSurface, mX, mY);
+	g->DrawImage(mBigbullet, mX, mY);
 
 
 }

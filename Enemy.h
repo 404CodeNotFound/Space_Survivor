@@ -9,27 +9,27 @@ class Enemy : public Gameobject {
 private:
 	// Ansiktsbild.
 	SDL_Surface *mFaceSurface;
-	SDL_Surface *mBGSurface;
 
-	// Position för ansikte.
-	float mX;
-	float mY;
-	// Hastighet för ansikte.
 	float mSpeedX;
 	float mSpeedY;
-	// Position för bakgrund.
-	//float mBGX;
+	
+	//int w;
+	//int h;
+	int mFirerate; 
+	int mFiredelay; 
+
 
 
 public:
-	Enemy();
+	Enemy(float y);
 	~Enemy();
 
-	//virtual void KeyDown(SDL_Keycode keyCode);
-	//virtual void KeyUp(SDL_Keycode keyCode);
 	virtual void Update();
-	virtual void SetSpeed(float SpeedX, float SpeedY);
+	virtual void SetSpeedX(float SpeedX);
+	virtual void SetSpeedY(float SpeedY);
 	virtual void Draw(Graphics *g);
+	virtual void Fire();
+	virtual void Overlap(Gameobject *gameobejct);
 };
 
 #endif

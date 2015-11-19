@@ -6,6 +6,7 @@
 
 class Gameobject;
 class ProjectileSpaceship;
+class Enemy;
 struct SDL_Surface;
 
 class Gamescreen : public Screen {
@@ -22,14 +23,16 @@ private:
 	//int mFaceSpeedY;
 	// Position för bakgrund.
 	float mBGX;
-	bool mSpace = false;
-	bool mDown = false;
-	bool mUp = false;
+	int counter;
+	int randy;
+
 	//pekare till rymdskepp
 	Gameobject *mGameobject;
 	//lista med pekare till rymdskeppets projektiler
 	std::list<ProjectileSpaceship*> herobullets;
 	std::list<ProjectileSpaceship*> killedherobullets;
+	std::list<Enemy*> enemies;
+	std::list<Enemy*> killedenemies;
 
 
 public:
@@ -42,8 +45,12 @@ public:
 	virtual void Draw(Graphics *g);
 	void SetGameobject(Gameobject *gameobject);
 	void GenerateProjectileSpaceship(float x, float y);
+	void GenerateEnemy(float y);
 	void KillObject(ProjectileSpaceship *projectile);
+	void KillObjectEnemy(Enemy *enemy);
+	void KillSpaceship();
 	void FinalKill();
+	void CheckOverlapSpaceship(Gameobject *gameobject, std::list<Enemy*> enemies); 
 	
 };
 

@@ -5,8 +5,10 @@
 #include "Rymdskepp.h"
 #include "Res.h"
 #include "ProjectileSpaceship.h"
+#include "Enemy.h"
 #include <stdio.h>
 #include <math.h>
+#include <stdlib.h>
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -41,6 +43,7 @@ Gamescreen::Gamescreen() {
 	//SetGameobject(new Rymdskepp());
 	mGameobject = new Rymdskepp();
 	mGameobject->SetGamescreen(this);
+	counter = 0;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -57,32 +60,26 @@ Gamescreen::~Gamescreen() {
 // 
 ////////////////////////////////////////////////////////////////////////////////
 void Gamescreen::KeyDown(SDL_Keycode keyCode) {
-	// Sätt hastighet för ansiktet.
+	// Sätt hastighet för rymdskeppet.
 	if (keyCode == SDLK_LEFT) {
-		//mFaceSpeedX = -1;
-		mGameobject->SetSpeed(-2.0, 0.0);
+		mGameobject->SetSpeedX(-2.0);
 	}
 	else if (keyCode == SDLK_RIGHT) {
-		//mFaceSpeedX = 1;
-		mGameobject->SetSpeed(2.0, 0.0);
+		mGameobject->SetSpeedX(2.0);
 	}
-	else if (keyCode == SDLK_UP) {
-		//mFaceSpeedY = -1;
-		//mGameobject->SetSpeed(0.0, -2.0);
-		mUp = true;
+	if (keyCode == SDLK_UP) {
+		mGameobject->SetSpeedY(-2.0);
 	}
 	else if (keyCode == SDLK_DOWN) {
-		mDown = true;
-		//mFaceSpeedY = 1;
-		//mGameobject->SetSpeed(0.0, 2.0);
+		mGameobject->SetSpeedY(2.0);
 	}
-	else if (keyCode == SDLK_SPACE) {
-		mSpace = true;
-		//mGameobject->Fire();
+	if (keyCode == SDLK_SPACE) {
+		//GenerateProjectileSpaceship(mGameobject->GetPosX(), mGameobject->GetPosY());
+		mGameobject->Fire();
 	}
-	else if (keyCode == SDLK_ESCAPE) {
+	/*else if (keyCode == SDLK_ESCAPE) {
 		GameApp()->SetScreen(new BlinkScreen());
-	}
+	}*/
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -91,20 +88,11 @@ void Gamescreen::KeyDown(SDL_Keycode keyCode) {
 void Gamescreen::KeyUp(SDL_Keycode keyCode) {
 	if (keyCode == SDLK_LEFT || keyCode == SDLK_RIGHT) {
 		//mFaceSpeedX = 0;
-		mGameobject->SetSpeed(0.0, 0.0);
+		mGameobject->SetSpeedX(0.0);
 	}
-	else if (keyCode == SDLK_UP) {
+	else if (keyCode == SDLK_UP || keyCode == SDLK_DOWN) {
 		//mFaceSpeedY = 0;
-		mUp = false;
-		mGameobject->SetSpeed(0.0, 0.0);
-	}
-	else if (keyCode == SDLK_DOWN) {
-		//mFaceSpeedY = 0;
-		mDown = false;
-		mGameobject->SetSpeed(0.0, 0.0);
-	}
-	else if (keyCode == SDLK_SPACE) {
-		mSpace = false;
+		mGameobject->SetSpeedY(0.0);
 	}
 }
 
@@ -112,36 +100,50 @@ void Gamescreen::KeyUp(SDL_Keycode keyCode) {
 // Anropas 100 gånger per sekund. Utför all logik här. 
 ////////////////////////////////////////////////////////////////////////////////
 void Gamescreen::Update() {
-	// Flytta ansiktet.
-	//mFaceX += mFaceSpeedX;
-	//mFaceY += mFaceSpeedY;
 
 	mBGX = mBGX - 1.0f;
 	if (mBGX < -640.0) mBGX += 640.0;
+
+	if (counter < 3000 && counter%200 == 0){
+		randy = rand()%416;
+		GenerateEnemy(randy);
+		printf("Counter = %d\n", counter);
+	}
+	else if (counter >= 3000 && counter < 6000 && counter%100 == 0) {
+		randy = rand()%416;
+		GenerateEnemy(randy);
+		printf("Counter = %d\n", counter);
+		//printf("bredd = %d\n", w);
+	}
+	else if (counter >= 6000 && counter%50 == 0) {
+		randy = rand()%416;
+		GenerateEnemy(randy);
+		printf("Counter = %d\n", counter);
+		//printf("bredd = %d\n", w);
+	}
+
+	CheckOverlapSpaceship(mGameobject, enemies); 
 
 	mGameobject->Update();
 	for (std::list<ProjectileSpaceship*>::iterator it=herobullets.begin(); it != herobullets.end(); ++it) {
 		(*it)->Update();
 	}
+	for (std::list<Enemy*>::iterator it=enemies.begin(); it != enemies.end(); ++it) {
+		(*it)->Update();
+	}
 	for (std::list<ProjectileSpaceship*>::iterator it=killedherobullets.begin(); it != killedherobullets.end(); ++it) {
 		herobullets.remove(*it);
+		printf("Finally killed projectile!\n");
 		delete *it;
-
-		//(*it)->Update();
-		//herobullets.remove(projectile);
-	/*delete ProjectileSpaceship;*/
-	//delete projectile;
-	printf("Finally killed projectile!\n");
 	}
-	if (mSpace)
-		mGameobject->Fire();
-
-	if (mUp)		
-		mGameobject->SetSpeed(0.0, -2.0);
-
-	if (mDown)
-		mGameobject->SetSpeed(0.0, 2.0);
+	for (std::list<Enemy*>::iterator it=killedenemies.begin(); it != killedenemies.end(); ++it) {
+		enemies.remove(*it);
+		delete *it;
+		printf("Finally killed enemy!\n");
+	}
 	killedherobullets.clear();
+	killedenemies.clear();
+	counter = counter + 1;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -160,6 +162,9 @@ void Gamescreen::Draw(Graphics *g) {
 	std::list<ProjectileSpaceship*> herobullets;
 	*/
 	for (std::list<ProjectileSpaceship*>::iterator it=herobullets.begin(); it != herobullets.end(); ++it) {
+		(*it)->Draw(g);
+	}
+	for (std::list<Enemy*>::iterator it=enemies.begin(); it != enemies.end(); ++it) {
 		(*it)->Draw(g);
 	}
 
@@ -184,9 +189,37 @@ void Gamescreen::GenerateProjectileSpaceship(float x, float y) {
 }
 /////////////////////////////
 void Gamescreen::KillObject(ProjectileSpaceship *projectile) {
-	//herobullets.remove(projectile);
-	/*delete ProjectileSpaceship;*/
-	//delete projectile;
 	killedherobullets.push_back(projectile);
 	printf("Killed projectile!\n");
+}
+//////////////////////////////
+void Gamescreen::KillObjectEnemy(Enemy *enemy) {
+	killedenemies.push_back(enemy);
+	printf("Killed enemy!\n");
+}
+/////////////////////////////
+void Gamescreen::KillSpaceship() {
+	delete mGameobject;
+	printf("GAME OVER!!!\n");
+}
+void Gamescreen::GenerateEnemy(float y) {
+	Enemy *tempenemy = new Enemy(y);
+	tempenemy->SetGamescreen(this);
+	enemies.push_back(tempenemy);
+	printf("Gave birth to enemy!\n");
+}
+//////////////////////////////////7
+void Gamescreen::CheckOverlapSpaceship(Gameobject *gameobject, std::list<Enemy*> enemies) {
+	for (std::list<Enemy*>::iterator it=enemies.begin(); it != enemies.end(); ++it) {
+		if ((mGameobject->GetPosX()+ mGameobject->Getw()) < (*it)->GetPosX() || (mGameobject->GetPosX() > ((*it)->GetPosX() + (*it)->Getw())))
+			printf("");
+		else if ((mGameobject->GetPosY()+ mGameobject->Geth()) < (*it)->GetPosY() || (mGameobject->GetPosY() > ((*it)->GetPosY() + (*it)->Geth())))
+			printf("");
+		else {
+			mGameobject->Overlap(*it);
+			(*it)->Overlap(mGameobject);
+			//Overlap(Gameobject *gameobject)
+			printf("Kollision!\n");
+		}
+	}
 }
