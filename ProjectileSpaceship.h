@@ -12,8 +12,8 @@ private:
 	//SDL_Surface *mBGSurface;
 
 	// Position för ansikte.
-	float mX;
-	float mY;
+	//float mX;
+	//float mY;
 	// Hastighet för ansikte.
 	float mSpeedX;
 	float mSpeedY;
@@ -32,6 +32,7 @@ public:
 	virtual void Update();
 	virtual void SetSpeed(float SpeedX, float SpeedY);
 	virtual void Draw(Graphics *g);
+	virtual void Overlap(Gameobject *gameobejct);
 };
 
 #endif

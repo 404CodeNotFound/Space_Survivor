@@ -11,6 +11,7 @@ extern SDL_Surface *FACE_SURFACE;
 extern SDL_Surface *BG_SURFACE;
 extern SDL_Surface *BULLET_SURFACE;
 extern SDL_Surface *BIGBULLET_SURFACE;
+extern SDL_Surface *GAME_OVER_SURFACE;
 
 bool LoadResources();
 void DeleteResources();

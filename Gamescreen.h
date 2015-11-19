@@ -25,6 +25,7 @@ private:
 	float mBGX;
 	int counter;
 	int randy;
+	bool gameover;
 
 	//pekare till rymdskepp
 	Gameobject *mGameobject;
@@ -51,6 +52,7 @@ public:
 	void KillSpaceship();
 	void FinalKill();
 	void CheckOverlapSpaceship(Gameobject *gameobject, std::list<Enemy*> enemies); 
+	void CheckOverlapHerobullets(std::list<ProjectileSpaceship*> herobullets, std::list<Enemy*> enemies);
 	
 };
 

@@ -9,6 +9,7 @@ SDL_Surface *FACE_SURFACE = 0;
 SDL_Surface *BG_SURFACE = 0;
 SDL_Surface *BIGBULLET_SURFACE = 0;
 SDL_Surface *BULLET_SURFACE = 0;
+SDL_Surface *GAME_OVER_SURFACE = 0;
 
 
 bool LoadResources() {
@@ -35,6 +36,8 @@ bool LoadResources() {
 	SDL_SetColorKey(BULLET_SURFACE, SDL_TRUE, RGB(255, 0, 255));
 	BIGBULLET_SURFACE = SDL_LoadBMP("assets/bullet_2x.bmp");
 	SDL_SetColorKey(BIGBULLET_SURFACE, SDL_TRUE, RGB(255, 0, 255));
+
+	GAME_OVER_SURFACE = SDL_LoadBMP("assets/Game_Over_2.bmp");
 
 	return true;
 }

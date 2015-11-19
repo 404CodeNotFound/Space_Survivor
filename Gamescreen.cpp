@@ -1,5 +1,6 @@
 #include "Gamescreen.h"
 #include "BlinkScreen.h"
+#include "Gameover.h"
 #include "GameApp.h"
 #include "Graphics.h"
 #include "Rymdskepp.h"
@@ -44,6 +45,7 @@ Gamescreen::Gamescreen() {
 	mGameobject = new Rymdskepp();
 	mGameobject->SetGamescreen(this);
 	counter = 0;
+	gameover = false;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -107,22 +109,23 @@ void Gamescreen::Update() {
 	if (counter < 3000 && counter%200 == 0){
 		randy = rand()%416;
 		GenerateEnemy(randy);
-		printf("Counter = %d\n", counter);
+		//printf("Counter = %d\n", counter);
 	}
 	else if (counter >= 3000 && counter < 6000 && counter%100 == 0) {
 		randy = rand()%416;
 		GenerateEnemy(randy);
-		printf("Counter = %d\n", counter);
+		//printf("Counter = %d\n", counter);
 		//printf("bredd = %d\n", w);
 	}
 	else if (counter >= 6000 && counter%50 == 0) {
 		randy = rand()%416;
 		GenerateEnemy(randy);
-		printf("Counter = %d\n", counter);
+		//printf("Counter = %d\n", counter);
 		//printf("bredd = %d\n", w);
 	}
 
 	CheckOverlapSpaceship(mGameobject, enemies); 
+	CheckOverlapHerobullets(herobullets, enemies);
 
 	mGameobject->Update();
 	for (std::list<ProjectileSpaceship*>::iterator it=herobullets.begin(); it != herobullets.end(); ++it) {
@@ -133,16 +136,21 @@ void Gamescreen::Update() {
 	}
 	for (std::list<ProjectileSpaceship*>::iterator it=killedherobullets.begin(); it != killedherobullets.end(); ++it) {
 		herobullets.remove(*it);
-		printf("Finally killed projectile!\n");
+		//printf("Finally killed projectile!\n");
 		delete *it;
 	}
 	for (std::list<Enemy*>::iterator it=killedenemies.begin(); it != killedenemies.end(); ++it) {
 		enemies.remove(*it);
 		delete *it;
-		printf("Finally killed enemy!\n");
+		//printf("Finally killed enemy!\n");
 	}
 	killedherobullets.clear();
 	killedenemies.clear();
+	if (gameover) {
+		delete mGameobject;
+		printf("GAME OVER!!!\n");
+		GameApp()->SetScreen(new Gameover());
+	}
 	counter = counter + 1;
 }
 
@@ -185,28 +193,30 @@ void Gamescreen::GenerateProjectileSpaceship(float x, float y) {
 	ProjectileSpaceship *tempbullet = new ProjectileSpaceship(x, y);
 	tempbullet->SetGamescreen(this);
 	herobullets.push_back(tempbullet);
-	printf("Gave birth to projectile!\n");
+	//printf("Gave birth to projectile!\n");
 }
 /////////////////////////////
 void Gamescreen::KillObject(ProjectileSpaceship *projectile) {
 	killedherobullets.push_back(projectile);
-	printf("Killed projectile!\n");
+	//printf("Killed projectile!\n");
 }
 //////////////////////////////
 void Gamescreen::KillObjectEnemy(Enemy *enemy) {
 	killedenemies.push_back(enemy);
-	printf("Killed enemy!\n");
+	//printf("Killed enemy!\n");
 }
 /////////////////////////////
 void Gamescreen::KillSpaceship() {
-	delete mGameobject;
-	printf("GAME OVER!!!\n");
+	gameover = true;
+	//delete mGameobject;
+	//printf("GAME OVER!!!\n");
 }
+////////////////////////////
 void Gamescreen::GenerateEnemy(float y) {
 	Enemy *tempenemy = new Enemy(y);
 	tempenemy->SetGamescreen(this);
 	enemies.push_back(tempenemy);
-	printf("Gave birth to enemy!\n");
+	//printf("Gave birth to enemy!\n");
 }
 //////////////////////////////////7
 void Gamescreen::CheckOverlapSpaceship(Gameobject *gameobject, std::list<Enemy*> enemies) {
@@ -218,8 +228,21 @@ void Gamescreen::CheckOverlapSpaceship(Gameobject *gameobject, std::list<Enemy*>
 		else {
 			mGameobject->Overlap(*it);
 			(*it)->Overlap(mGameobject);
-			//Overlap(Gameobject *gameobject)
-			printf("Kollision!\n");
+		}
+	}
+}
+//////////////////////////////////
+void Gamescreen::CheckOverlapHerobullets(std::list<ProjectileSpaceship*> herobullets, std::list<Enemy*> enemies) {
+	for (std::list<ProjectileSpaceship*>::iterator hbit=herobullets.begin(); hbit != herobullets.end(); ++hbit) {
+		for (std::list<Enemy*>::iterator it=enemies.begin(); it != enemies.end(); ++it) {
+			if (((*hbit)->GetPosX()+ (*hbit)->Getw()) < (*it)->GetPosX() || ((*hbit)->GetPosX() > ((*it)->GetPosX() + (*it)->Getw())))
+				printf("");
+			else if (((*hbit)->GetPosY()+ (*hbit)->Geth()) < (*it)->GetPosY() || ((*hbit)->GetPosY() > ((*it)->GetPosY() + (*it)->Geth())))
+				printf("");
+			else {
+				(*hbit)->Overlap(*it);
+				(*it)->Overlap(*hbit);
+			}
 		}
 	}
 }

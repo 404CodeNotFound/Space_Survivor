@@ -28,7 +28,7 @@ Enemy::Enemy(float y) {
 	//mBGX = 0.0f;
 
 	w = mFaceSurface->w;
-	printf("bredd = %d\n", w);
+	//printf("bredd = %d\n", w);
 	h = mFaceSurface->h;
 	mFirerate = 20; 
 	mFiredelay = 0; 
@@ -107,4 +107,5 @@ void Enemy::Fire() {
 /////////////////////////////
 void Enemy::Overlap(Gameobject *gameobject) {
 	mGamescreen->KillObjectEnemy(this);
+	printf("AJ!\n");
 }
