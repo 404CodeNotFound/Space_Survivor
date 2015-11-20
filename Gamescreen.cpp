@@ -131,18 +131,18 @@ void Gamescreen::Update() {
 	mBGX = mBGX - 1.0f;
 	if (mBGX < -640.0) mBGX += 640.0;
 
-	if (counter < 3000 && counter%200 == 0){
+	if (counter < 1500 && counter%200 == 0){
 		randy = rand()%416;
 		GenerateEnemy(randy);
 		//printf("Counter = %d\n", counter);
 	}
-	else if (counter >= 3000 && counter < 6000 && counter%100 == 0) {
+	else if (counter >= 1500 && counter < 3000 && counter%100 == 0) {
 		randy = rand()%416;
 		GenerateEnemy(randy);
 		//printf("Counter = %d\n", counter);
 		//printf("bredd = %d\n", w);
 	}
-	else if (counter >= 6000 && counter%50 == 0) {
+	else if (counter >= 3000 && counter%50 == 0) {
 		randy = rand()%416;
 		GenerateEnemy(randy);
 		//printf("Counter = %d\n", counter);

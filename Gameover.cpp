@@ -2,6 +2,7 @@
 #include "GameApp.h"
 #include "Graphics.h"
 #include "Res.h"
+#include "Gamescreen.h"
 #include <stdio.h>
 
 
@@ -19,6 +20,7 @@ Gameover::Gameover() {
 	//Bakgrundens position
 
 	mBGX = 0.0f;
+	counter = 0;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -44,8 +46,11 @@ Gameover::~Gameover() {
 ////////////////////////////////////////////////////////////////////////////////
 void Gameover::Update() {
 
+	if (counter == 200)
+		GameApp()->SetScreen(new Gamescreen());
 	//mBGX = mBGX - 1.0f;
 	//if (mBGX < -640.0) mBGX += 640.0;
+	counter = counter + 1;
 }
 
 ////////////////////////////////////////////////////////////////////////////////

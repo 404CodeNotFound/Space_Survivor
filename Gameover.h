@@ -15,6 +15,7 @@ private:
 	
 	// Position för bakgrund.
 	float mBGX;
+	int counter;
 
 
 public:
