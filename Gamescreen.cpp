@@ -34,7 +34,11 @@ Gamescreen::Gamescreen() {
 	//mFaceY = 100;
 	//mFaceSpeedX = 0;
 	//mFaceSpeedY = 0;
-
+	mUp = false;
+	mDown = false;
+	mLeft = false;
+	mRight = false;
+	mSpace = false;
 	//Bakgrundens position
 
 	mBGX = 0.0f;
@@ -64,20 +68,25 @@ Gamescreen::~Gamescreen() {
 void Gamescreen::KeyDown(SDL_Keycode keyCode) {
 	// Sätt hastighet för rymdskeppet.
 	if (keyCode == SDLK_LEFT) {
-		mGameobject->SetSpeedX(-2.0);
+		mLeft = true;
+		//mGameobject->SetSpeedX(-2.0);
 	}
 	else if (keyCode == SDLK_RIGHT) {
-		mGameobject->SetSpeedX(2.0);
+		mRight = true;
+		//mGameobject->SetSpeedX(2.0);
 	}
 	if (keyCode == SDLK_UP) {
-		mGameobject->SetSpeedY(-2.0);
+		mUp = true;
+		//mGameobject->SetSpeedY(-2.0);
 	}
 	else if (keyCode == SDLK_DOWN) {
-		mGameobject->SetSpeedY(2.0);
+		mDown = true;
+		//mGameobject->SetSpeedY(2.0);
 	}
 	if (keyCode == SDLK_SPACE) {
 		//GenerateProjectileSpaceship(mGameobject->GetPosX(), mGameobject->GetPosY());
-		mGameobject->Fire();
+		mSpace = true;
+		//mGameobject->Fire();
 	}
 	/*else if (keyCode == SDLK_ESCAPE) {
 		GameApp()->SetScreen(new BlinkScreen());
@@ -88,13 +97,29 @@ void Gamescreen::KeyDown(SDL_Keycode keyCode) {
 // 
 ////////////////////////////////////////////////////////////////////////////////
 void Gamescreen::KeyUp(SDL_Keycode keyCode) {
-	if (keyCode == SDLK_LEFT || keyCode == SDLK_RIGHT) {
+	if (keyCode == SDLK_LEFT) {
 		//mFaceSpeedX = 0;
+		mLeft = false;
 		mGameobject->SetSpeedX(0.0);
 	}
-	else if (keyCode == SDLK_UP || keyCode == SDLK_DOWN) {
+	else if (keyCode == SDLK_RIGHT) {
 		//mFaceSpeedY = 0;
+		mRight = false;
+		mGameobject->SetSpeedX(0.0);
+	}
+	else if (keyCode == SDLK_UP) {
+		//mFaceSpeedY = 0;
+		mUp = false;
 		mGameobject->SetSpeedY(0.0);
+	}
+	else if (keyCode == SDLK_DOWN) {
+		//mFaceSpeedY = 0;
+		mDown = false;
+		mGameobject->SetSpeedY(0.0);
+	}
+	else if (keyCode == SDLK_SPACE) {
+		//mFaceSpeedY = 0;
+		mSpace = false;
 	}
 }
 
@@ -145,7 +170,19 @@ void Gamescreen::Update() {
 		//printf("Finally killed enemy!\n");
 	}
 	killedherobullets.clear();
-	killedenemies.clear();
+	killedenemies.clear(); 
+
+	if (mUp)
+		mGameobject->SetSpeedY(-2.0);
+	if (mDown)
+		mGameobject->SetSpeedY(2.0);
+	if (mLeft)
+		mGameobject->SetSpeedX(-2.0);
+	if (mRight)
+		mGameobject->SetSpeedX(2.0);
+	if (mSpace)
+		mGameobject->Fire();
+
 	if (gameover) {
 		delete mGameobject;
 		printf("GAME OVER!!!\n");

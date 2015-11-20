@@ -26,6 +26,11 @@ private:
 	int counter;
 	int randy;
 	bool gameover;
+	bool mUp;
+	bool mDown;
+	bool mLeft;
+	bool mRight;
+	bool mSpace;
 
 	//pekare till rymdskepp
 	Gameobject *mGameobject;
