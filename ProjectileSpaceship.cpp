@@ -41,7 +41,7 @@ ProjectileSpaceship::~ProjectileSpaceship() {
 	// Frigör bild.
 	//SDL_FreeSurface(mFaceSurface);
 	//SDL_FreeSurface(mBGSurface);
-	printf("Herobullet destroyed\n");
+	//printf("Herobullet destroyed\n");
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -91,5 +91,5 @@ void ProjectileSpaceship::SetSpeed(float SpeedX, float SpeedY){
 ////////////////////////////////////
 void ProjectileSpaceship::Overlap(Gameobject *gameobject) {
 	mGamescreen->KillObject(this);
-	printf("Projektil dödad pga kollision!\n");
+	//printf("Projektil dödad pga kollision!\n");
 }

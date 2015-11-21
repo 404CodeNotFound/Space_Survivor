@@ -31,6 +31,7 @@ private:
 	bool mLeft;
 	bool mRight;
 	bool mSpace;
+	int points;
 
 	//pekare till rymdskepp
 	Gameobject *mGameobject;
@@ -58,6 +59,7 @@ public:
 	void FinalKill();
 	void CheckOverlapSpaceship(Gameobject *gameobject, std::list<Enemy*> enemies); 
 	void CheckOverlapHerobullets(std::list<ProjectileSpaceship*> herobullets, std::list<Enemy*> enemies);
+	void PointsToPlayer();
 	
 };
 

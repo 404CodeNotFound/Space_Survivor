@@ -2,9 +2,11 @@
 #include "GameApp.h"
 #include "Graphics.h"
 #include "Res.h"
+#include "Rymdskepp.h"
 #include "Gamescreen.h"
 #include <stdio.h>
 #include <math.h>
+#include <typeinfo>
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -42,7 +44,7 @@ Enemy::~Enemy() {
 	// Frigör bild.
 	//SDL_FreeSurface(mFaceSurface);
 	//SDL_FreeSurface(mBGSurface);
-	printf("Enemy destroyed\n");
+	//printf("Enemy destroyed\n");
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -107,6 +109,12 @@ void Enemy::Fire() {
  } 
 /////////////////////////////
 void Enemy::Overlap(Gameobject *gameobject) {
-	mGamescreen->KillObjectEnemy(this);
-	printf("AJ!\n");
+	if (typeid(*gameobject) == typeid(Rymdskepp)) {
+		mGamescreen->KillObjectEnemy(this);
+		//printf("AJ!\n");
+	}
+	if (typeid(*gameobject) == typeid(ProjectileSpaceship)) {
+		mGamescreen->PointsToPlayer();
+		mGamescreen->KillObjectEnemy(this);
+	}
 }

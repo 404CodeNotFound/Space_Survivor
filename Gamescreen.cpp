@@ -54,6 +54,7 @@ Gamescreen::Gamescreen() {
 	mGameobject->SetGamescreen(this);
 	counter = 0;
 	gameover = false;
+	points = 0;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -291,4 +292,9 @@ void Gamescreen::CheckOverlapHerobullets(std::list<ProjectileSpaceship*> herobul
 			}
 		}
 	}
+}
+///////////////////////////////
+void Gamescreen::PointsToPlayer() {
+	points = points + 10;
+	printf("Points=%d\n", points);
 }
