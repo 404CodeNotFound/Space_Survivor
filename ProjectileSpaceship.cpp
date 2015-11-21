@@ -59,7 +59,10 @@ void ProjectileSpaceship::Update() {
 	// Flytta ansiktet.
 	mX += mSpeedX;
 	mY += mSpeedY;
-	if(mX>640) {
+	/*if(mX>640) {
+		mGamescreen->KillObject(this);
+	}*/
+	if(mX>1024) {
 		mGamescreen->KillObject(this);
 	}
 

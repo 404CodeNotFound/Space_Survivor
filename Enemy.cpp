@@ -20,7 +20,8 @@ Enemy::Enemy(float y) {
 
 
 	// Ansiktets position och hastighet.
-	mX = 640;
+	//mX = 640;
+	mX = 1024;
 	mY = y;
 	mSpeedX = -2.0;
 	mSpeedY = 0;

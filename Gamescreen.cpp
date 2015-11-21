@@ -34,11 +34,14 @@ Gamescreen::Gamescreen() {
 	//mFaceY = 100;
 	//mFaceSpeedX = 0;
 	//mFaceSpeedY = 0;
-	mUp = false;
-	mDown = false;
-	mLeft = false;
-	mRight = false;
-	mSpace = false;
+
+	mUp = false; 
+	mDown = false; 
+	mLeft = false; 
+	mRight = false; 
+	mSpace = false; 
+
+
 	//Bakgrundens position
 
 	mBGX = 0.0f;
@@ -68,25 +71,25 @@ Gamescreen::~Gamescreen() {
 void Gamescreen::KeyDown(SDL_Keycode keyCode) {
 	// Sätt hastighet för rymdskeppet.
 	if (keyCode == SDLK_LEFT) {
-		mLeft = true;
 		//mGameobject->SetSpeedX(-2.0);
+		mLeft = true;
 	}
 	else if (keyCode == SDLK_RIGHT) {
-		mRight = true;
 		//mGameobject->SetSpeedX(2.0);
+		mRight = true;
 	}
 	if (keyCode == SDLK_UP) {
-		mUp = true;
 		//mGameobject->SetSpeedY(-2.0);
+		mUp = true;
 	}
 	else if (keyCode == SDLK_DOWN) {
-		mDown = true;
 		//mGameobject->SetSpeedY(2.0);
+		mDown = true;
 	}
 	if (keyCode == SDLK_SPACE) {
 		//GenerateProjectileSpaceship(mGameobject->GetPosX(), mGameobject->GetPosY());
-		mSpace = true;
 		//mGameobject->Fire();
+		mSpace = true;
 	}
 	/*else if (keyCode == SDLK_ESCAPE) {
 		GameApp()->SetScreen(new BlinkScreen());
@@ -103,22 +106,20 @@ void Gamescreen::KeyUp(SDL_Keycode keyCode) {
 		mGameobject->SetSpeedX(0.0);
 	}
 	else if (keyCode == SDLK_RIGHT) {
-		//mFaceSpeedY = 0;
 		mRight = false;
 		mGameobject->SetSpeedX(0.0);
 	}
-	else if (keyCode == SDLK_UP) {
+
+	if (keyCode == SDLK_UP) {
 		//mFaceSpeedY = 0;
 		mUp = false;
 		mGameobject->SetSpeedY(0.0);
 	}
 	else if (keyCode == SDLK_DOWN) {
-		//mFaceSpeedY = 0;
 		mDown = false;
 		mGameobject->SetSpeedY(0.0);
 	}
-	else if (keyCode == SDLK_SPACE) {
-		//mFaceSpeedY = 0;
+	if (keyCode == SDLK_SPACE) {
 		mSpace = false;
 	}
 }
@@ -129,21 +130,25 @@ void Gamescreen::KeyUp(SDL_Keycode keyCode) {
 void Gamescreen::Update() {
 
 	mBGX = mBGX - 1.0f;
-	if (mBGX < -640.0) mBGX += 640.0;
+	//if (mBGX < -640.0) mBGX += 640.0;
+	if (mBGX < -1024.0) mBGX += 1024.0;
 
 	if (counter < 1500 && counter%200 == 0){
-		randy = rand()%416;
+		//randy = rand()%416;
+		randy = rand()%704;
 		GenerateEnemy(randy);
 		//printf("Counter = %d\n", counter);
 	}
 	else if (counter >= 1500 && counter < 3000 && counter%100 == 0) {
-		randy = rand()%416;
+		//randy = rand()%416;
+		randy = rand()%704;
 		GenerateEnemy(randy);
 		//printf("Counter = %d\n", counter);
 		//printf("bredd = %d\n", w);
 	}
 	else if (counter >= 3000 && counter%50 == 0) {
-		randy = rand()%416;
+		//randy = rand()%416;
+		randy = rand()%704;
 		GenerateEnemy(randy);
 		//printf("Counter = %d\n", counter);
 		//printf("bredd = %d\n", w);
@@ -170,8 +175,7 @@ void Gamescreen::Update() {
 		//printf("Finally killed enemy!\n");
 	}
 	killedherobullets.clear();
-	killedenemies.clear(); 
-
+	killedenemies.clear();
 	if (mUp)
 		mGameobject->SetSpeedY(-2.0);
 	if (mDown)
@@ -182,7 +186,6 @@ void Gamescreen::Update() {
 		mGameobject->SetSpeedX(2.0);
 	if (mSpace)
 		mGameobject->Fire();
-
 	if (gameover) {
 		delete mGameobject;
 		printf("GAME OVER!!!\n");
@@ -198,7 +201,8 @@ void Gamescreen::Draw(Graphics *g) {
 	// Rensa skärmen.
 	//g->Clear(RGB(255, 255, 255));
 	g->DrawImage(mBGSurface, (int)mBGX, 0);
-	g->DrawImage(mBGSurface, (int)(mBGX + 640.0), 0);
+	//g->DrawImage(mBGSurface, (int)(mBGX + 640.0), 0);
+	g->DrawImage(mBGSurface, (int)(mBGX + 1024.0), 0);
 	// Rita ut ansikte.
 	//g->DrawImage(mFaceSurface, mFaceX, mFaceY);
 	mGameobject->Draw(g);

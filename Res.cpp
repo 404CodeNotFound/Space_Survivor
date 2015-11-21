@@ -26,7 +26,8 @@ bool LoadResources() {
 
 	//BG_SURFACE = SDL_LoadBMP("assets/background.bmp");
 
-	BG_SURFACE = SDL_LoadBMP("assets/GamescreenBG2_2.bmp");
+	//BG_SURFACE = SDL_LoadBMP("assets/GamescreenBG2_2.bmp");
+	BG_SURFACE = SDL_LoadBMP("assets/GamescreenBG_BIG.bmp");
 
 	printf("FACE %p   BG %p\n", FACE_SURFACE, BG_SURFACE);
 
@@ -37,7 +38,8 @@ bool LoadResources() {
 	BIGBULLET_SURFACE = SDL_LoadBMP("assets/bullet_2x.bmp");
 	SDL_SetColorKey(BIGBULLET_SURFACE, SDL_TRUE, RGB(255, 0, 255));
 
-	GAME_OVER_SURFACE = SDL_LoadBMP("assets/Game_Over_2.bmp");
+	//GAME_OVER_SURFACE = SDL_LoadBMP("assets/Game_Over_2.bmp");
+	GAME_OVER_SURFACE = SDL_LoadBMP("assets/Game_Over_BIG.bmp");
 
 	return true;
 }
