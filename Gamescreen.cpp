@@ -10,6 +10,7 @@
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
+#include <algorithm>
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -164,7 +165,7 @@ void Gamescreen::Update() {
 	for (std::list<Enemy*>::iterator it=enemies.begin(); it != enemies.end(); ++it) {
 		(*it)->Update();
 	}
-	for (std::list<ProjectileSpaceship*>::iterator it=killedherobullets.begin(); it != killedherobullets.end(); ++it) {
+ 	for (std::list<ProjectileSpaceship*>::iterator it=killedherobullets.begin(); it != killedherobullets.end(); ++it) {
 		herobullets.remove(*it);
 		//printf("Finally killed projectile!\n");
 		delete *it;
@@ -238,12 +239,16 @@ void Gamescreen::GenerateProjectileSpaceship(float x, float y) {
 }
 /////////////////////////////
 void Gamescreen::KillObject(ProjectileSpaceship *projectile) {
-	killedherobullets.push_back(projectile);
+	auto result = std::find(killedherobullets.begin(), killedherobullets.end(), projectile);
+	if (result == killedherobullets.end())
+		killedherobullets.push_back(projectile);
 	//printf("Killed projectile!\n");
 }
 //////////////////////////////
 void Gamescreen::KillObjectEnemy(Enemy *enemy) {
-	killedenemies.push_back(enemy);
+	auto result = std::find(killedenemies.begin(), killedenemies.end(), enemy);
+	if (result == killedenemies.end())
+		killedenemies.push_back(enemy);
 	//printf("Killed enemy!\n");
 }
 /////////////////////////////
