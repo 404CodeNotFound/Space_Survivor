@@ -11,30 +11,23 @@
 #include <math.h>
 #include <stdlib.h>
 #include <algorithm>
-
+#include "audiere.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // 
 ////////////////////////////////////////////////////////////////////////////////
 Gamescreen::Gamescreen() {
 
-	mGameobject = 0;	
+	// audiere.
+	sMusic->play();
+	sMusic->setRepeat(true);
+	//
 
-	// Läs in en bild av ett ansikte.
-	//mFaceSurface = SDL_LoadBMP("assets/face.bmp");
-	//SDL_SetColorKey(mFaceSurface, SDL_TRUE, RGB(255, 0, 255));
+	mGameobject = 0;	
 
 	//Läs in bakgrundsbild
 
-	//mBGSurface = SDL_LoadBMP("assets/background.bmp");
 	mBGSurface = BG_SURFACE;
-
-
-	// Ansiktets position och hastighet.
-	//mFaceX = 100;
-	//mFaceY = 100;
-	//mFaceSpeedX = 0;
-	//mFaceSpeedY = 0;
 
 	mUp = false; 
 	mDown = false; 
@@ -65,6 +58,9 @@ Gamescreen::~Gamescreen() {
 	//SDL_FreeSurface(mFaceSurface);
 	//SDL_FreeSurface(mBGSurface);
 	printf("Gamescreen destroyed\n");
+
+	// audiere.
+	sMusic->stop();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -93,9 +89,6 @@ void Gamescreen::KeyDown(SDL_Keycode keyCode) {
 		//mGameobject->Fire();
 		mSpace = true;
 	}
-	/*else if (keyCode == SDLK_ESCAPE) {
-		GameApp()->SetScreen(new BlinkScreen());
-	}*/
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -103,7 +96,6 @@ void Gamescreen::KeyDown(SDL_Keycode keyCode) {
 ////////////////////////////////////////////////////////////////////////////////
 void Gamescreen::KeyUp(SDL_Keycode keyCode) {
 	if (keyCode == SDLK_LEFT) {
-		//mFaceSpeedX = 0;
 		mLeft = false;
 		mGameobject->SetSpeedX(0.0);
 	}
@@ -113,7 +105,6 @@ void Gamescreen::KeyUp(SDL_Keycode keyCode) {
 	}
 
 	if (keyCode == SDLK_UP) {
-		//mFaceSpeedY = 0;
 		mUp = false;
 		mGameobject->SetSpeedY(0.0);
 	}
@@ -139,21 +130,16 @@ void Gamescreen::Update() {
 		//randy = rand()%416;
 		randy = rand()%704;
 		GenerateEnemy(randy);
-		//printf("Counter = %d\n", counter);
 	}
 	else if (counter >= 1500 && counter < 3000 && counter%100 == 0) {
 		//randy = rand()%416;
 		randy = rand()%704;
 		GenerateEnemy(randy);
-		//printf("Counter = %d\n", counter);
-		//printf("bredd = %d\n", w);
 	}
 	else if (counter >= 3000 && counter%50 == 0) {
 		//randy = rand()%416;
 		randy = rand()%704;
 		GenerateEnemy(randy);
-		//printf("Counter = %d\n", counter);
-		//printf("bredd = %d\n", w);
 	}
 
 	CheckOverlapSpaceship(mGameobject, enemies); 
@@ -205,13 +191,9 @@ void Gamescreen::Draw(Graphics *g) {
 	g->DrawImage(mBGSurface, (int)mBGX, 0);
 	//g->DrawImage(mBGSurface, (int)(mBGX + 640.0), 0);
 	g->DrawImage(mBGSurface, (int)(mBGX + 1024.0), 0);
-	// Rita ut ansikte.
-	//g->DrawImage(mFaceSurface, mFaceX, mFaceY);
+	
 	mGameobject->Draw(g);
-	/*for (std::list<int>::iterator it=mylist.begin(); it != mylist.end(); ++it)
-    std::cout << ' ' << *it;
-	std::list<ProjectileSpaceship*> herobullets;
-	*/
+	
 	for (std::list<ProjectileSpaceship*>::iterator it=herobullets.begin(); it != herobullets.end(); ++it) {
 		(*it)->Draw(g);
 	}
@@ -236,6 +218,9 @@ void Gamescreen::GenerateProjectileSpaceship(float x, float y) {
 	ProjectileSpaceship *tempbullet = new ProjectileSpaceship(x, y);
 	tempbullet->SetGamescreen(this);
 	herobullets.push_back(tempbullet);
+	// audiere.
+	sShootSound->play();
+	//
 	//printf("Gave birth to projectile!\n");
 }
 /////////////////////////////
@@ -248,13 +233,18 @@ void Gamescreen::KillObject(ProjectileSpaceship *projectile) {
 //////////////////////////////
 void Gamescreen::KillObjectEnemy(Enemy *enemy) {
 	auto result = std::find(killedenemies.begin(), killedenemies.end(), enemy);
-	if (result == killedenemies.end())
+	if (result == killedenemies.end()) {
 		killedenemies.push_back(enemy);
+	}
 	//printf("Killed enemy!\n");
 }
 /////////////////////////////
 void Gamescreen::KillSpaceship() {
 	gameover = true;
+	// audiere.
+	sExplosionSound->play();
+	//
+
 	//delete mGameobject;
 	//printf("GAME OVER!!!\n");
 }

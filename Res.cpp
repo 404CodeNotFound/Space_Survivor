@@ -1,6 +1,7 @@
 #include "Res.h"
 #include "SDL.h"
 #include "Graphics.h"
+#include "audiere.h"
 #include <stdio.h>
 
 // Skriv såhär för alla bilder.
@@ -10,6 +11,13 @@ SDL_Surface *BG_SURFACE = 0;
 SDL_Surface *BIGBULLET_SURFACE = 0;
 SDL_Surface *BULLET_SURFACE = 0;
 SDL_Surface *GAME_OVER_SURFACE = 0;
+
+// två ljudeffekter.
+audiere::SoundEffectPtr sShootSound = 0;
+audiere::SoundEffectPtr sExplosionSound = 0;
+// musik.
+audiere::OutputStreamPtr sMusic = 0;
+audiere::OutputStreamPtr sDarth = 0;
 
 
 bool LoadResources() {
@@ -40,6 +48,17 @@ bool LoadResources() {
 
 	//GAME_OVER_SURFACE = SDL_LoadBMP("assets/Game_Over_2.bmp");
 	GAME_OVER_SURFACE = SDL_LoadBMP("assets/Game_Over_BIG.bmp");
+
+	// audio device.
+	audiere::AudioDevicePtr sAudioDevice;
+	// audiere.
+	sAudioDevice = audiere::OpenDevice();
+	// ljudeffekter.
+	sShootSound = audiere::OpenSoundEffect(sAudioDevice, "assets/shoot.wav", audiere::SINGLE);
+	sExplosionSound = audiere::OpenSoundEffect(sAudioDevice, "assets/explosion.wav", audiere::SINGLE);
+	// musik.
+	sMusic = audiere::OpenSound(sAudioDevice, "assets/music.mp3", false);
+	sDarth = audiere::OpenSound(sAudioDevice, "assets/gameover.mp3", false);
 
 	return true;
 }

@@ -17,6 +17,7 @@ private:
 	//int h;
 	int mFirerate; 
 	int mFiredelay; 
+	int health;
 
 
 

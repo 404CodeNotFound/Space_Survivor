@@ -4,6 +4,7 @@
 #include "Res.h"
 #include "Rymdskepp.h"
 #include "Gamescreen.h"
+#include "audiere.h"
 #include <stdio.h>
 #include <math.h>
 #include <typeinfo>
@@ -13,12 +14,8 @@
 // 
 ////////////////////////////////////////////////////////////////////////////////
 Enemy::Enemy(float y) {
-	// Läs in en bild av ett ansikte.
-	//mFaceSurface = SDL_LoadBMP("assets/face.bmp");
-	//SDL_SetColorKey(mFaceSurface, SDL_TRUE, RGB(255, 0, 255));
+	
 	mFaceSurface = FACE_SURFACE;
-
-	//mBGSurface = SDL_LoadBMP("assets/background.bmp");
 
 
 	// Ansiktets position och hastighet.
@@ -35,6 +32,7 @@ Enemy::Enemy(float y) {
 	h = mFaceSurface->h;
 	mFirerate = 20; 
 	mFiredelay = 0; 
+	health = 3;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -47,13 +45,6 @@ Enemy::~Enemy() {
 	//printf("Enemy destroyed\n");
 }
 
-////////////////////////////////////////////////////////////////////////////////
-// 
-////////////////////////////////////////////////////////////////////////////////
-
-////////////////////////////////////////////////////////////////////////////////
-// 
-////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////
 // Anropas 100 gånger per sekund. Utför all logik här. 
@@ -83,13 +74,8 @@ void Enemy::Update() {
 // Utför all utritning här.
 ////////////////////////////////////////////////////////////////////////////////
 void Enemy::Draw(Graphics *g) {
-	// Rensa skärmen.
-	//g->Clear(RGB(255, 255, 255));
-	//g->DrawImage(mBGSurface, (int)mBGX, 0);
-	//g->DrawImage(mBGSurface, (int)(mBGX + 640.0), 0);
-	// Rita ut ansikte.
-	g->DrawImage(mFaceSurface, mX, mY);
 
+	g->DrawImage(mFaceSurface, mX, mY);
 
 }
 ////////////////////////////////7
@@ -111,10 +97,16 @@ void Enemy::Fire() {
 void Enemy::Overlap(Gameobject *gameobject) {
 	if (typeid(*gameobject) == typeid(Rymdskepp)) {
 		mGamescreen->KillObjectEnemy(this);
+		sExplosionSound->play();
 		//printf("AJ!\n");
 	}
 	if (typeid(*gameobject) == typeid(ProjectileSpaceship)) {
-		mGamescreen->PointsToPlayer();
-		mGamescreen->KillObjectEnemy(this);
+		health = health - 1;
+		if (health == 0) {
+			mGamescreen->PointsToPlayer();
+			mGamescreen->KillObjectEnemy(this);
+			// audiere.
+			sExplosionSound->play();
+		}
 	}
 }

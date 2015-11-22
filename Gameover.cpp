@@ -3,6 +3,7 @@
 #include "Graphics.h"
 #include "Res.h"
 #include "Gamescreen.h"
+#include "audiere.h"
 #include <stdio.h>
 
 
@@ -13,9 +14,10 @@ Gameover::Gameover() {
 
 	//Läs in bakgrundsbild
 
-	//mBGSurface = SDL_LoadBMP("assets/background.bmp");
-	//mBGSurface = BG_SURFACE;
 	mGameoverSurface = GAME_OVER_SURFACE;
+	//audiere
+	sDarth->play();
+	sDarth->setRepeat(false);
 
 	//Bakgrundens position
 
@@ -27,29 +29,21 @@ Gameover::Gameover() {
 // 
 ////////////////////////////////////////////////////////////////////////////////
 Gameover::~Gameover() {
-	// Frigör bild.
-	//SDL_FreeSurface(mFaceSurface);
-	//SDL_FreeSurface(mBGSurface);
+	
+	// audiere.
+	sDarth->stop();
 	printf("Gameover destroyed\n");
 }
 
-////////////////////////////////////////////////////////////////////////////////
-// 
-////////////////////////////////////////////////////////////////////////////////
-
-////////////////////////////////////////////////////////////////////////////////
-// 
-////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////
 // Anropas 100 gånger per sekund. Utför all logik här. 
 ////////////////////////////////////////////////////////////////////////////////
 void Gameover::Update() {
 
-	if (counter == 200)
+	if (counter == 800) {
 		GameApp()->SetScreen(new Gamescreen());
-	//mBGX = mBGX - 1.0f;
-	//if (mBGX < -640.0) mBGX += 640.0;
+	}
 	counter = counter + 1;
 }
 
@@ -57,11 +51,7 @@ void Gameover::Update() {
 // Utför all utritning här.
 ////////////////////////////////////////////////////////////////////////////////
 void Gameover::Draw(Graphics *g) {
-	// Rensa skärmen.
-	//g->Clear(RGB(255, 255, 255));
 	g->DrawImage(mGameoverSurface, (int)mBGX, 0);
-	//g->DrawImage(mBGSurface, (int)(mBGX + 640.0), 0);
-	// Rita ut ansikte.
 }
 //////////////////////7
 void Gameover::KeyDown(SDL_Keycode keyCode) {
