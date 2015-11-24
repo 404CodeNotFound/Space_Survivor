@@ -62,7 +62,7 @@ public:
 	void KillObjectEnemy(Enemy *enemy);
 	void KillSpaceship();
 	void FinalKill();
-	void CheckOverlapSpaceship(Gameobject *gameobject, std::list<Enemy*> enemies); 
+	void CheckOverlapSpaceship(Gameobject *gameobject, std::list<Enemy*> enemies, std::list<Gameobject*> enemybullets);
 	void CheckOverlapHerobullets(std::list<Gameobject*> herobullets, std::list<Enemy*> enemies);
 	void PointsToPlayer();
 	

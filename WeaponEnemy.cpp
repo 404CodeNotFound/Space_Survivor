@@ -56,6 +56,12 @@ WeaponEnemy::~WeaponEnemy() {
 void WeaponEnemy::Update() {
 	// Flytta ansiktet.
 	mX += mSpeedX;
+	mY += mSpeedY;
+
+	if (counter % 210 == 0)
+	{
+		mSpeedY = -mSpeedY;
+	}
 
 	if (counter % 230 == 0){
 		//randy = rand()%416;

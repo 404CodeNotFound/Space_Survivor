@@ -7,6 +7,7 @@
 // Skriv såhär för alla bilder.
 SDL_Surface *SHIP_SURFACE = 0;
 SDL_Surface *FACE_SURFACE = 0;
+SDL_Surface *UFO_SURFACE = 0;
 SDL_Surface *BG_SURFACE = 0;
 SDL_Surface *BIGBULLET_SURFACE = 0;
 SDL_Surface *BULLET_SURFACE = 0;
@@ -23,13 +24,15 @@ audiere::OutputStreamPtr sDarth = 0;
 bool LoadResources() {
 	// Skriv såhär för alla bilder.
 
-	FACE_SURFACE = SDL_LoadBMP("assets/face.bmp");
+	FACE_SURFACE = SDL_LoadBMP("assets/zombie_enemy.bmp");
+	UFO_SURFACE = SDL_LoadBMP("assets/ufo.bmp");
 
-	SHIP_SURFACE = SDL_LoadBMP("assets/small_ship_2x.bmp");
+	SHIP_SURFACE = SDL_LoadBMP("assets/Spaceship_2.bmp");
 
 	//FACE_SURFACE = SDL_LoadBMP("assets/Spaceship.bmp");
 	// Gör färgen rosa transparent.
 	SDL_SetColorKey(FACE_SURFACE, SDL_TRUE, RGB(255, 0, 255));
+	SDL_SetColorKey(UFO_SURFACE, SDL_TRUE, RGB(255, 0, 255));
 	SDL_SetColorKey(SHIP_SURFACE, SDL_TRUE, RGB(255, 0, 255));
 
 	//BG_SURFACE = SDL_LoadBMP("assets/background.bmp");
