@@ -30,6 +30,16 @@ Gamescreen::Gamescreen() {
 	//Läs in bakgrundsbild
 
 	mBGSurface = BG_SURFACE;
+	mTio = TIO;
+	mNio = NIO;
+	mÅtta = ÅTTA;
+	mSju = SJU;
+	mSex = SEX;
+	mFem = FEM;
+	mFyra = FYRA;
+	mTre = TRE;
+	mTvå = TVÅ;
+	mEtt = ETT;
 
 	mUp = false; 
 	mDown = false; 
@@ -41,6 +51,10 @@ Gamescreen::Gamescreen() {
 	//Bakgrundens position
 
 	mBGX = 0.0f;
+	mLifeX = 670;
+	mLifeY = 5;
+	mScoreX = 5;
+	mScoreY = 5;
 
 	//skapa rymdskepp
 
@@ -91,7 +105,6 @@ void Gamescreen::KeyDown(SDL_Keycode keyCode) {
 		//mGameobject->Fire();
 		mSpace = true;
 	}
-
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -126,23 +139,27 @@ void Gamescreen::KeyUp(SDL_Keycode keyCode) {
 void Gamescreen::Update() {
 
 	mBGX = mBGX - 0.5f;
+	if (mBGX < -800.0) mBGX += 800.0;
 	//if (mBGX < -640.0) mBGX += 640.0;
-	if (mBGX < -1024.0) mBGX += 1024.0;
+	//if (mBGX < -1024.0) mBGX += 1024.0;
 
 	if (counter < 1500 && counter%200 == 0){
-		//randy = rand()%416;
-		randy = rand()%704;
+		//randy = rand()%413;
+		//randy = rand()%704;
+		randy = rand()%693 + 40;
 		GenerateEnemy(randy);
 	}
 	else if (counter >= 1500 && counter < 3000 && counter%100 == 0) {
-		//randy = rand()%416;
-		randy = rand()%704;
+		//randy = rand()%413;
+		//randy = rand()%704;
+		randy = rand()%693 + 40;
 		GenerateWeaponEnemy(randy);
 	}
 	else if (counter >= 3000 && counter%50 == 0) {
-		//randy = rand()%416;
-		randy = rand()%704;
-		if (counter %100 == 0)
+		//randy = rand()%413;
+		//randy = rand()%704;
+		randy = rand()%693 + 40;
+		if (counter%100 == 0)
 			GenerateWeaponEnemy(randy);
 		else
 			GenerateEnemy(randy);
@@ -152,6 +169,9 @@ void Gamescreen::Update() {
 	CheckOverlapHerobullets(herobullets, enemies);
 
 	mGameobject->Update();
+	/*for (std::list<ProjectileSpaceship*>::iterator it=herobullets.begin(); it != herobullets.end(); ++it) {
+		(*it)->Update();
+	}*/
 	for (std::list<Gameobject*>::iterator it = herobullets.begin(); it != herobullets.end(); ++it) {
 		(*it)->Update();
 	}
@@ -161,7 +181,12 @@ void Gamescreen::Update() {
 	for (std::list<Enemy*>::iterator it=enemies.begin(); it != enemies.end(); ++it) {
 		(*it)->Update();
 	}
- 	for (std::list<Gameobject*>::iterator it=killedherobullets.begin(); it != killedherobullets.end(); ++it) {
+ 	/*for (std::list<ProjectileSpaceship*>::iterator it=killedherobullets.begin(); it != killedherobullets.end(); ++it) {
+		herobullets.remove(*it);
+		//printf("Finally killed projectile!\n");
+		delete *it;
+	}*/
+	for (std::list<Gameobject*>::iterator it=killedherobullets.begin(); it != killedherobullets.end(); ++it) {
 			herobullets.remove(*it);	
 			enemybullets.remove(*it);
 		//printf("Finally killed projectile!\n");
@@ -199,11 +224,51 @@ void Gamescreen::Draw(Graphics *g) {
 	// Rensa skärmen.
 	//g->Clear(RGB(255, 255, 255));
 	g->DrawImage(mBGSurface, (int)mBGX, 0);
+	g->DrawImage(mBGSurface, (int)(mBGX + 800.0), 0);
 	//g->DrawImage(mBGSurface, (int)(mBGX + 640.0), 0);
-	g->DrawImage(mBGSurface, (int)(mBGX + 1024.0), 0);
+	//g->DrawImage(mBGSurface, (int)(mBGX + 1024.0), 0);
 	
 	mGameobject->Draw(g);
+
+	//Rymdskepp *rp = (Rymdskepp *)mGameobject;
+	Rymdskepp *rp = dynamic_cast<Rymdskepp*>(mGameobject);
+
+	life = rp->GetHealth();
+	if (life == 100)
+		g->DrawImage(mTio, mLifeX, mLifeY);
+	else if (life == 90)
+		g->DrawImage(mNio, mLifeX, mLifeY);
+	else if (life == 80)
+		g->DrawImage(mÅtta, mLifeX, mLifeY);		
+	else if (life == 70)
+		g->DrawImage(mSju, mLifeX, mLifeY);
+	else if (life == 60)
+		g->DrawImage(mSex, mLifeX, mLifeY);
+	else if (life == 50)
+		g->DrawImage(mFem, mLifeX, mLifeY);
+	else if (life == 40)
+		g->DrawImage(mFyra, mLifeX, mLifeY);
+	else if (life == 30)
+		g->DrawImage(mTre, mLifeX, mLifeY);
+	else if (life == 20)
+		g->DrawImage(mTvå, mLifeX, mLifeY);
+	else if (life == 10)
+		g->DrawImage(mEtt, mLifeX, mLifeY);
+
+	/*DrawText(SDL_Surface *surface,
+               char* string,
+               int size,
+               int x, int y,
+               int fR, int fG, int fB,
+               int bR, int bG, int bB)
+			   printf("POSITION 1: %s %d\n", namn, points);*/
+	//g->DrawText(mScore, ("SCORE: %s %d\n", points), 12, 5, 5, 255, 255, 255, 0, 0, 0);
+	//printf("Grapichs DrawText anropas nu\n");
+ 	//g->DrawText("SCORE:", 16, 10, 10, 255, 255, 255);
 	
+	/*for (std::list<ProjectileSpaceship*>::iterator it=herobullets.begin(); it != herobullets.end(); ++it) {
+		(*it)->Draw(g);
+	}*/
 	for (std::list<Gameobject*>::iterator it = herobullets.begin(); it != herobullets.end(); ++it) {
 		(*it)->Draw(g);
 	}
@@ -236,6 +301,7 @@ void Gamescreen::GenerateProjectileSpaceship(float x, float y) {
 	//
 	//printf("Gave birth to projectile!\n");
 }
+///////////////////////
 void Gamescreen::GenerateProjectileEnemy(float x, float y) {
 	ProjectileEnemy *tempbullet = new ProjectileEnemy(x, y);
 	tempbullet->SetGamescreen(this);
@@ -246,6 +312,12 @@ void Gamescreen::GenerateProjectileEnemy(float x, float y) {
 	//printf("Gave birth to projectile!\n");
 }
 /////////////////////////////
+/*void Gamescreen::KillObject(ProjectileSpaceship *projectile) {
+	auto result = std::find(killedherobullets.begin(), killedherobullets.end(), projectile);
+	if (result == killedherobullets.end())
+		killedherobullets.push_back(projectile);
+	//printf("Killed projectile!\n");
+}*/
 void Gamescreen::KillObject(Gameobject *gameobject) {
 	auto result = std::find(killedherobullets.begin(), killedherobullets.end(), gameobject);
 	if (result == killedherobullets.end())
@@ -262,8 +334,6 @@ void Gamescreen::KillObjectEnemy(Enemy *enemy) {
 	}
 	//printf("Killed enemy!\n");
 }
-
-
 /////////////////////////////
 void Gamescreen::KillSpaceship() {
 	gameover = true;
@@ -281,13 +351,26 @@ void Gamescreen::GenerateEnemy(float y) {
 	enemies.push_back(tempenemy);
 	//printf("Gave birth to enemy!\n");
 }
+//////////////////////////////////
 void Gamescreen::GenerateWeaponEnemy(float y) {
 	WeaponEnemy *tempenemy = new WeaponEnemy(y);
 	tempenemy->SetGamescreen(this);
 	enemies.push_back(tempenemy);
 	//printf("Gave birth to enemy!\n");
 }
-//////////////////////////////////7
+/////////////////////////////////
+/*void Gamescreen::CheckOverlapSpaceship(Gameobject *gameobject, std::list<Enemy*> enemies) {
+	for (std::list<Enemy*>::iterator it=enemies.begin(); it != enemies.end(); ++it) {
+		if ((mGameobject->GetPosX()+ mGameobject->Getw()) < (*it)->GetPosX() || (mGameobject->GetPosX() > ((*it)->GetPosX() + (*it)->Getw())))
+			printf("");
+		else if ((mGameobject->GetPosY()+ mGameobject->Geth()) < (*it)->GetPosY() || (mGameobject->GetPosY() > ((*it)->GetPosY() + (*it)->Geth())))
+			printf("");
+		else {
+			mGameobject->Overlap(*it);
+			(*it)->Overlap(mGameobject);
+		}
+	}
+}*/
 void Gamescreen::CheckOverlapSpaceship(Gameobject *gameobject, std::list<Enemy*> enemies, std::list<Gameobject*> enemybullets) {
 	for (std::list<Enemy*>::iterator it=enemies.begin(); it != enemies.end(); ++it) {
 		if ((mGameobject->GetPosX()+ mGameobject->Getw()) < (*it)->GetPosX() || (mGameobject->GetPosX() > ((*it)->GetPosX() + (*it)->Getw())))
@@ -313,6 +396,20 @@ void Gamescreen::CheckOverlapSpaceship(Gameobject *gameobject, std::list<Enemy*>
 
 }
 //////////////////////////////////
+/*void Gamescreen::CheckOverlapHerobullets(std::list<ProjectileSpaceship*> herobullets, std::list<Enemy*> enemies) {
+	for (std::list<ProjectileSpaceship*>::iterator hbit=herobullets.begin(); hbit != herobullets.end(); ++hbit) {
+		for (std::list<Enemy*>::iterator it=enemies.begin(); it != enemies.end(); ++it) {
+			if (((*hbit)->GetPosX()+ (*hbit)->Getw()) < (*it)->GetPosX() || ((*hbit)->GetPosX() > ((*it)->GetPosX() + (*it)->Getw())))
+				printf("");
+			else if (((*hbit)->GetPosY()+ (*hbit)->Geth()) < (*it)->GetPosY() || ((*hbit)->GetPosY() > ((*it)->GetPosY() + (*it)->Geth())))
+				printf("");
+			else {
+				(*hbit)->Overlap(*it);
+				(*it)->Overlap(*hbit);
+			}
+		}
+	}
+}*/
 void Gamescreen::CheckOverlapHerobullets(std::list<Gameobject*> herobullets, std::list<Enemy*> enemies) {
 	for (std::list<Gameobject*>::iterator hbit = herobullets.begin(); hbit != herobullets.end(); ++hbit) {
 		for (std::list<Enemy*>::iterator it=enemies.begin(); it != enemies.end(); ++it) {

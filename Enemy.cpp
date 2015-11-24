@@ -19,8 +19,8 @@ Enemy::Enemy(float y) {
 
 
 	// Ansiktets position och hastighet.
-	//mX = 640;
-	mX = 1024;
+	mX = 800;
+	//mX = 1024;
 	mY = y;
 	mSpeedX = -2.0;
 	mSpeedY = 0;
@@ -63,6 +63,8 @@ void Enemy::Update() {
 		mY = 480.0 - h;
 	if (mFiredelay > 0)
 		mFiredelay--;*/
+	if (mY<40.0)
+		mY = 40.0;
 	if(mX < 0) {
 		mGamescreen->KillObjectEnemy(this);
 	}

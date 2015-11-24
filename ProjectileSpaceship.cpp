@@ -20,8 +20,8 @@ ProjectileSpaceship::ProjectileSpaceship(float x, float y) {
 
 
 	// Ansiktets position och hastighet.
-	mX = x + 60;
-	mY = y + 30;
+	mX = x + 64;
+	mY = y + 22;
 	mSpeedX = 3.0;
 	mSpeedY = 0;
 
@@ -59,15 +59,15 @@ void ProjectileSpaceship::Update() {
 	// Flytta ansiktet.
 	mX += mSpeedX;
 	mY += mSpeedY;
-	/*if(mX>640) {
-		mGamescreen->KillObject(this);
-	}*/
-	if(mX>1024) {
+	if (mY<40.0)
+		mY = 40.0;
+	if(mX>800) {
 		mGamescreen->KillObject(this);
 	}
+	/*if(mX>1024) {
+		mGamescreen->KillObject(this);
+	}*/
 
-	//mBGX = mBGX - 5.5f;
-	//if (mBGX < -640.0) mBGX += 640.0;
 }
 
 ////////////////////////////////////////////////////////////////////////////////

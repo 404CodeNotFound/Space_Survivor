@@ -15,13 +15,22 @@ private:
 	// Ansiktsbild.
 	//SDL_Surface *mFaceSurface;
 	SDL_Surface *mBGSurface;
+	SDL_Surface *mTio;
+	SDL_Surface *mNio;
+	SDL_Surface *mÅtta;
+	SDL_Surface *mSju;
+	SDL_Surface *mSex;
+	SDL_Surface *mFem;
+	SDL_Surface *mFyra;
+	SDL_Surface *mTre;
+	SDL_Surface *mTvå;
+	SDL_Surface *mEtt;
 
 	// Position för ansikte.
-	//int mFaceX;
-	//int mFaceY;
-	// Hastighet för ansikte.
-	//int mFaceSpeedX;
-	//int mFaceSpeedY;
+	int mLifeX;
+	int mLifeY;
+	int mScoreX;
+	int mScoreY;
 	// Position för bakgrund.
 	float mBGX;
 	int counter;
@@ -33,10 +42,15 @@ private:
 	bool mRight;
 	bool mSpace;
 	int points;
+	int life;
 
 	//pekare till rymdskepp
 	Gameobject *mGameobject;
 	//lista med pekare till rymdskeppets projektiler
+	/*std::list<ProjectileSpaceship*> herobullets;
+	std::list<ProjectileSpaceship*> killedherobullets;
+	std::list<ProjectileEnemy*> enemybullets;
+	std::list<ProjectileEnemy*> killedenemybullets;*/
 	std::list<Gameobject*> herobullets;
 	std::list<Gameobject*> killedherobullets;
 	std::list<Gameobject*> enemybullets;
@@ -58,11 +72,13 @@ public:
 	void GenerateProjectileEnemy(float x, float y);
 	void GenerateEnemy(float y);
 	void GenerateWeaponEnemy(float y);
+	//void KillObject(ProjectileSpaceship *projectile);
 	void KillObject(Gameobject *gameobject);
 	void KillObjectEnemy(Enemy *enemy);
 	void KillSpaceship();
 	void FinalKill();
-	void CheckOverlapSpaceship(Gameobject *gameobject, std::list<Enemy*> enemies, std::list<Gameobject*> enemybullets);
+	void CheckOverlapSpaceship(Gameobject *gameobject, std::list<Enemy*> enemies, std::list<Gameobject*> enemybullets); 
+	//void CheckOverlapHerobullets(std::list<ProjectileSpaceship*> herobullets, std::list<Enemy*> enemies);
 	void CheckOverlapHerobullets(std::list<Gameobject*> herobullets, std::list<Enemy*> enemies);
 	void PointsToPlayer();
 	

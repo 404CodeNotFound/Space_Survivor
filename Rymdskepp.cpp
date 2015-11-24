@@ -22,8 +22,10 @@ Rymdskepp::Rymdskepp() {
 	// Ansiktets position och hastighet.
 	//mX = 100;
 	//mY = 100;
-	mX = 160;
-	mY = 160;
+	//mX = 160;
+	//mY = 160;
+	mX = 125;
+	mY = 125;
 	mSpeedX = 0;
 	mSpeedY = 0;
 
@@ -63,21 +65,19 @@ void Rymdskepp::Update() {
 	mX += mSpeedX;
 	if (mX < 0)
 		mX = 0;
-	/*else if (mX > (640.0 - w))
-		mX = 640.0 - w;*/
-	else if (mX > (1024.0 - w))
-		mX = 1024.0 - w;
+	else if (mX > (800.0 - w))
+		mX = 800.0 - w;
+	/*else if (mX > (1024.0 - w))
+		mX = 1024.0 - w;*/
 	mY += mSpeedY;
-	if (mY < 0)
-		mY = 0;
-	/*else if (mY > 480.0 - h)
-		mY = 480.0 - h;*/
-	else if (mY > 768.0 - h)
-		mY = 768.0 - h;
+	if (mY < 40.0)
+		mY = 40.0;
+	else if (mY > 600.0 - h)
+		mY = 600.0 - h;
+	/*else if (mY > 768.0 - h)
+		mY = 768.0 - h;*/
 	if (mFiredelay > 0)
 		mFiredelay--;
-	//mBGX = mBGX - 5.5f;
-	//if (mBGX < -640.0) mBGX += 640.0;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -114,4 +114,9 @@ void Rymdskepp::Overlap(Gameobject *gameobject){
 	printf("Livnivå=%d\n", mHealth);
 	if (mHealth <= 0)
 		mGamescreen->KillSpaceship();
+}
+
+///////////////////////
+int Rymdskepp::GetHealth() {
+	return mHealth;
 }

@@ -62,7 +62,9 @@ void ProjectileEnemy::Update() {
 	/*if(mX>640) {
 	mGamescreen->KillObject(this);
 	}*/
-	if (mX>1024) {
+	if (mY<40.0)
+		mY = 40.0;
+	if (mX<0) {
 		mGamescreen->KillObject(this);
 	}
 

@@ -24,7 +24,8 @@ private:
 
 
 public:
-	WeaponEnemy(float y) : Enemy(y), mUfoSurface{ UFO_SURFACE }, mSpeedX{ -1.0 }, mSpeedY{ -1.0}, health{ 3 } {}
+	//WeaponEnemy(float y) : Enemy(y), mUfoSurface{ UFO_SURFACE }, mSpeedX{ -1.0 }, mSpeedY{ -1.0}, health{ 3 } {}
+	WeaponEnemy(float y);
 	~WeaponEnemy();
 
 	virtual void Update();
@@ -36,4 +37,3 @@ public:
 };
 
 #endif
-

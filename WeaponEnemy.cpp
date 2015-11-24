@@ -13,31 +13,28 @@
 ////////////////////////////////////////////////////////////////////////////////
 // 
 ////////////////////////////////////////////////////////////////////////////////
-/*
-WeaponEnemy::WeaponEnemy(float y) {
-	Enemy(y);
+//WeaponEnemy(float y) : Enemy(y), mUfoSurface{ UFO_SURFACE }, mSpeedX{ -1.0 }, mSpeedY{ -1.0}, health{ 3 } {}
+WeaponEnemy::WeaponEnemy(float y) : Enemy(y) {
+	//Enemy(y);
 
-	
-	mFaceSurface = FACE_SURFACE;
-
-	
+	mUfoSurface = UFO_SURFACE;
 	// Ansiktets position och hastighet.
 	//mX = 640;
-	mX = 1024;
+	mX = 800;
 	mY = y;
-	mSpeedX = -2.0;
-	mSpeedY = 0;
+	mSpeedX = -1.0;
+	mSpeedY = -1.0;
 
 	//mBGX = 0.0f;
 
-	w = mFaceSurface->w;
+	w = mUfoSurface->w;
 	//printf("bredd = %d\n", w);
-	h = mFaceSurface->h;
-	mFirerate = 20;
-	mFiredelay = 0;
+	h = mUfoSurface->h;
+	//mFirerate = 20;
+	//mFiredelay = 0;
 	health = 3;
 	
-}*/
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 // 
@@ -81,6 +78,8 @@ void WeaponEnemy::Update() {
 	mY = 480.0 - h;
 	if (mFiredelay > 0)
 	mFiredelay--;*/
+	if (mY<40.0)
+		mY = 40.0;
 	if (mX < 0) {
 		mGamescreen->KillObjectEnemy(this);
 	}
