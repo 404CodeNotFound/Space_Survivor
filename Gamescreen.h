@@ -6,6 +6,7 @@
 
 class Gameobject;
 class ProjectileSpaceship;
+class ProjectileEnemy;
 class Enemy;
 struct SDL_Surface;
 
@@ -36,8 +37,10 @@ private:
 	//pekare till rymdskepp
 	Gameobject *mGameobject;
 	//lista med pekare till rymdskeppets projektiler
-	std::list<ProjectileSpaceship*> herobullets;
-	std::list<ProjectileSpaceship*> killedherobullets;
+	std::list<Gameobject*> herobullets;
+	std::list<Gameobject*> killedherobullets;
+	std::list<Gameobject*> enemybullets;
+	std::list<Gameobject*> killedenemybullets;
 	std::list<Enemy*> enemies;
 	std::list<Enemy*> killedenemies;
 
@@ -52,13 +55,15 @@ public:
 	virtual void Draw(Graphics *g);
 	void SetGameobject(Gameobject *gameobject);
 	void GenerateProjectileSpaceship(float x, float y);
+	void GenerateProjectileEnemy(float x, float y);
 	void GenerateEnemy(float y);
-	void KillObject(ProjectileSpaceship *projectile);
+	void GenerateWeaponEnemy(float y);
+	void KillObject(Gameobject *gameobject);
 	void KillObjectEnemy(Enemy *enemy);
 	void KillSpaceship();
 	void FinalKill();
 	void CheckOverlapSpaceship(Gameobject *gameobject, std::list<Enemy*> enemies); 
-	void CheckOverlapHerobullets(std::list<ProjectileSpaceship*> herobullets, std::list<Enemy*> enemies);
+	void CheckOverlapHerobullets(std::list<Gameobject*> herobullets, std::list<Enemy*> enemies);
 	void PointsToPlayer();
 	
 };

@@ -6,7 +6,9 @@
 #include "Rymdskepp.h"
 #include "Res.h"
 #include "ProjectileSpaceship.h"
+#include "ProjectileEnemy.h"
 #include "Enemy.h"
+#include "WeaponEnemy.h"
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
@@ -122,7 +124,7 @@ void Gamescreen::KeyUp(SDL_Keycode keyCode) {
 ////////////////////////////////////////////////////////////////////////////////
 void Gamescreen::Update() {
 
-	mBGX = mBGX - 1.0f;
+	mBGX = mBGX - 0.5f;
 	//if (mBGX < -640.0) mBGX += 640.0;
 	if (mBGX < -1024.0) mBGX += 1024.0;
 
@@ -134,11 +136,12 @@ void Gamescreen::Update() {
 	else if (counter >= 1500 && counter < 3000 && counter%100 == 0) {
 		//randy = rand()%416;
 		randy = rand()%704;
-		GenerateEnemy(randy);
+		GenerateWeaponEnemy(randy);
 	}
 	else if (counter >= 3000 && counter%50 == 0) {
 		//randy = rand()%416;
 		randy = rand()%704;
+		GenerateWeaponEnemy(randy);
 		GenerateEnemy(randy);
 	}
 
@@ -146,13 +149,16 @@ void Gamescreen::Update() {
 	CheckOverlapHerobullets(herobullets, enemies);
 
 	mGameobject->Update();
-	for (std::list<ProjectileSpaceship*>::iterator it=herobullets.begin(); it != herobullets.end(); ++it) {
+	for (std::list<Gameobject*>::iterator it = herobullets.begin(); it != herobullets.end(); ++it) {
+		(*it)->Update();
+	}
+	for (std::list<Gameobject*>::iterator it = enemybullets.begin(); it != enemybullets.end(); ++it) {
 		(*it)->Update();
 	}
 	for (std::list<Enemy*>::iterator it=enemies.begin(); it != enemies.end(); ++it) {
 		(*it)->Update();
 	}
- 	for (std::list<ProjectileSpaceship*>::iterator it=killedherobullets.begin(); it != killedherobullets.end(); ++it) {
+ 	for (std::list<Gameobject*>::iterator it=killedherobullets.begin(); it != killedherobullets.end(); ++it) {
 		herobullets.remove(*it);
 		//printf("Finally killed projectile!\n");
 		delete *it;
@@ -194,7 +200,10 @@ void Gamescreen::Draw(Graphics *g) {
 	
 	mGameobject->Draw(g);
 	
-	for (std::list<ProjectileSpaceship*>::iterator it=herobullets.begin(); it != herobullets.end(); ++it) {
+	for (std::list<Gameobject*>::iterator it = herobullets.begin(); it != herobullets.end(); ++it) {
+		(*it)->Draw(g);
+	}
+	for (std::list<Gameobject*>::iterator it = enemybullets.begin(); it != enemybullets.end(); ++it) {
 		(*it)->Draw(g);
 	}
 	for (std::list<Enemy*>::iterator it=enemies.begin(); it != enemies.end(); ++it) {
@@ -223,11 +232,20 @@ void Gamescreen::GenerateProjectileSpaceship(float x, float y) {
 	//
 	//printf("Gave birth to projectile!\n");
 }
+void Gamescreen::GenerateProjectileEnemy(float x, float y) {
+	ProjectileEnemy *tempbullet = new ProjectileEnemy(x, y);
+	tempbullet->SetGamescreen(this);
+	enemybullets.push_back(tempbullet);
+	// audiere.
+	sShootSound->play();
+	//
+	//printf("Gave birth to projectile!\n");
+}
 /////////////////////////////
-void Gamescreen::KillObject(ProjectileSpaceship *projectile) {
-	auto result = std::find(killedherobullets.begin(), killedherobullets.end(), projectile);
+void Gamescreen::KillObject(Gameobject *gameobject) {
+	auto result = std::find(killedherobullets.begin(), killedherobullets.end(), gameobject);
 	if (result == killedherobullets.end())
-		killedherobullets.push_back(projectile);
+		killedherobullets.push_back(gameobject);
 	//printf("Killed projectile!\n");
 }
 //////////////////////////////
@@ -238,6 +256,8 @@ void Gamescreen::KillObjectEnemy(Enemy *enemy) {
 	}
 	//printf("Killed enemy!\n");
 }
+
+
 /////////////////////////////
 void Gamescreen::KillSpaceship() {
 	gameover = true;
@@ -251,6 +271,12 @@ void Gamescreen::KillSpaceship() {
 ////////////////////////////
 void Gamescreen::GenerateEnemy(float y) {
 	Enemy *tempenemy = new Enemy(y);
+	tempenemy->SetGamescreen(this);
+	enemies.push_back(tempenemy);
+	//printf("Gave birth to enemy!\n");
+}
+void Gamescreen::GenerateWeaponEnemy(float y) {
+	WeaponEnemy *tempenemy = new WeaponEnemy(y);
 	tempenemy->SetGamescreen(this);
 	enemies.push_back(tempenemy);
 	//printf("Gave birth to enemy!\n");
@@ -269,8 +295,8 @@ void Gamescreen::CheckOverlapSpaceship(Gameobject *gameobject, std::list<Enemy*>
 	}
 }
 //////////////////////////////////
-void Gamescreen::CheckOverlapHerobullets(std::list<ProjectileSpaceship*> herobullets, std::list<Enemy*> enemies) {
-	for (std::list<ProjectileSpaceship*>::iterator hbit=herobullets.begin(); hbit != herobullets.end(); ++hbit) {
+void Gamescreen::CheckOverlapHerobullets(std::list<Gameobject*> herobullets, std::list<Enemy*> enemies) {
+	for (std::list<Gameobject*>::iterator hbit = herobullets.begin(); hbit != herobullets.end(); ++hbit) {
 		for (std::list<Enemy*>::iterator it=enemies.begin(); it != enemies.end(); ++it) {
 			if (((*hbit)->GetPosX()+ (*hbit)->Getw()) < (*it)->GetPosX() || ((*hbit)->GetPosX() > ((*it)->GetPosX() + (*it)->Getw())))
 				printf("");
