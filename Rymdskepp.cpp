@@ -110,8 +110,11 @@ void Rymdskepp::Fire() {
  } 
 ///////////////////////
 void Rymdskepp::Overlap(Gameobject *gameobject){
-	mHealth = mHealth - 10;
-	printf("Livnivå=%d\n", mHealth);
+	if (!shield)
+	{
+		mHealth = mHealth - 10;
+		printf("Livnivå=%d\n", mHealth);
+	}
 	if (mHealth <= 0)
 		mGamescreen->KillSpaceship();
 }

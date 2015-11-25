@@ -26,6 +26,7 @@ SDL_Surface *ETT = 0;
 // två ljudeffekter.
 audiere::SoundEffectPtr sShootSound = 0;
 audiere::SoundEffectPtr sExplosionSound = 0;
+audiere::SoundEffectPtr sPowerSound = 0;
 // musik.
 audiere::OutputStreamPtr sMusic = 0;
 audiere::OutputStreamPtr sDarth = 0;
@@ -84,6 +85,7 @@ bool LoadResources() {
 	// ljudeffekter.
 	sShootSound = audiere::OpenSoundEffect(sAudioDevice, "assets/shoot.wav", audiere::SINGLE);
 	sExplosionSound = audiere::OpenSoundEffect(sAudioDevice, "assets/explosion.wav", audiere::SINGLE);
+	//sPowerSound = audiere::OpenSoundEffect(sAudioDevice, "assets/explosion.wav", audiere::SINGLE);
 	// musik.
 	sMusic = audiere::OpenSound(sAudioDevice, "assets/music.mp3", false);
 	sDarth = audiere::OpenSound(sAudioDevice, "assets/gameover.mp3", false);

@@ -2,6 +2,7 @@
 
 class Graphics;
 class Gamescreen;
+struct SDL_Surface;
 
 class Gameobject {
 protected:

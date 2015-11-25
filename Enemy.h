@@ -3,8 +3,6 @@
 
 #include "Gameobject.h"
 
-struct SDL_Surface;
-
 class Enemy : public Gameobject {
 private:
 	// Ansiktsbild.
@@ -30,7 +28,7 @@ public:
 	virtual void SetSpeedY(float SpeedY);
 	virtual void Draw(Graphics *g);
 	virtual void Fire();
-	virtual void Overlap(Gameobject *gameobejct);
+	virtual void Overlap(Gameobject * gameobject);
 };
 
 #endif

@@ -3,8 +3,6 @@
 
 #include "Gameobject.h"
 
-struct SDL_Surface;
-
 class ProjectileSpaceship : public Gameobject {
 private:
 	// Ansiktsbild.

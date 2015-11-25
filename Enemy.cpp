@@ -96,7 +96,7 @@ void Enemy::Fire() {
  	} 
  } 
 /////////////////////////////
-void Enemy::Overlap(Gameobject *gameobject) {
+void Enemy::Overlap(Gameobject * gameobject) {
 	if (typeid(*gameobject) == typeid(Rymdskepp)) {
 		mGamescreen->KillObjectEnemy(this);
 		sExplosionSound->play();

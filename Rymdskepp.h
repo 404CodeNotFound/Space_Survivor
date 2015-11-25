@@ -3,8 +3,6 @@
 
 #include "Gameobject.h"
 
-struct SDL_Surface;
-
 class Rymdskepp : public Gameobject {
 private:
 	// Ansiktsbild.
@@ -23,7 +21,7 @@ private:
 	int mFirerate; 
 	int mFiredelay; 
 	int mHealth;
-
+	bool shield = false;
 
 
 public:
@@ -32,10 +30,12 @@ public:
 
 	//virtual void KeyDown(SDL_Keycode keyCode);
 	//virtual void KeyUp(SDL_Keycode keyCode);
+	int GetHealth();
+	void setshield() { shield = true; }
 	virtual void Update();
 	virtual void SetSpeedX(float SpeedX);
 	virtual void SetSpeedY(float SpeedY);
-	virtual void Draw(Graphics *g);
+	virtual void Draw(Graphics * g);
 	virtual void Fire();
 	virtual void Overlap(Gameobject *gameobject);
 };

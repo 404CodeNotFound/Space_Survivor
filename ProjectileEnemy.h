@@ -3,8 +3,6 @@
 
 #include "Gameobject.h"
 
-struct SDL_Surface;
-
 class ProjectileEnemy : public Gameobject {
 private:
 	// Ansiktsbild.
