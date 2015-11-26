@@ -14,7 +14,8 @@ private:
 public:
 	Graphics(SDL_Surface *surface, int width, int height);
 	void Clear(unsigned int color);
-	void DrawImage(SDL_Surface * surface, int x, int y);
+	void DrawImage(SDL_Surface *surface, int x, int y);
+	void DrawImage(SDL_Surface *surface, int x, int y, int srcX, int srcY, int w, int h);
 };
 
 #endif
