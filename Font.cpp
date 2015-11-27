@@ -1,6 +1,7 @@
 #include "Font.h"
 #include "Graphics.h"
 #include "SDL.h"
+#include <cstring>
 
 Font::Font(char *filename) {
 	// Läs in bild.
