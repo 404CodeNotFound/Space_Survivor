@@ -24,6 +24,7 @@ extern SDL_Surface *FYRA;
 extern SDL_Surface *TRE;
 extern SDL_Surface *TVÅ;
 extern SDL_Surface *ETT;
+extern SDL_Surface *HIGH_SCORE_SURFACE;
 
 // två ljudeffekter.
 extern audiere::SoundEffectPtr sShootSound;
