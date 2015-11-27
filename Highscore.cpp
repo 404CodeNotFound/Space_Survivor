@@ -92,6 +92,7 @@ void Highscore::Update() {
 		releasekeys = true;
 	}
 	else if (ready){
+		releasekeys = false;
 		if (counter == 800) {
 			GameApp()->SetScreen(new Gamescreen());
 		}
