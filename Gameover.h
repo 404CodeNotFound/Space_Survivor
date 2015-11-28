@@ -16,11 +16,10 @@ private:
 	// Position för bakgrund.
 	float mBGX;
 	int counter;
-	int mPoints;
 
 
 public:
-	Gameover(int points);
+	Gameover();
 	~Gameover();
 
 	virtual void KeyDown(SDL_Keycode keyCode);

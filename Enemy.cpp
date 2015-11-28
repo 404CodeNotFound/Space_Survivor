@@ -13,23 +13,19 @@
 ////////////////////////////////////////////////////////////////////////////////
 // 
 ////////////////////////////////////////////////////////////////////////////////
-Enemy::Enemy(float y) {
+Enemy::Enemy(float x, float y, float xs, float ys) : Gameobject(x, y, xs, ys) {
 	
 	mFaceSurface = FACE_SURFACE;
 
 
 	// Ansiktets position och hastighet.
-	mX = 800;
-	//mX = 1024;
-	mY = y;
+	/*mX = 800;
+	mY = y; 
 	mSpeedX = -2.0;
-	mSpeedY = 0;
+	mSpeedY = 0;*/
 
-	//mBGX = 0.0f;
-
-	w = mFaceSurface->w;
-	//printf("bredd = %d\n", w);
-	h = mFaceSurface->h;
+	Setw(mFaceSurface->w);
+	Seth(mFaceSurface->h);
 	mFirerate = 20; 
 	mFiredelay = 0; 
 	health = 3;
@@ -51,21 +47,10 @@ Enemy::~Enemy() {
 ////////////////////////////////////////////////////////////////////////////////
 void Enemy::Update() {
 	// Flytta ansiktet.
-	mX += mSpeedX;
-	/*if (mX < 0)
-		mX = 0;
-	else if (mX > (640.0 - w))
-		mX = 640.0 - w;
-	mY += mSpeedY;
-	if (mY < 0)
-		mY = 0;
-	else if (mY > 480.0 - h)
-		mY = 480.0 - h;
-	if (mFiredelay > 0)
-		mFiredelay--;*/
-	if (mY<40.0)
-		mY = 40.0;
-	if(mX < 0) {
+	SetPosX(GetPosX() + GetSpeedX());
+	if (GetPosY()<40.0)
+		SetPosY(40.0);
+	if (GetPosY() < 0) {
 		mGamescreen->KillObjectEnemy(this);
 	}
 	//mBGX = mBGX - 5.5f;
@@ -77,21 +62,21 @@ void Enemy::Update() {
 ////////////////////////////////////////////////////////////////////////////////
 void Enemy::Draw(Graphics *g) {
 
-	g->DrawImage(mFaceSurface, mX, mY);
+	g->DrawImage(mFaceSurface, GetPosX(), GetPosY());
 
 }
 ////////////////////////////////7
-void Enemy::SetSpeedX(float SpeedX){
-	mSpeedX = SpeedX;
+/*void Enemy::SetSpeedX(float SpeedX){
+	SetSpeedX(SpeedX);
 }
 ////////////////////////////
 void Enemy::SetSpeedY(float SpeedY){
-	mSpeedY = SpeedY;
-}
+	SetSpeedY(SpeedY);
+}*/
 /////////////////////////7
 void Enemy::Fire() { 
 	if (mFiredelay == 0) { 
-		mGamescreen->GenerateProjectileSpaceship(mX, mY); 
+		mGamescreen->GenerateProjectileSpaceship(GetPosX(), GetPosY()); 
 		mFiredelay = mFirerate; 
  	} 
  } 

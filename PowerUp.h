@@ -1,6 +1,7 @@
 #pragma once
 #include "GameObject.h"
 
+<<<<<<< HEAD
 class PowerUp : public Gameobject
 {
 
@@ -15,4 +16,20 @@ protected:
 	PowerUp(float x, float y, float xs, float ys, int dur) : Gameobject(x, y, xs, ys), mDuration{ dur } {}
 private:
 	int mDuration;
+=======
+class PowerUp : public Gameobject {
+private:
+	//SDL_Surface * mPowerSurface; bara de konkreta powerupsen har bilder
+	
+	int mDuration;
+
+public:
+	//PowerUp();
+	PowerUp(float y, float xs);
+	virtual ~PowerUp();
+	virtual void Update();
+	void Draw(Graphics *g);
+	virtual void Overlap(Gameobject *gameobject);
+
+>>>>>>> 61818227934c5c08efaf6855c29030dca1d090e4
 };

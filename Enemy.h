@@ -8,8 +8,8 @@ private:
 	// Ansiktsbild.
 	SDL_Surface *mFaceSurface;
 
-	float mSpeedX;
-	float mSpeedY;
+	//float mSpeedX;
+	//float mSpeedY;
 	
 	//int w;
 	//int h;
@@ -20,12 +20,12 @@ private:
 
 
 public:
-	Enemy(float y);
+	Enemy(float x, float y, float xs, float ys);
 	~Enemy();
 
 	virtual void Update();
-	virtual void SetSpeedX(float SpeedX);
-	virtual void SetSpeedY(float SpeedY);
+	//virtual void SetSpeedX(float SpeedX);
+	//virtual void SetSpeedY(float SpeedY);
 	virtual void Draw(Graphics *g);
 	virtual void Fire();
 	virtual void Overlap(Gameobject * gameobject);
