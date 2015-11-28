@@ -25,6 +25,7 @@ SDL_Surface *TRE = 0;
 SDL_Surface *TVÅ = 0;
 SDL_Surface *ETT = 0;
 
+SDL_Surface *HIGH_SCORE_SURFACE = 0;
 SDL_Surface *LIFE_PU_SURFACE = 0;
 SDL_Surface *SHIELD_PU_SURFACE = 0;
 SDL_Surface *WEAPON_PU_SURFACE = 0;
@@ -129,12 +130,10 @@ void DeleteResources() {
 	SDL_FreeSurface(TVÅ);
 	SDL_FreeSurface(ETT);
 	SDL_FreeSurface(BULLET_SURFACE);
-<<<<<<< HEAD
-=======
 	SDL_FreeSurface(HIGH_SCORE_SURFACE);
 	SDL_FreeSurface(LIFE_PU_SURFACE);
 	SDL_FreeSurface(SHIELD_PU_SURFACE);
 	SDL_FreeSurface(WEAPON_PU_SURFACE);
 	SDL_FreeSurface(SPEED_PU_SURFACE);
->>>>>>> 61818227934c5c08efaf6855c29030dca1d090e4
+
 }

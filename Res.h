@@ -27,6 +27,12 @@ extern SDL_Surface *TRE;
 extern SDL_Surface *TVÅ;
 extern SDL_Surface *ETT;
 
+extern SDL_Surface *HIGH_SCORE_SURFACE;
+extern SDL_Surface *LIFE_PU_SURFACE;
+extern SDL_Surface *SHIELD_PU_SURFACE;
+extern SDL_Surface *WEAPON_PU_SURFACE;
+extern SDL_Surface *SPEED_PU_SURFACE;
+
 // två ljudeffekter.
 extern audiere::SoundEffectPtr sShootSound;
 extern audiere::SoundEffectPtr sExplosionSound;

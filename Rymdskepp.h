@@ -22,41 +22,24 @@ private:
 	int mFirerate; 
 	int mFiredelay; 
 	int mHealth;
-<<<<<<< HEAD
 	int mDur = 0;
 	bool shield = false;
-=======
-	bool shield;
-
->>>>>>> 61818227934c5c08efaf6855c29030dca1d090e4
-
-
-
 public:
 	Rymdskepp();
 	~Rymdskepp();
 
 	//virtual void KeyDown(SDL_Keycode keyCode);
 	//virtual void KeyUp(SDL_Keycode keyCode);
-<<<<<<< HEAD
-	int GetHealth();
-	void setshield(int dur) { shield = true; setDur(dur); mShipSurface = SMILEY_SURFACE; }
-	void setDur(int dur) { mDur = dur; }
-	virtual void Update();
-	//virtual void SetSpeedX(float SpeedX);
-	//virtual void SetSpeedY(float SpeedY);
-	virtual void Draw(Graphics * g);
-=======
-	virtual void Update();
-	virtual void SetSpeedX(float SpeedX);
-	virtual void SetSpeedY(float SpeedY);
-	virtual void Draw(Graphics *g);
->>>>>>> 61818227934c5c08efaf6855c29030dca1d090e4
-	virtual void Fire();
-	virtual void Overlap(Gameobject *gameobject);
+
 	int GetHealth();
 	void SetHealth(int);
-	void setshield() { shield = true; }
+	void Setshield(int dur) { shield = true; SetDur(dur); mShipSurface = SMILEY_SURFACE; }
+	void SetDur(int dur) { mDur = dur; }
+	virtual void Draw(Graphics * g);
+	virtual void Update();
+	virtual void Fire();
+	virtual void Overlap(Gameobject *gameobject);
+
 };
 
 #endif

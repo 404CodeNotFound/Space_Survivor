@@ -19,4 +19,3 @@ public:
 private:
 	SDL_Surface * mShieldSurface;
 };
-

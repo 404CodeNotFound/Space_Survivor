@@ -8,10 +8,10 @@
 
 /*Shield::Shield(float x, float y , float xs)
 WeaponEnemy::WeaponEnemy(float y) : Enemy(y) {*/
-Life::Life(float y, float xs) : PowerUp(y, xs) {
+Life::Life(float y, float xs) : PowerUp(800, y, xs, 0, 0) {
 	mLifeSurface = LIFE_PU_SURFACE;
-	w = mLifeSurface->w;
-	h = mLifeSurface->h;
+	Setw(mLifeSurface->w);
+	Seth(mLifeSurface->h);
 	//PowerUp(x,y,xs);
 	//mFaceSurface = FACE_SURFACE;
 }
@@ -22,7 +22,7 @@ Life::~Life() {
 
 void Life::Draw(Graphics *g)
 {
-	g->DrawImage(mLifeSurface, mX, mY);
+	g->DrawImage(mLifeSurface, GetPosX(), GetPosY());
 }
 
 void Life::Overlap(Gameobject *gameobject) {

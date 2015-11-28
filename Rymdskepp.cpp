@@ -4,38 +4,19 @@
 #include "Gamescreen.h"
 #include <stdio.h>
 #include <math.h>
-
+#include "Shield.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // 
 ////////////////////////////////////////////////////////////////////////////////
-<<<<<<< HEAD
+
 Rymdskepp::Rymdskepp() : Gameobject(125,125,0,0){
 	mShipSurface = SHIP_SURFACE;
 
 	Setw(mShipSurface->w);
 	Seth(mShipSurface->h);
-=======
-Rymdskepp::Rymdskepp() {
-	
-	mShipSurface = SHIP_SURFACE;
 
 	
-	// Ansiktets position och hastighet.
-	//mX = 100;
-	//mY = 100;
-	//mX = 160;
-	//mY = 160;
-	mX = 125;
-	mY = 125;
-	mSpeedX = 0;
-	mSpeedY = 0;
-
-	//mBGX = 0.0f;
-
-	w = mShipSurface->w;
-	h = mShipSurface->h;
->>>>>>> 61818227934c5c08efaf6855c29030dca1d090e4
 	mFirerate = 20; 
 	mFiredelay = 0; 
 	mHealth = 100;
@@ -92,18 +73,7 @@ void Rymdskepp::Update() {
 // Utför all utritning här.
 ////////////////////////////////////////////////////////////////////////////////
 void Rymdskepp::Draw(Graphics *g) {
-<<<<<<< HEAD
-	// Rensa skärmen.
-	//g->Clear(RGB(255, 255, 255));
-	//g->DrawImage(mBGSurface, (int)mBGX, 0);
-	//g->DrawImage(mBGSurface, (int)(mBGX + 640.0), 0);
-	// Rita ut ansikte.
 	g->DrawImage(mShipSurface, GetPosX(), GetPosY());
-=======
-	
-	g->DrawImage(mShipSurface, mX, mY);
->>>>>>> 61818227934c5c08efaf6855c29030dca1d090e4
-
 
 }
 ////////////////////////////////7
@@ -123,7 +93,6 @@ void Rymdskepp::Fire() {
  } 
 ///////////////////////
 void Rymdskepp::Overlap(Gameobject *gameobject){
-<<<<<<< HEAD
 	
 	if (typeid(*gameobject) != typeid(Shield)) // typeid(powerup) behöver bara en ifsats... optimera?
 		if (!shield)
@@ -131,12 +100,11 @@ void Rymdskepp::Overlap(Gameobject *gameobject){
 			mHealth = mHealth - 10;
 			printf("Livnivå=%d\n", mHealth);
 		}
-=======
+
 	if (!shield) {
 		mHealth = mHealth - 10;
 		printf("Livnivå=%d\n", mHealth);
 	}
->>>>>>> 61818227934c5c08efaf6855c29030dca1d090e4
 	if (mHealth <= 0)
 		mGamescreen->KillSpaceship();
 }

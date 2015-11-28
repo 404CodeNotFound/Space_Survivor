@@ -15,7 +15,7 @@ Shield::~Shield()
 
 void Shield::GainShield(Rymdskepp * spaceship)
 {
-	spaceship->setshield(GetDuration());
+	spaceship->Setshield(GetDuration());
 }
 void Shield::Overlap(Gameobject * gameobject)
 {
