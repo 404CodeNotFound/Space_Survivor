@@ -24,6 +24,11 @@ SDL_Surface *TVÅ = 0;
 SDL_Surface *ETT = 0;
 SDL_Surface *HIGH_SCORE_SURFACE = 0;
 
+SDL_Surface *LIFE_PU_SURFACE = 0;
+SDL_Surface *SHIELD_PU_SURFACE = 0;
+SDL_Surface *WEAPON_PU_SURFACE = 0;
+SDL_Surface *SPEED_PU_SURFACE = 0;
+
 // två ljudeffekter.
 audiere::SoundEffectPtr sShootSound = 0;
 audiere::SoundEffectPtr sExplosionSound = 0;
@@ -79,6 +84,15 @@ bool LoadResources() {
 	TVÅ = SDL_LoadBMP("assets/liv2.bmp");
 	ETT = SDL_LoadBMP("assets/liv1.bmp");
 
+	LIFE_PU_SURFACE = SDL_LoadBMP("assets/PULife.bmp");
+	SHIELD_PU_SURFACE = SDL_LoadBMP("assets/PUShield.bmp");
+	WEAPON_PU_SURFACE = SDL_LoadBMP("assets/PUWeapon.bmp");
+	SPEED_PU_SURFACE = SDL_LoadBMP("assets/PUSpeed.bmp");
+	SDL_SetColorKey(SPEED_PU_SURFACE, SDL_TRUE, RGB(255, 0, 255));
+	SDL_SetColorKey(LIFE_PU_SURFACE, SDL_TRUE, RGB(255, 0, 255));
+	SDL_SetColorKey(SHIELD_PU_SURFACE, SDL_TRUE, RGB(255, 0, 255));
+	SDL_SetColorKey(WEAPON_PU_SURFACE, SDL_TRUE, RGB(255, 0, 255));
+
 	// audio device.
 	audiere::AudioDevicePtr sAudioDevice;
 	// audiere.
@@ -113,4 +127,8 @@ void DeleteResources() {
 	SDL_FreeSurface(ETT);
 	SDL_FreeSurface(BULLET_SURFACE);
 	SDL_FreeSurface(HIGH_SCORE_SURFACE);
+	SDL_FreeSurface(LIFE_PU_SURFACE);
+	SDL_FreeSurface(SHIELD_PU_SURFACE);
+	SDL_FreeSurface(WEAPON_PU_SURFACE);
+	SDL_FreeSurface(SPEED_PU_SURFACE);
 }

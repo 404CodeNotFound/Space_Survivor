@@ -11,14 +11,10 @@
 // 
 ////////////////////////////////////////////////////////////////////////////////
 Rymdskepp::Rymdskepp() {
-	// Läs in en bild av ett ansikte.
-	//mFaceSurface = SDL_LoadBMP("assets/face.bmp");
-	//SDL_SetColorKey(mFaceSurface, SDL_TRUE, RGB(255, 0, 255));
+	
 	mShipSurface = SHIP_SURFACE;
 
-	//mBGSurface = SDL_LoadBMP("assets/background.bmp");
-
-
+	
 	// Ansiktets position och hastighet.
 	//mX = 100;
 	//mY = 100;
@@ -32,11 +28,11 @@ Rymdskepp::Rymdskepp() {
 	//mBGX = 0.0f;
 
 	w = mShipSurface->w;
-	printf("bredd = %d\n", w);
 	h = mShipSurface->h;
 	mFirerate = 20; 
 	mFiredelay = 0; 
 	mHealth = 100;
+	shield = false;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -84,11 +80,7 @@ void Rymdskepp::Update() {
 // Utför all utritning här.
 ////////////////////////////////////////////////////////////////////////////////
 void Rymdskepp::Draw(Graphics *g) {
-	// Rensa skärmen.
-	//g->Clear(RGB(255, 255, 255));
-	//g->DrawImage(mBGSurface, (int)mBGX, 0);
-	//g->DrawImage(mBGSurface, (int)(mBGX + 640.0), 0);
-	// Rita ut ansikte.
+	
 	g->DrawImage(mShipSurface, mX, mY);
 
 
@@ -110,8 +102,7 @@ void Rymdskepp::Fire() {
  } 
 ///////////////////////
 void Rymdskepp::Overlap(Gameobject *gameobject){
-	if (!shield)
-	{
+	if (!shield) {
 		mHealth = mHealth - 10;
 		printf("Livnivå=%d\n", mHealth);
 	}
@@ -122,4 +113,8 @@ void Rymdskepp::Overlap(Gameobject *gameobject){
 ///////////////////////
 int Rymdskepp::GetHealth() {
 	return mHealth;
+}
+//////////////
+void Rymdskepp::SetHealth(int l) {
+	mHealth = mHealth + l;
 }
