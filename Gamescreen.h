@@ -8,8 +8,10 @@ class Gameobject;
 class ProjectileSpaceship;
 class ProjectileEnemy;
 class Enemy;
+class PowerUp;
+class Shield;
+enum class mPower{SHIELD,HEALTH,WEAPON,BOOST};
 struct SDL_Surface;
-class Font;
 
 class Gamescreen : public Screen {
 private:
@@ -26,8 +28,6 @@ private:
 	SDL_Surface *mTre;
 	SDL_Surface *mTvå;
 	SDL_Surface *mEtt;
-
-	Font *mMyFont;
 
 	// Position för ansikte.
 	int mLifeX;
@@ -60,6 +60,8 @@ private:
 	std::list<Gameobject*> killedenemybullets;
 	std::list<Enemy*> enemies;
 	std::list<Enemy*> killedenemies;
+	std::list<PowerUp*> powerup;
+	std::list<PowerUp*> killedpowerups;
 
 
 public:
@@ -73,18 +75,19 @@ public:
 	void SetGameobject(Gameobject *gameobject);
 	void GenerateProjectileSpaceship(float x, float y);
 	void GenerateProjectileEnemy(float x, float y);
-	void GenerateEnemy(float y);
+	void GenerateEnemy(float x, float y, float xs, float ys);
 	void GenerateWeaponEnemy(float y);
+	void GeneratePowerUp(float x, float y, float xs, float ys, int dur, mPower power);
 	//void KillObject(ProjectileSpaceship *projectile);
 	void KillObject(Gameobject *gameobject);
 	void KillObjectEnemy(Enemy *enemy);
+	void KillObjectPowerUp(PowerUp * powerup);
 	void KillSpaceship();
 	void FinalKill();
-	void CheckOverlapSpaceship(Gameobject *gameobject, std::list<Enemy*> enemies, std::list<Gameobject*> enemybullets); 
+	void CheckOverlapSpaceship(/*Gameobject *gameobject, std::list<Enemy*> enemies, std::list<Gameobject*> enemybullets*/); 
 	//void CheckOverlapHerobullets(std::list<ProjectileSpaceship*> herobullets, std::list<Enemy*> enemies);
 	void CheckOverlapHerobullets(std::list<Gameobject*> herobullets, std::list<Enemy*> enemies);
 	void PointsToPlayer();
-	void KillAll();
 	
 };
 

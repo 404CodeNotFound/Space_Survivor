@@ -2,6 +2,7 @@
 #define __RYMD_SKEPP_H__
 
 #include "Gameobject.h"
+#include "Res.h"
 
 class Rymdskepp : public Gameobject {
 private:
@@ -12,8 +13,6 @@ private:
 	//float mX;
 	//float mY;
 	// Hastighet för ansikte.
-	float mSpeedX;
-	float mSpeedY;
 	// Position för bakgrund.
 	//float mBGX;
 	//int w;
@@ -21,7 +20,9 @@ private:
 	int mFirerate; 
 	int mFiredelay; 
 	int mHealth;
+	int mDur = 0;
 	bool shield = false;
+
 
 
 public:
@@ -31,10 +32,11 @@ public:
 	//virtual void KeyDown(SDL_Keycode keyCode);
 	//virtual void KeyUp(SDL_Keycode keyCode);
 	int GetHealth();
-	void setshield() { shield = true; }
+	void setshield(int dur) { shield = true; setDur(dur); mShipSurface = SMILEY_SURFACE; }
+	void setDur(int dur) { mDur = dur; }
 	virtual void Update();
-	virtual void SetSpeedX(float SpeedX);
-	virtual void SetSpeedY(float SpeedY);
+	//virtual void SetSpeedX(float SpeedX);
+	//virtual void SetSpeedY(float SpeedY);
 	virtual void Draw(Graphics * g);
 	virtual void Fire();
 	virtual void Overlap(Gameobject *gameobject);

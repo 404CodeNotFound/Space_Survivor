@@ -5,16 +5,14 @@ class PowerUp : public Gameobject
 {
 
 public:
-	PowerUp();
-	PowerUp(float x, float y, float xs);
-	~PowerUp();
-	virtual void Update();
-	virtual void Draw(Graphics * g);
-	//virtual void Overlap(Gameobject * gameobject);
+	PowerUp() = delete;
+	virtual ~PowerUp() = default;
+	virtual void Update() = 0;
+	virtual void Draw(Graphics * g) = 0;
+	virtual void Overlap(Gameobject * gameobject) = 0;
+	int GetDuration() { return mDuration; }
+protected:
+	PowerUp(float x, float y, float xs, float ys, int dur) : Gameobject(x, y, xs, ys), mDuration{ dur } {}
 private:
-	SDL_Surface * mPowerSurface;
-	
-	//float mSpeedX;
 	int mDuration;
-
 };
