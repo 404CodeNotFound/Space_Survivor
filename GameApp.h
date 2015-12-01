@@ -30,6 +30,7 @@ private:
 protected:
 	void SetSize(int width, int height);
 	void SetTitle(const char *title);
+	void SetTerminate();
 
 public:
 	GameApp();
@@ -38,6 +39,7 @@ public:
 	void SetScreen(Screen *screen);
 
 	bool Run();
+	void QuitGame();
 
 private:
 	

@@ -13,19 +13,23 @@
 ////////////////////////////////////////////////////////////////////////////////
 // 
 ////////////////////////////////////////////////////////////////////////////////
-Enemy::Enemy(float x, float y, float xs, float ys) : Gameobject(x, y, xs, ys) {
+Enemy::Enemy(float y) {
 	
 	mFaceSurface = FACE_SURFACE;
 
 
 	// Ansiktets position och hastighet.
-	/*mX = 800;
-	mY = y; 
+	mX = 800;
+	//mX = 1024;
+	mY = y;
 	mSpeedX = -2.0;
-	mSpeedY = 0;*/
+	mSpeedY = 0;
 
-	Setw(mFaceSurface->w);
-	Seth(mFaceSurface->h);
+	//mBGX = 0.0f;
+
+	w = mFaceSurface->w;
+	//printf("bredd = %d\n", w);
+	h = mFaceSurface->h;
 	mFirerate = 20; 
 	mFiredelay = 0; 
 	health = 3;
@@ -47,10 +51,21 @@ Enemy::~Enemy() {
 ////////////////////////////////////////////////////////////////////////////////
 void Enemy::Update() {
 	// Flytta ansiktet.
-	SetPosX(GetPosX() + GetSpeedX());
-	if (GetPosY()<40.0)
-		SetPosY(40.0);
-	if (GetPosY() < 0) {
+	mX += mSpeedX;
+	/*if (mX < 0)
+		mX = 0;
+	else if (mX > (640.0 - w))
+		mX = 640.0 - w;
+	mY += mSpeedY;
+	if (mY < 0)
+		mY = 0;
+	else if (mY > 480.0 - h)
+		mY = 480.0 - h;
+	if (mFiredelay > 0)
+		mFiredelay--;*/
+	if (mY<40.0)
+		mY = 40.0;
+	if(mX < 0) {
 		mGamescreen->KillObjectEnemy(this);
 	}
 	//mBGX = mBGX - 5.5f;
@@ -62,26 +77,26 @@ void Enemy::Update() {
 ////////////////////////////////////////////////////////////////////////////////
 void Enemy::Draw(Graphics *g) {
 
-	g->DrawImage(mFaceSurface, GetPosX(), GetPosY());
+	g->DrawImage(mFaceSurface, mX, mY);
 
 }
 ////////////////////////////////7
-/*void Enemy::SetSpeedX(float SpeedX){
-	SetSpeedX(SpeedX);
+void Enemy::SetSpeedX(float SpeedX){
+	mSpeedX = SpeedX;
 }
 ////////////////////////////
 void Enemy::SetSpeedY(float SpeedY){
-	SetSpeedY(SpeedY);
-}*/
+	mSpeedY = SpeedY;
+}
 /////////////////////////7
 void Enemy::Fire() { 
 	if (mFiredelay == 0) { 
-		mGamescreen->GenerateProjectileSpaceship(GetPosX(), GetPosY()); 
+		mGamescreen->GenerateProjectileSpaceship(mX, mY); 
 		mFiredelay = mFirerate; 
  	} 
  } 
 /////////////////////////////
-void Enemy::Overlap(Gameobject * gameobject) {
+void Enemy::Overlap(Gameobject *gameobject) {
 	if (typeid(*gameobject) == typeid(Rymdskepp)) {
 		mGamescreen->KillObjectEnemy(this);
 		sExplosionSound->play();

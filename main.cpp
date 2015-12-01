@@ -1,7 +1,7 @@
 #include "MyGameApp.h"
 #include <stdio.h>
 
-int main(int argc, char ** args) {
+int main(int argc, char *args[]) {
 	// Skapa en instans av spelet.
 	MyGameApp *game;
 	game = new MyGameApp();

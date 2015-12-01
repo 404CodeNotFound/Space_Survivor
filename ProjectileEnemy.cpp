@@ -10,16 +10,28 @@
 ////////////////////////////////////////////////////////////////////////////////
 // 
 ////////////////////////////////////////////////////////////////////////////////
-ProjectileEnemy::ProjectileEnemy(float x, float y) : Gameobject(x,y,-3.0,0) {
-
+ProjectileEnemy::ProjectileEnemy(float x, float y) {
+	// Läs in en bild av ett ansikte.
+	//mFaceSurface = SDL_LoadBMP("assets/face.bmp");
+	//SDL_SetColorKey(mFaceSurface, SDL_TRUE, RGB(255, 0, 255));
 	mBigbullet = BIGBULLET_SURFACE;
-	/*mX = x + 60;
+
+	//mBGSurface = SDL_LoadBMP("assets/background.bmp");
+
+
+	// Ansiktets position och hastighet.
+	mX = x + 60;
 	mY = y + 30;
 	mSpeedX = -3.0;
-	mSpeedY = 0;*/
+	mSpeedY = 0;
 
-	Setw(mBigbullet->w);
-	Seth(mBigbullet->h);
+	w = mBigbullet->w;
+	h = mBigbullet->h;
+	//printf("bredd = %d\n", w);
+
+	//mBGX = 0.0f;
+
+
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -33,18 +45,26 @@ ProjectileEnemy::~ProjectileEnemy() {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+// 
+////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////////////
+// 
+////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////////////
 // Anropas 100 gånger per sekund. Utför all logik här. 
 ////////////////////////////////////////////////////////////////////////////////
 void ProjectileEnemy::Update() {
 	// Flytta ansiktet.
-	SetPosX(GetPosX() + GetSpeedX());
-	SetPosY(GetPosY() + GetSpeedY());
+	mX += mSpeedX;
+	mY += mSpeedY;
 	/*if(mX>640) {
 	mGamescreen->KillObject(this);
 	}*/
-	if (GetPosY()<40.0)
-		SetPosY(40.0);
-	if (GetPosX()<0) {
+	if (mY<40.0)
+		mY = 40.0;
+	if (mX<0) {
 		mGamescreen->KillObject(this);
 	}
 
@@ -61,9 +81,14 @@ void ProjectileEnemy::Draw(Graphics *g) {
 	//g->DrawImage(mBGSurface, (int)mBGX, 0);
 	//g->DrawImage(mBGSurface, (int)(mBGX + 640.0), 0);
 	// Rita ut ansikte.
-	g->DrawImage(mBigbullet, GetPosX() , GetPosY());
+	g->DrawImage(mBigbullet, mX, mY);
 
 
+}
+////////////////////////////////7
+void ProjectileEnemy::SetSpeed(float SpeedX, float SpeedY){
+	mSpeedX = SpeedX;
+	mSpeedY = SpeedY;
 }
 ////////////////////////////////////
 void ProjectileEnemy::Overlap(Gameobject *gameobject) {

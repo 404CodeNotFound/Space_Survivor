@@ -9,8 +9,8 @@ class ProjectileSpaceship;
 class ProjectileEnemy;
 class Enemy;
 class PowerUp;
-enum class mPower{SHIELD,HEALTH,WEAPON,BOOST};
 struct SDL_Surface;
+class Font;
 
 class Gamescreen : public Screen {
 private:
@@ -27,6 +27,8 @@ private:
 	SDL_Surface *mTre;
 	SDL_Surface *mTvå;
 	SDL_Surface *mEtt;
+
+	Font *mMyFont;
 
 	// Position för ansikte.
 	int mLifeX;
@@ -48,7 +50,11 @@ private:
 
 	//pekare till rymdskepp
 	Gameobject *mGameobject;
-
+	//lista med pekare till rymdskeppets projektiler
+	/*std::list<ProjectileSpaceship*> herobullets;
+	std::list<ProjectileSpaceship*> killedherobullets;
+	std::list<ProjectileEnemy*> enemybullets;
+	std::list<ProjectileEnemy*> killedenemybullets;*/
 	std::list<Gameobject*> herobullets;
 	std::list<Gameobject*> killedherobullets;
 	std::list<Gameobject*> enemybullets;
@@ -70,20 +76,28 @@ public:
 	void SetGameobject(Gameobject *gameobject);
 	void GenerateProjectileSpaceship(float x, float y);
 	void GenerateProjectileEnemy(float x, float y);
-	void GenerateEnemy(float x, float y, float xs, float ys);
+	void GenerateEnemy(float y);
 	void GenerateWeaponEnemy(float y);
-	void GeneratePowerUp(float x, float y, float xs, float ys, int dur, mPower power);
+	void GenerateShield(float y, float xs);
 	void GenerateLife(float y, float xs);
+	void GenerateSpeed(float y, float xs);
+	void GenerateWeapon(float y, float xs);
+	//void KillObject(ProjectileSpaceship *projectile);
 	void KillObject(Gameobject *gameobject);
 	void KillObjectEnemy(Enemy *enemy);
-	void KillObjectPowerUp(PowerUp * powerup);
+	void KillObjectPowerUp(PowerUp *powerup);
 	void KillSpaceship();
 	void FinalKill();
-	void CheckOverlapSpaceship(); 
-	void CheckOverlapHerobullets();
+	void CheckOverlapSpaceship(Gameobject *gameobject, std::list<Enemy*> enemies, std::list<Gameobject*> enemybullets, std::list<PowerUp*> powerup); 
+	//void CheckOverlapHerobullets(std::list<ProjectileSpaceship*> herobullets, std::list<Enemy*> enemies);
+	void CheckOverlapHerobullets(std::list<Gameobject*> herobullets, std::list<Enemy*> enemies, std::list<PowerUp*> powerup);
 	void PointsToPlayer();
 	void KillAll();
 	void BoostLife(int);
+	void BoostShield(int);
+	void BoostSpeed(int);
+	void BoostWeapon(int);
+	
 };
 
 #endif

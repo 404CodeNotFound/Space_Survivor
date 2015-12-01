@@ -76,7 +76,7 @@ void Font::WriteString(Graphics *g, const char *txt, int x, int y) {
 			int charX, charY;
 			charX = (c%8)*mCelWidth;
 			charY = (c/8)*mCelHeight;
-			//g->DrawImage(mSurface, x, y, charX, charY, mCelWidth, mCelHeight);
+			g->DrawImage(mSurface, x, y, charX, charY, mCelWidth, mCelHeight);
 			x += mCelWidth;
 		}
 	}

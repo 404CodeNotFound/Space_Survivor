@@ -2,7 +2,7 @@
 #include "Screen.h"
 #include "Graphics.h"
 #include "SDL.h"
-//#include "SDL_ttf.h"
+#include "SDL_ttf.h"
 #include <stdio.h>
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -55,12 +55,7 @@ bool GameApp::Run() {
 	if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
 		return false;
 	}
-	//TTF_Init;
-	/*if (TTF_Init() != 0){
-		printf("Error med TTF_Init!\n");
-		SDL_Quit();
-		return 1;
-	}*/
+	
 	mWindow = SDL_CreateWindow(mTitle, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, mWidth, mHeight, SDL_WINDOW_SHOWN);
 	if (mWindow == 0) {
 		SDL_Quit();
@@ -70,7 +65,6 @@ bool GameApp::Run() {
 		mWindowSurface = SDL_GetWindowSurface(mWindow);
 		mGraphics = new Graphics(mWindowSurface, mWidth, mHeight);
 	}
-	//mGraphics->Openfont();
 
 	int currentUpdate = GetUpdateFrame();
 	int nextUpdate = currentUpdate;
@@ -123,7 +117,6 @@ bool GameApp::Run() {
 
 	delete mScreen;
 	delete mNewScreen;
-	//mGraphics->Closefont();
 	delete mGraphics;
 
 	SDL_FreeSurface(mWindowSurface);
@@ -131,7 +124,7 @@ bool GameApp::Run() {
 	SDL_DestroyWindow(mWindow);
 	mWindow = 0;
 	SDL_Quit();
-	//TTF_Quit();
+	TTF_Quit();
 
 	return true;
 }
@@ -154,4 +147,13 @@ void GameApp::SetScreen(Screen *screen) {
 ////////////////////////////////////////////////////////////////////////////////
 int GameApp::GetUpdateFrame() {
 	return (int)(SDL_GetTicks()/(1000/mUpdatesPerSecond));
+}
+
+////////////////////
+void GameApp::SetTerminate() {
+	mShouldTerminate = true;
+}
+/////////////////////////
+void GameApp::QuitGame() {
+	SetTerminate();
 }

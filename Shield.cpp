@@ -1,42 +1,41 @@
 #include "Shield.h"
+#include "GameApp.h"
+#include "Graphics.h"
+#include "Res.h"
+#include "Gamescreen.h"
+#include "audiere.h"
 
-Shield::Shield(float x, float y, float xs, float ys, int dur) : PowerUp(x,y,xs,ys,dur)
-{
-	mShieldSurface = SHIELD_SURFACE;
-	Setw(mShieldSurface->w);
-	Seth(mShieldSurface->h);
 
+
+/*Shield::Shield(float x, float y , float xs)
+WeaponEnemy::WeaponEnemy(float y) : Enemy(y) {*/
+Shield::Shield(float y, float xs) : PowerUp(y, xs) {
+	mShieldSurface = SHIELD_PU_SURFACE;
+	w = mShieldSurface->w;
+	h = mShieldSurface->h;
+	//PowerUp(x,y,xs);
+	//mFaceSurface = FACE_SURFACE;
 }
 
-Shield::~Shield()
-{
 
+
+Shield::~Shield() {
 }
 
-void Shield::GainShield(Rymdskepp * spaceship)
+void Shield::Draw(Graphics *g)
 {
-	spaceship->Setshield(GetDuration());
+	g->DrawImage(mShieldSurface, mX, mY);
 }
-void Shield::Overlap(Gameobject * gameobject)
-{
+
+void Shield::Overlap(Gameobject *gameobject) {
 	if (typeid(*gameobject) == typeid(Rymdskepp)) {
-	
-		Rymdskepp * rptr = dynamic_cast<Rymdskepp*>(gameobject); // casta tillbaka?
-		GainShield(rptr);
-		sExplosionSound->play();
-		mGamescreen->KillObjectPowerUp(this);
-		printf("SHIELD!\n");
+			mGamescreen->BoostShield(300);
+			mGamescreen->KillObjectPowerUp(this);
+			sExplosionSound->play();
+			printf("Kollision med Life!\n");
+		}
+		if (typeid(*gameobject) == typeid(ProjectileSpaceship)) {
+			mGamescreen->KillObjectPowerUp(this);
+			sExplosionSound->play();
+		}
 	}
-}
-void Shield::Update()
-{
-	SetPosX(GetPosX() + GetSpeedX());
-	if (GetPosX() < 0) {
-		mGamescreen->KillObjectPowerUp(this);
-	}
-}
-
-void Shield::Draw(Graphics * g)
-{
-	g->DrawImage(mShieldSurface, GetPosX(), GetPosY());
-}

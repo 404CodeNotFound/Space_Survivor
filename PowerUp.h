@@ -1,18 +1,18 @@
 #pragma once
 #include "GameObject.h"
 
-class PowerUp : public Gameobject
-{
+class PowerUp : public Gameobject {
+private:
+	//SDL_Surface * mPowerSurface; bara de konkreta powerupsen har bilder
+	
+	int mDuration;
 
 public:
-	PowerUp() = delete;
-	virtual ~PowerUp() = default;
-	virtual void Update() = 0;
-	virtual void Draw(Graphics * g) = 0;
-	virtual void Overlap(Gameobject * gameobject) = 0;
-	int GetDuration() { return mDuration; }
-protected:
-	PowerUp(float x, float y, float xs, float ys, int dur) : Gameobject(x, y, xs, ys), mDuration{ dur } {}
-private:
-	int mDuration;
+	//PowerUp();
+	PowerUp(float y, float xs);
+	virtual ~PowerUp();
+	virtual void Update();
+	void Draw(Graphics *g);
+	virtual void Overlap(Gameobject *gameobject);
+
 };

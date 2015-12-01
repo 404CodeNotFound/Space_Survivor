@@ -6,6 +6,7 @@ class MyGameApp : public GameApp {
 public:
 	MyGameApp();
 	~MyGameApp();
+	void QuitGame();
 };
 
 #endif

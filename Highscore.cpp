@@ -3,6 +3,7 @@
 #include "Graphics.h"
 #include "Res.h"
 #include "Gamescreen.h"
+#include "Startscreen.h"
 #include "audiere.h"
 #include "Font.h"
 #include "stdio.h"
@@ -94,7 +95,7 @@ void Highscore::Update() {
 	else if (ready){
 		releasekeys = false;
 		if (counter == 800) {
-			GameApp()->SetScreen(new Gamescreen());
+			GameApp()->SetScreen(new Startscreen());
 		}
 		counter = counter + 1;
 	}

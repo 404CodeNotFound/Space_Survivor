@@ -1,4 +1,5 @@
 #include "Gamescreen.h"
+#include "BlinkScreen.h"
 #include "Gameover.h"
 #include "GameApp.h"
 #include "Graphics.h"
@@ -13,11 +14,12 @@
 #include <stdlib.h>
 #include <algorithm>
 #include "audiere.h"
+#include "Font.h"
 #include "PowerUp.h"
 #include "Shield.h"
-#include <iostream>
-#include "Font.h"
 #include "Life.h"
+#include "Speed.h"
+#include "Weapon.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // 
@@ -44,6 +46,8 @@ Gamescreen::Gamescreen() {
 	mTre = TRE;
 	mTvå = TVÅ;
 	mEtt = ETT;
+
+	mMyFont = new Font("assets/font_fire.bmp");
 
 	mUp = false; 
 	mDown = false; 
@@ -79,6 +83,7 @@ Gamescreen::~Gamescreen() {
 	//SDL_FreeSurface(mBGSurface);
 	printf("Gamescreen destroyed\n");
 
+	delete mMyFont;
 	// audiere.
 	sMusic->stop();
 }
@@ -150,10 +155,8 @@ void Gamescreen::Update() {
 	if (counter < 1500 && counter%200 == 0){
 		//randy = rand()%413;
 		//randy = rand()%704;
-		randy = rand() % 493 + 40;
-		GenerateEnemy(800, randy, -2.0, 0);
-		GeneratePowerUp(800, 200, -2.0, 0, 10, mPower::SHIELD);
-		
+		randy = rand()%493 + 40;
+		GenerateEnemy(randy);
 	}
 	else if (counter >= 1500 && counter < 3000 && counter%100 == 0) {
 		//randy = rand()%413;
@@ -164,24 +167,33 @@ void Gamescreen::Update() {
 	else if (counter >= 3000 && counter%50 == 0) {
 		//randy = rand()%413;
 		//randy = rand()%704;
-		randy = rand()%693 + 40;
-		if (counter % 100 == 0)
-		{
-			randy = rand()%493 + 40;
-			if (counter%100 == 0)
-				GenerateWeaponEnemy(randy);
-		}
-		else
-			GenerateEnemy(800, randy, -2.0, 0);
-	}
-	CheckOverlapSpaceship(); ////KOLLISION
-	CheckOverlapHerobullets();
-
-	if (life <= 50 && points >=100 && counter%400 == 0) {
 		randy = rand()%493 + 40;
-		GenerateLife(randy, -1.0);
+		if (counter%100 == 0)
+			GenerateWeaponEnemy(randy);
+		else
+			GenerateEnemy(randy);
+	}
+
+	if (life <= 50 && points >=100 && counter%200 == 0) {
+		randy = rand()%493 + 40;
+		if (counter%400 == 0)
+			GenerateLife(randy, -1.0);
+		else
+			GenerateShield(randy, -1.0);
 		printf("Föder powerup!");
 	}
+
+	if (life <= 50 && points >=150 && counter%300 == 0) {
+		randy = rand()%493 + 40;
+		if (counter%600 == 0)
+			GenerateSpeed(randy, -1.0);
+		else
+			GenerateWeapon(randy, -1.0);
+		printf("Föder powerup!");
+	}
+
+	CheckOverlapSpaceship(mGameobject, enemies, enemybullets, powerup); 
+	CheckOverlapHerobullets(herobullets, enemies, powerup);
 
 	mGameobject->Update();
 	/*for (std::list<ProjectileSpaceship*>::iterator it=herobullets.begin(); it != herobullets.end(); ++it) {
@@ -196,10 +208,16 @@ void Gamescreen::Update() {
 	for (std::list<Enemy*>::iterator it=enemies.begin(); it != enemies.end(); ++it) {
 		(*it)->Update();
 	}
-	for (std::list<PowerUp*>::iterator it = powerup.begin(); it != powerup.end(); ++it) {
-		(*it)->Update();
-	}
 
+	for (std::list<PowerUp*>::iterator it = powerup.begin(); it != powerup.end(); ++it) { 
+  		(*it)->Update(); 
+  	} 
+
+ 	/*for (std::list<ProjectileSpaceship*>::iterator it=killedherobullets.begin(); it != killedherobullets.end(); ++it) {
+		herobullets.remove(*it);
+		//printf("Finally killed projectile!\n");
+		delete *it;
+	}*/
 	for (std::list<Gameobject*>::iterator it=killedherobullets.begin(); it != killedherobullets.end(); ++it) {
 			herobullets.remove(*it);	
 			enemybullets.remove(*it);
@@ -211,15 +229,15 @@ void Gamescreen::Update() {
 		delete *it;
 		//printf("Finally killed enemy!\n");
 	}
-	for (std::list<PowerUp*>::iterator it = killedpowerups.begin(); it != killedpowerups.end(); ++it) {
-		powerup.remove(*it);
-		delete *it;
-		//printf("Finally killed enemy!\n");
-	}
+	for (std::list<PowerUp*>::iterator it = killedpowerups.begin(); it != killedpowerups.end(); ++it) { 
+  		powerup.remove(*it); 
+  		delete *it; 
+  		//printf("Finally killed enemy!\n"); 
+  	} 
+
 	killedherobullets.clear();
 	killedenemies.clear();
 	killedpowerups.clear();
-
 	if (mUp)
 		mGameobject->SetSpeedY(-2.0);
 	if (mDown)
@@ -231,9 +249,10 @@ void Gamescreen::Update() {
 	if (mSpace)
 		mGameobject->Fire();
 	if (gameover) {
+		KillAll();
 		delete mGameobject;
 		printf("GAME OVER!!!\n");
-		GameApp()->SetScreen(new Gameover());
+		GameApp()->SetScreen(new Gameover(points));
 	}
 	counter = counter + 1;
 }
@@ -276,20 +295,18 @@ void Gamescreen::Draw(Graphics *g) {
 	else if (life == 10)
 		g->DrawImage(mEtt, mLifeX, mLifeY);
 
-	/*DrawText(SDL_Surface *surface,
-               char* string,
-               int size,
-               int x, int y,
-               int fR, int fG, int fB,
-               int bR, int bG, int bB)
-			   printf("POSITION 1: %s %d\n", namn, points);*/
-	//g->DrawText(mScore, ("SCORE: %s %d\n", points), 12, 5, 5, 255, 255, 255, 0, 0, 0);
-	//printf("Grapichs DrawText anropas nu\n");
- 	//g->DrawText("SCORE:", 16, 10, 10, 255, 255, 255);
 	
-	/*for (std::list<ProjectileSpaceship*>::iterator it=herobullets.begin(); it != herobullets.end(); ++it) {
-		(*it)->Draw(g);
-	}*/
+	char tmp[64];
+	sprintf(tmp, "SCORE: %d", points);
+	mMyFont->WriteString(g, tmp, 10, 5);
+	/*mMyFont->WriteString(g, "SCORE:", 10, 5);
+	char tmp[64];
+	int cx;
+	cx = snprintf(tmp, 64, "SCORE: %d", points);
+	sprintf(tmp, "%d", points);
+	mMyFont->WriteString(g, "SCORE:", 10, 5);
+	mMyFont->WriteString(g, tmp, 130, 5);*/
+
 	for (std::list<Gameobject*>::iterator it = herobullets.begin(); it != herobullets.end(); ++it) {
 		(*it)->Draw(g);
 	}
@@ -303,6 +320,8 @@ void Gamescreen::Draw(Graphics *g) {
   		(*it)->Draw(g); 
 	} 
 
+
+
 }
 ///////////////////////////////
 void Gamescreen::SetGameobject(Gameobject *gameobject) {
@@ -310,9 +329,6 @@ void Gamescreen::SetGameobject(Gameobject *gameobject) {
 	if (mGameobject == 0) {
 		mGameobject = gameobject;
 	}
-/*	else {
-		mNewScreen = screen;
-	}*/
 }
 //////////////////
 void Gamescreen::GenerateProjectileSpaceship(float x, float y) {
@@ -325,10 +341,10 @@ void Gamescreen::GenerateProjectileSpaceship(float x, float y) {
 	//printf("Gave birth to projectile!\n");
 }
 ///////////////////////
-void Gamescreen::GenerateProjectileEnemy(float x, float y) { // tempbullet -> tempenemy
-	ProjectileEnemy *tempenemy = new ProjectileEnemy(x, y);
-	tempenemy->SetGamescreen(this);
-	enemybullets.push_back(tempenemy);
+void Gamescreen::GenerateProjectileEnemy(float x, float y) {
+	ProjectileEnemy *tempbullet = new ProjectileEnemy(x, y);
+	tempbullet->SetGamescreen(this);
+	enemybullets.push_back(tempbullet);
 	// audiere.
 	sShootSound->play();
 	//
@@ -357,52 +373,59 @@ void Gamescreen::KillObjectEnemy(Enemy *enemy) {
 	}
 	//printf("Killed enemy!\n");
 }
-void Gamescreen::KillObjectPowerUp(PowerUp * powerup) {
-	auto result = std::find(killedpowerups.begin(), killedpowerups.end(), powerup);
-	if (result == killedpowerups.end()) {
-		killedpowerups.push_back(powerup);
-	}
-	//printf("Killed enemy!\n");
-}
 /////////////////////////////
 void Gamescreen::KillSpaceship() {
 	gameover = true;
 	// audiere.
 	sExplosionSound->play();
-	//
-
-	//delete mGameobject;
-	//printf("GAME OVER!!!\n");
 }
+////////////////////////////
+void Gamescreen::KillObjectPowerUp(PowerUp *powerup) {
+	auto result = std::find(killedpowerups.begin(), killedpowerups.end(), powerup); 
+	if (result == killedpowerups.end()) { 
+  		killedpowerups.push_back(powerup); 
+  	} 
+  	//printf("Killed enemy!\n"); 
+  } 
 
 ////////////////////////////////7
-void Gamescreen::GenerateEnemy(float x, float y, float xs, float ys) {
-	Enemy *tempenemy = new Enemy(x, y, xs, ys);
+void Gamescreen::GenerateEnemy(float y) {
+	Enemy *tempenemy = new Enemy(y);
 	tempenemy->SetGamescreen(this);
 	enemies.push_back(tempenemy);
 	//printf("Gave birth to enemy!\n");
 }
-
 //////////////////////////////////
 void Gamescreen::GenerateWeaponEnemy(float y) {
-	WeaponEnemy *tempenemy = new WeaponEnemy(y,-1.0, -1.0);
+	WeaponEnemy *tempenemy = new WeaponEnemy(y);
 	tempenemy->SetGamescreen(this);
 	enemies.push_back(tempenemy);
 	//printf("Gave birth to enemy!\n");
 }
-void Gamescreen::GeneratePowerUp(float x, float y, float xs, float ys, int dur, mPower power) {
-	if (power == mPower::SHIELD)
-	{
-		PowerUp *tempPowerUp = new Shield(x, y, xs, ys, dur);
-		tempPowerUp->SetGamescreen(this);
-		powerup.push_back(tempPowerUp);
-	}
-}
+/////////////////////////////////
+void Gamescreen::GenerateShield(float y, float xs) { 
+  	PowerUp *tempPowerUp = new Shield(y,xs); 
+  	tempPowerUp->SetGamescreen(this); 
+  	powerup.push_back(tempPowerUp); 
+  	//printf("Gave birth to enemy!\n"); 
+} 
 /////////////////////////////////
 void Gamescreen::GenerateLife(float y, float xs) { 
-  /*	PowerUp *tempPowerUp = new Life(y,xs); 
+  	PowerUp *tempPowerUp = new Life(y,xs); 
   	tempPowerUp->SetGamescreen(this); 
-  	powerup.push_back(tempPowerUp); */
+  	powerup.push_back(tempPowerUp); 
+} 
+/////////////////////////////////
+void Gamescreen::GenerateSpeed(float y, float xs) { 
+  	PowerUp *tempPowerUp = new Speed(y,xs); 
+  	tempPowerUp->SetGamescreen(this); 
+  	powerup.push_back(tempPowerUp); 
+} 
+/////////////////////////////////
+void Gamescreen::GenerateWeapon(float y, float xs) { 
+  	PowerUp *tempPowerUp = new Weapon(y,xs); 
+  	tempPowerUp->SetGamescreen(this); 
+  	powerup.push_back(tempPowerUp); 
 } 
 
 /////////////////////////////7
@@ -417,10 +440,8 @@ void Gamescreen::GenerateLife(float y, float xs) {
 			(*it)->Overlap(mGameobject);
 		}
 	}
-<<<<<<< HEAD
-}*/ 
-///////KOLLISION////////
-void Gamescreen::CheckOverlapSpaceship() {
+}*/
+void Gamescreen::CheckOverlapSpaceship(Gameobject *gameobject, std::list<Enemy*> enemies, std::list<Gameobject*> enemybullets, std::list<PowerUp*> powerup) {
 	for (std::list<Enemy*>::iterator it=enemies.begin(); it != enemies.end(); ++it) {
 		if ((mGameobject->GetPosX()+ mGameobject->Getw()) < (*it)->GetPosX() || (mGameobject->GetPosX() > ((*it)->GetPosX() + (*it)->Getw())))
 			printf("");
@@ -431,6 +452,7 @@ void Gamescreen::CheckOverlapSpaceship() {
 			(*it)->Overlap(mGameobject);
 		}
 	}
+
 	for (std::list<Gameobject*>::iterator it = enemybullets.begin(); it != enemybullets.end(); ++it) {
 		if ((mGameobject->GetPosX() + mGameobject->Getw()) < (*it)->GetPosX() || (mGameobject->GetPosX() > ((*it)->GetPosX() + (*it)->Getw())))
 			printf("");
@@ -441,19 +463,34 @@ void Gamescreen::CheckOverlapSpaceship() {
 			(*it)->Overlap(mGameobject);
 		}
 	}
-	for (std::list<PowerUp*>::iterator it = powerup.begin(); it != powerup.end(); ++it) {
-		if ((mGameobject->GetPosX() + mGameobject->Getw()) < (*it)->GetPosX() || (mGameobject->GetPosX() > ((*it)->GetPosX() + (*it)->Getw())))
-			printf("");
-		else if ((mGameobject->GetPosY() + mGameobject->Geth()) < (*it)->GetPosY() || (mGameobject->GetPosY() > ((*it)->GetPosY() + (*it)->Geth())))
-			printf("");
-		else {
-			mGameobject->Overlap(*it);
-			(*it)->Overlap(mGameobject);
-		}
-	}
+	for (std::list<PowerUp*>::iterator it = powerup.begin(); it != powerup.end(); ++it) { 
+  		if ((mGameobject->GetPosX() + mGameobject->Getw()) < (*it)->GetPosX() || (mGameobject->GetPosX() > ((*it)->GetPosX() + (*it)->Getw()))) 
+  				printf(""); 
+  		else if ((mGameobject->GetPosY() + mGameobject->Geth()) < (*it)->GetPosY() || (mGameobject->GetPosY() > ((*it)->GetPosY() + (*it)->Geth()))) 
+  				printf(""); 
+  		else { 
+  			mGameobject->Overlap(*it); 
+  			(*it)->Overlap(mGameobject); 
+  		} 
+  	} 
 
 }
-void Gamescreen::CheckOverlapHerobullets() {
+//////////////////////////////////
+/*void Gamescreen::CheckOverlapHerobullets(std::list<ProjectileSpaceship*> herobullets, std::list<Enemy*> enemies) {
+	for (std::list<ProjectileSpaceship*>::iterator hbit=herobullets.begin(); hbit != herobullets.end(); ++hbit) {
+		for (std::list<Enemy*>::iterator it=enemies.begin(); it != enemies.end(); ++it) {
+			if (((*hbit)->GetPosX()+ (*hbit)->Getw()) < (*it)->GetPosX() || ((*hbit)->GetPosX() > ((*it)->GetPosX() + (*it)->Getw())))
+				printf("");
+			else if (((*hbit)->GetPosY()+ (*hbit)->Geth()) < (*it)->GetPosY() || ((*hbit)->GetPosY() > ((*it)->GetPosY() + (*it)->Geth())))
+				printf("");
+			else {
+				(*hbit)->Overlap(*it);
+				(*it)->Overlap(*hbit);
+			}
+		}
+	}
+}*/
+void Gamescreen::CheckOverlapHerobullets(std::list<Gameobject*> herobullets, std::list<Enemy*> enemies, std::list<PowerUp*> powerup) {
 	for (std::list<Gameobject*>::iterator hbit = herobullets.begin(); hbit != herobullets.end(); ++hbit) {
 		for (std::list<Enemy*>::iterator it=enemies.begin(); it != enemies.end(); ++it) {
 			if (((*hbit)->GetPosX()+ (*hbit)->Getw()) < (*it)->GetPosX() || ((*hbit)->GetPosX() > ((*it)->GetPosX() + (*it)->Getw())))
@@ -473,8 +510,8 @@ void Gamescreen::CheckOverlapHerobullets() {
   		else { 
   			(*hbit)->Overlap(*it); 
   			(*it)->Overlap(*hbit); 
+  			} 
   		} 
-  	} 
 	}
 }
 ///////////////////////////////
@@ -493,9 +530,26 @@ void Gamescreen::KillAll() {
 	for (std::list<Enemy*>::iterator it=enemies.begin(); it != enemies.end(); ++it) {
 		delete *it;
 	}
+	for (std::list<PowerUp*>::iterator it=powerup.begin(); it != powerup.end(); ++it) {
+		delete *it;
+	}
 }
 ///////////////////7
 void Gamescreen::BoostLife(int h) {
 	Rymdskepp *rp = dynamic_cast<Rymdskepp*>(mGameobject);
 	rp->SetHealth(h);
+}
+
+void Gamescreen::BoostShield(int d) {
+	Rymdskepp *rp = dynamic_cast<Rymdskepp*>(mGameobject);
+	rp->setshield(d);
+}
+
+void Gamescreen::BoostSpeed(int p) {
+	Rymdskepp *rp = dynamic_cast<Rymdskepp*>(mGameobject);
+	rp->SetPowerSpeed(p);
+}
+void Gamescreen::BoostWeapon(int g) {
+	Rymdskepp *rp = dynamic_cast<Rymdskepp*>(mGameobject);
+	rp->SetWeapon(g);
 }

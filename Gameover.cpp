@@ -3,6 +3,7 @@
 #include "Graphics.h"
 #include "Res.h"
 #include "Gamescreen.h"
+#include "Highscore.h"
 #include "audiere.h"
 #include <stdio.h>
 
@@ -10,7 +11,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // 
 ////////////////////////////////////////////////////////////////////////////////
-Gameover::Gameover() {
+Gameover::Gameover(int points) {
 
 	//Läs in bakgrundsbild
 
@@ -23,6 +24,8 @@ Gameover::Gameover() {
 
 	mBGX = 0.0f;
 	counter = 0;
+	mPoints = points;
+	printf("Points in Gameover:, %d", mPoints);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -42,7 +45,7 @@ Gameover::~Gameover() {
 void Gameover::Update() {
 
 	if (counter == 800) {
-		GameApp()->SetScreen(new Gamescreen());
+		GameApp()->SetScreen(new Highscore(mPoints));
 	}
 	counter = counter + 1;
 }

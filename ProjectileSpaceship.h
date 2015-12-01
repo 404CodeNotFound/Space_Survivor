@@ -3,6 +3,8 @@
 
 #include "Gameobject.h"
 
+//struct SDL_Surface;
+
 class ProjectileSpaceship : public Gameobject {
 private:
 	// Ansiktsbild.
@@ -13,6 +15,8 @@ private:
 	//float mX;
 	//float mY;
 	// Hastighet för ansikte.
+	float mSpeedX;
+	float mSpeedY;
 	//int w;
 	//int h;
 	// Position för bakgrund.
@@ -22,7 +26,11 @@ private:
 public:
 	ProjectileSpaceship(float x, float y);
 	~ProjectileSpaceship();
+
+	//virtual void KeyDown(SDL_Keycode keyCode);
+	//virtual void KeyUp(SDL_Keycode keyCode);
 	virtual void Update();
+	virtual void SetSpeed(float SpeedX, float SpeedY);
 	virtual void Draw(Graphics *g);
 	virtual void Overlap(Gameobject *gameobejct);
 };

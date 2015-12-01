@@ -1,5 +1,6 @@
 #include "MyGameApp.h"
 #include "Gamescreen.h"
+#include "Startscreen.h"
 #include "Res.h"
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -10,7 +11,7 @@ MyGameApp::MyGameApp() {
 	SetSize(800, 600);
 	//SetSize(1024, 768);
 	LoadResources();
-	SetScreen(new Gamescreen());
+	SetScreen(new Startscreen());
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -18,4 +19,8 @@ MyGameApp::MyGameApp() {
 ////////////////////////////////////////////////////////////////////////////////
 MyGameApp::~MyGameApp() {
 	DeleteResources();
+}
+///////////////////////////////
+void MyGameApp::QuitGame() {
+	SetTerminate();
 }

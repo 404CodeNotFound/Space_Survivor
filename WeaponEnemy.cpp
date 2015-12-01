@@ -14,11 +14,24 @@
 // 
 ////////////////////////////////////////////////////////////////////////////////
 //WeaponEnemy(float y) : Enemy(y), mUfoSurface{ UFO_SURFACE }, mSpeedX{ -1.0 }, mSpeedY{ -1.0}, health{ 3 } {}
-WeaponEnemy::WeaponEnemy(float y,float xs, float ys) : Enemy(800, y, xs, ys) {
-	mUfoSurface = UFO_SURFACE;
+WeaponEnemy::WeaponEnemy(float y) : Enemy(y) {
+	//Enemy(y);
 
-	Setw(mUfoSurface->w);
-	Seth(mUfoSurface->h);
+	mUfoSurface = UFO_SURFACE;
+	// Ansiktets position och hastighet.
+	//mX = 640;
+	mX = 800;
+	mY = y;
+	mSpeedX = -1.0;
+	mSpeedY = -1.0;
+
+	//mBGX = 0.0f;
+
+	w = mUfoSurface->w;
+	//printf("bredd = %d\n", w);
+	h = mUfoSurface->h;
+	//mFirerate = 20;
+	//mFiredelay = 0;
 	health = 3;
 	
 }
@@ -39,12 +52,12 @@ WeaponEnemy::~WeaponEnemy() {
 ////////////////////////////////////////////////////////////////////////////////
 void WeaponEnemy::Update() {
 	// Flytta ansiktet.
-	SetPosX(GetPosX() + GetSpeedX());
-	SetPosY(GetPosY() + GetSpeedY());
+	mX += mSpeedX;
+	mY += mSpeedY;
 
 	if (counter % 210 == 0)
 	{
-		SetSpeedY(-GetSpeedY());
+		mSpeedY = -mSpeedY;
 	}
 
 	if (counter % 230 == 0){
@@ -65,9 +78,9 @@ void WeaponEnemy::Update() {
 	mY = 480.0 - h;
 	if (mFiredelay > 0)
 	mFiredelay--;*/
-	if (GetPosY()<40.0)
-		SetPosY(40.0);
-	if (GetPosX() < 0) {
+	if (mY<40.0)
+		mY = 40.0;
+	if (mX < 0) {
 		mGamescreen->KillObjectEnemy(this);
 	}
 	//mBGX = mBGX - 5.5f;
@@ -80,21 +93,21 @@ void WeaponEnemy::Update() {
 ////////////////////////////////////////////////////////////////////////////////
 void WeaponEnemy::Draw(Graphics *g) {
 
-	g->DrawImage(mUfoSurface, GetPosX(), GetPosY());
+	g->DrawImage(mUfoSurface, mX, mY);
 
 }
 ////////////////////////////////7
-/*void WeaponEnemy::SetSpeedX(float SpeedX){
-	SetSpeedX(SpeedX);
+void WeaponEnemy::SetSpeedX(float SpeedX){
+	mSpeedX = SpeedX;
 }
 ////////////////////////////
 void WeaponEnemy::SetSpeedY(float SpeedY){
 	mSpeedY = SpeedY;
-}*/
+}
 /////////////////////////7
 void WeaponEnemy::Fire() {
 //	if (mFiredelay == 0) {
-		mGamescreen->GenerateProjectileEnemy(GetPosX(), GetPosY());
+		mGamescreen->GenerateProjectileEnemy(mX, mY);
 	//	mFiredelay = mFirerate;
 //	}
 }
