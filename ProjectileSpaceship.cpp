@@ -14,7 +14,7 @@ ProjectileSpaceship::ProjectileSpaceship(float x, float y, float sy = 0) {
 	// Läs in en bild av ett ansikte.
 	//mFaceSurface = SDL_LoadBMP("assets/face.bmp");
 	//SDL_SetColorKey(mFaceSurface, SDL_TRUE, RGB(255, 0, 255));
-	mBigbullet = BIGBULLET_SURFACE;
+	mBigbullet = SPACESHIP_BULLET;
 
 	//mBGSurface = SDL_LoadBMP("assets/background.bmp");
 

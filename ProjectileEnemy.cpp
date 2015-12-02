@@ -14,7 +14,7 @@ ProjectileEnemy::ProjectileEnemy(float x, float y) {
 	// Läs in en bild av ett ansikte.
 	//mFaceSurface = SDL_LoadBMP("assets/face.bmp");
 	//SDL_SetColorKey(mFaceSurface, SDL_TRUE, RGB(255, 0, 255));
-	mBigbullet = BIGBULLET_SURFACE;
+	mBigbullet = ENEMY_BULLET;
 
 	//mBGSurface = SDL_LoadBMP("assets/background.bmp");
 
