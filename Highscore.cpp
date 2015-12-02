@@ -18,6 +18,7 @@ Highscore::Highscore(int score) {
 	ready = false;
 	wehaveawinner = false;
 	releasekeys = false;
+	mReturn = false;
 	mHighscoreSurface = HIGH_SCORE_SURFACE;
 	mMyFont = new Font("assets/font_fire.bmp");
 	mScore = score;
@@ -89,6 +90,7 @@ Highscore::~Highscore() {
 // Anropas 100 gånger per sekund. Utför all logik här. 
 ////////////////////////////////////////////////////////////////////////////////
 void Highscore::Update() {
+
 	if (!ready && wehaveawinner) {
 		releasekeys = true;
 	}
@@ -98,6 +100,11 @@ void Highscore::Update() {
 			GameApp()->SetScreen(new Startscreen());
 		}
 		counter = counter + 1;
+	}
+
+	// Press left key to go to menu
+	if (mReturn) {
+		GameApp()->SetScreen(new Startscreen());
 	}
 }
 
@@ -215,10 +222,17 @@ void Highscore::KeyDown(SDL_Keycode keyCode) {
 			Bestofthebest.insert(hit, tmpw);
 			ready = true;
 		}
+
+		//else if (keyCode == SDLK_LEFT) {
+		//  byta "knappbild"
+		//}
 	}
 }
 
 void Highscore::KeyUp(SDL_Keycode keyCode) {
+	if (keyCode == SDLK_LEFT) {
+		mReturn = true;
+	}
 }
 //////////////////////////////
 void Highscore::CreateHighscore() {
