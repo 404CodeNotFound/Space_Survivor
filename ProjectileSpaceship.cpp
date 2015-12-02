@@ -10,7 +10,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // 
 ////////////////////////////////////////////////////////////////////////////////
-ProjectileSpaceship::ProjectileSpaceship(float x, float y) {
+ProjectileSpaceship::ProjectileSpaceship(float x, float y, float sy = 0) {
 	// Läs in en bild av ett ansikte.
 	//mFaceSurface = SDL_LoadBMP("assets/face.bmp");
 	//SDL_SetColorKey(mFaceSurface, SDL_TRUE, RGB(255, 0, 255));
@@ -23,7 +23,7 @@ ProjectileSpaceship::ProjectileSpaceship(float x, float y) {
 	mX = x + 64;
 	mY = y + 22;
 	mSpeedX = 3.0;
-	mSpeedY = 0;
+	mSpeedY = sy;
 
 	w = mBigbullet->w;
 	h = mBigbullet->h;

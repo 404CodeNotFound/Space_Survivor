@@ -29,7 +29,8 @@ private:
 	int mSpeedDur;
 	bool weapon;
 	int mWeaponDur;
-
+	bool wideshot;
+	int mWideshotDur;
 
 
 public:

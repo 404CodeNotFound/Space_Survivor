@@ -22,7 +22,7 @@ PowerUp::PowerUp(float y, float xs)
 	mY = y;
 	mSpeedX = xs;
 	mSpeedY = 0;
-
+	mHealth = 30;
 	//mBGX = 0.0f;
 
 	//w = mPowerSurface->w;

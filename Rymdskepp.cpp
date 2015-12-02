@@ -3,6 +3,7 @@
 #include "Graphics.h"
 #include "Res.h"
 #include "Gamescreen.h"
+#include "Wideshot.h"
 #include <stdio.h>
 #include <math.h>
 
@@ -38,6 +39,8 @@ Rymdskepp::Rymdskepp() {
 	mSpeedDur = 0;
 	weapon = false;
 	mWeaponDur = 0;
+	wideshot = false;
+	mWideshotDur = 0;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -94,6 +97,11 @@ void Rymdskepp::Update() {
 		if (mWeaponDur == 0)
 			weapon = false;
 	}
+	if (mWideshotDur > 0) {
+		mWideshotDur--;
+		if (mWideshotDur == 0)
+			wideshot = false;
+	}
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -122,7 +130,12 @@ void Rymdskepp::SetSpeedY(float SpeedY){
 /////////////////////////7
 void Rymdskepp::Fire() { 
 	if (mFiredelay == 0) { 
-		mGamescreen->GenerateProjectileSpaceship(mX, mY); 
+		if (wideshot){
+			mGamescreen->GenerateProjectileSpaceship(mX, mY, 1.0);
+			mGamescreen->GenerateProjectileSpaceship(mX, mY, -1.0);
+		}
+		mGamescreen->GenerateProjectileSpaceship(mX, mY, 0); 
+
 		if (weapon)
 			mFiredelay = 5;
 		else
@@ -134,6 +147,11 @@ void Rymdskepp::Overlap(Gameobject *gameobject){
 	if (!shield) {
 		if (typeid(*gameobject) == typeid(Enemy)||typeid(*gameobject) == typeid(ProjectileEnemy)) {
 			mHealth = mHealth - 10;
+			printf("Livnivå=%d\n", mHealth);
+		}
+		if (typeid(*gameobject) == typeid(Wideshot)) {
+			wideshot = true;
+			mWideshotDur = 300;
 			printf("Livnivå=%d\n", mHealth);
 		}
 	}

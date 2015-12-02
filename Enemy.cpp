@@ -91,7 +91,7 @@ void Enemy::SetSpeedY(float SpeedY){
 /////////////////////////7
 void Enemy::Fire() { 
 	if (mFiredelay == 0) { 
-		mGamescreen->GenerateProjectileSpaceship(mX, mY); 
+		mGamescreen->GenerateProjectileSpaceship(mX, mY, 0); 
 		mFiredelay = mFirerate; 
  	} 
  } 

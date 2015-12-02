@@ -24,7 +24,7 @@ private:
 
 
 public:
-	ProjectileSpaceship(float x, float y);
+	ProjectileSpaceship(float x, float y, float sy);
 	~ProjectileSpaceship();
 
 	//virtual void KeyDown(SDL_Keycode keyCode);

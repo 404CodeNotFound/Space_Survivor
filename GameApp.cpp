@@ -2,7 +2,7 @@
 #include "Screen.h"
 #include "Graphics.h"
 #include "SDL.h"
-#include "SDL_ttf.h"
+//#include "SDL_ttf.h"
 #include <stdio.h>
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -124,7 +124,7 @@ bool GameApp::Run() {
 	SDL_DestroyWindow(mWindow);
 	mWindow = 0;
 	SDL_Quit();
-	TTF_Quit();
+	//TTF_Quit();
 
 	return true;
 }

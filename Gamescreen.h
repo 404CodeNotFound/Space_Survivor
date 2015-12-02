@@ -74,7 +74,7 @@ public:
 	virtual void Update();
 	virtual void Draw(Graphics *g);
 	void SetGameobject(Gameobject *gameobject);
-	void GenerateProjectileSpaceship(float x, float y);
+	void GenerateProjectileSpaceship(float x, float y, float sy);
 	void GenerateProjectileEnemy(float x, float y);
 	void GenerateEnemy(float y);
 	void GenerateWeaponEnemy(float y);
@@ -82,6 +82,7 @@ public:
 	void GenerateLife(float y, float xs);
 	void GenerateSpeed(float y, float xs);
 	void GenerateWeapon(float y, float xs);
+	void GenerateWideshot(float y, float xs);
 	//void KillObject(ProjectileSpaceship *projectile);
 	void KillObject(Gameobject *gameobject);
 	void KillObjectEnemy(Enemy *enemy);

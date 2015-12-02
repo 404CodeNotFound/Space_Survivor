@@ -20,6 +20,7 @@
 #include "Life.h"
 #include "Speed.h"
 #include "Weapon.h"
+#include "Wideshot.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // 
@@ -176,19 +177,19 @@ void Gamescreen::Update() {
 
 	if (life <= 50 && points >=100 && counter%200 == 0) {
 		randy = rand()%493 + 40;
-		if (counter%400 == 0)
+		if (counter % 400 == 0)
 			GenerateLife(randy, -1.0);
 		else
 			GenerateShield(randy, -1.0);
 		printf("Föder powerup!");
 	}
 
-	if (life <= 50 && points >=150 && counter%300 == 0) {
+	if (points >=150 && counter%300 == 0) {
 		randy = rand()%493 + 40;
 		if (counter%600 == 0)
 			GenerateSpeed(randy, -1.0);
 		else
-			GenerateWeapon(randy, -1.0);
+			GenerateWideshot(randy, -1.0);
 		printf("Föder powerup!");
 	}
 
@@ -331,8 +332,8 @@ void Gamescreen::SetGameobject(Gameobject *gameobject) {
 	}
 }
 //////////////////
-void Gamescreen::GenerateProjectileSpaceship(float x, float y) {
-	ProjectileSpaceship *tempbullet = new ProjectileSpaceship(x, y);
+void Gamescreen::GenerateProjectileSpaceship(float x, float y, float sy = 0) {
+	ProjectileSpaceship *tempbullet = new ProjectileSpaceship(x, y, sy);
 	tempbullet->SetGamescreen(this);
 	herobullets.push_back(tempbullet);
 	// audiere.
@@ -410,6 +411,7 @@ void Gamescreen::GenerateShield(float y, float xs) {
   	//printf("Gave birth to enemy!\n"); 
 } 
 /////////////////////////////////
+
 void Gamescreen::GenerateLife(float y, float xs) { 
   	PowerUp *tempPowerUp = new Life(y,xs); 
   	tempPowerUp->SetGamescreen(this); 
@@ -427,7 +429,11 @@ void Gamescreen::GenerateWeapon(float y, float xs) {
   	tempPowerUp->SetGamescreen(this); 
   	powerup.push_back(tempPowerUp); 
 } 
-
+void Gamescreen::GenerateWideshot(float y, float xs) {
+	PowerUp *tempPowerUp = new Wideshot(y, xs);
+	tempPowerUp->SetGamescreen(this);
+	powerup.push_back(tempPowerUp);
+}
 /////////////////////////////7
 /*void Gamescreen::CheckOverlapSpaceship(Gameobject *gameobject, std::list<Enemy*> enemies) {
 	for (std::list<Enemy*>::iterator it=enemies.begin(); it != enemies.end(); ++it) {

@@ -31,7 +31,10 @@ void Speed::Overlap(Gameobject *gameobject) {
 			printf("Kollision med Speed!\n");
 		}
 		if (typeid(*gameobject) == typeid(ProjectileSpaceship)) {
-			mGamescreen->KillObjectPowerUp(this);
-			sExplosionSound->play();
+			mHealth -= 10;
+			if (mHealth <= 0){
+				mGamescreen->KillObjectPowerUp(this);
+				sExplosionSound->play();
+			}
 		}
 	}
