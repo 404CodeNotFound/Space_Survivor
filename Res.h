@@ -36,6 +36,9 @@ extern SDL_Surface *INSTR_BUTTON_SURFACE;
 extern SDL_Surface *HIGH_SCORE_BUTTON_SURFACE;
 extern SDL_Surface *QUIT_BUTTON_SURFACE;
 
+extern SDL_Surface *INSTRUCTION_SURFACE;
+extern SDL_Surface *BACK_BUTTON;
+
 // två ljudeffekter.
 extern audiere::SoundEffectPtr sShootSound;
 extern audiere::SoundEffectPtr sExplosionSound;

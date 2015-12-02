@@ -35,6 +35,9 @@ SDL_Surface *INSTR_BUTTON_SURFACE = 0;
 SDL_Surface *HIGH_SCORE_BUTTON_SURFACE = 0;
 SDL_Surface *QUIT_BUTTON_SURFACE = 0;
 
+SDL_Surface *INSTRUCTION_SURFACE = 0;
+SDL_Surface *BACK_BUTTON = 0;
+
 // två ljudeffekter.
 audiere::SoundEffectPtr sShootSound = 0;
 audiere::SoundEffectPtr sExplosionSound = 0;
@@ -76,7 +79,8 @@ bool LoadResources() {
 
 	//GAME_OVER_SURFACE = SDL_LoadBMP("assets/Game_Over_2.bmp");
 	//GAME_OVER_SURFACE = SDL_LoadBMP("assets/Game_Over_BIG.bmp");
-	GAME_OVER_SURFACE = SDL_LoadBMP("assets/Game_OverNEW.bmp");
+	//GAME_OVER_SURFACE = SDL_LoadBMP("assets/Game_OverNEW.bmp");
+	GAME_OVER_SURFACE = SDL_LoadBMP("assets/GameoverScreen.bmp");
 	HIGH_SCORE_SURFACE = SDL_LoadBMP("assets/Highscoreex.bmp");
 
 	TIO = SDL_LoadBMP("assets/liv10.bmp");
@@ -105,6 +109,9 @@ bool LoadResources() {
 	INSTR_BUTTON_SURFACE = SDL_LoadBMP("assets/instructions_pressed.bmp");
 	HIGH_SCORE_BUTTON_SURFACE = SDL_LoadBMP("assets/high_scores_pressed.bmp");
 	QUIT_BUTTON_SURFACE = SDL_LoadBMP("assets/quit_pressed.bmp");
+
+	INSTRUCTION_SURFACE = SDL_LoadBMP("assets/InstructionScreen.bmp");
+	BACK_BUTTON = SDL_LoadBMP("assets/knapp_instr.bmp");
 
 	// audio device.
 	audiere::AudioDevicePtr sAudioDevice;
@@ -149,4 +156,6 @@ void DeleteResources() {
 	SDL_FreeSurface(INSTR_BUTTON_SURFACE);
 	SDL_FreeSurface(HIGH_SCORE_BUTTON_SURFACE);
 	SDL_FreeSurface(QUIT_BUTTON_SURFACE);
+	SDL_FreeSurface(INSTRUCTION_SURFACE);
+	SDL_FreeSurface(BACK_BUTTON);
 }

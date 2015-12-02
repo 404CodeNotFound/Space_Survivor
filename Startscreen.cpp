@@ -5,7 +5,7 @@
 #include "GameApp.h"
 #include "Gamescreen.h"
 #include "Highscore.h"
-//#include "Instruction.h"
+#include "Instructions.h"
 
 Startscreen::Startscreen() {
 	sMusic->play();
@@ -170,11 +170,11 @@ void Startscreen::Update() {
 			GameApp()->SetScreen(new Gamescreen());
 		}
 
-		//else if (mY == mBuY2) {
-		//if (mY == mBuY2) {
-		// GameApp()->SetScreen(new Instructions());
-		//}
-		//}
+		else if (mY == mBuY2) {
+		if (mY == mBuY2) {
+		 GameApp()->SetScreen(new Instructions());
+		}
+		}
 
 		else if (mY == mBuY3) {
 			GameApp()->SetScreen(new Highscore(mPoints));
