@@ -193,6 +193,7 @@ void Gamescreen::Update() {
 		printf("Föder powerup!");
 	}
 
+
 	CheckOverlapSpaceship(mGameobject, enemies, enemybullets, powerup); 
 	CheckOverlapHerobullets(herobullets, enemies, powerup);
 
@@ -275,7 +276,7 @@ void Gamescreen::Draw(Graphics *g) {
 	Rymdskepp *rp = dynamic_cast<Rymdskepp*>(mGameobject);
 
 	life = rp->GetHealth();
-	if (life == 100)
+	if (life >= 100)
 		g->DrawImage(mTio, mLifeX, mLifeY);
 	else if (life == 90)
 		g->DrawImage(mNio, mLifeX, mLifeY);
@@ -411,7 +412,6 @@ void Gamescreen::GenerateShield(float y, float xs) {
   	//printf("Gave birth to enemy!\n"); 
 } 
 /////////////////////////////////
-
 void Gamescreen::GenerateLife(float y, float xs) { 
   	PowerUp *tempPowerUp = new Life(y,xs); 
   	tempPowerUp->SetGamescreen(this); 
@@ -429,11 +429,13 @@ void Gamescreen::GenerateWeapon(float y, float xs) {
   	tempPowerUp->SetGamescreen(this); 
   	powerup.push_back(tempPowerUp); 
 } 
+
 void Gamescreen::GenerateWideshot(float y, float xs) {
 	PowerUp *tempPowerUp = new Wideshot(y, xs);
 	tempPowerUp->SetGamescreen(this);
 	powerup.push_back(tempPowerUp);
 }
+
 /////////////////////////////7
 /*void Gamescreen::CheckOverlapSpaceship(Gameobject *gameobject, std::list<Enemy*> enemies) {
 	for (std::list<Enemy*>::iterator it=enemies.begin(); it != enemies.end(); ++it) {

@@ -9,6 +9,9 @@ class Rymdskepp : public Gameobject {
 private:
 	// Ansiktsbild.
 	SDL_Surface *mShipSurface;
+	SDL_Surface *mShieldShadow;
+	SDL_Surface *mSpeedIcon;
+	SDL_Surface *mWeaponIcon;
 
 	// Position för ansikte.
 	//float mX;
@@ -31,6 +34,7 @@ private:
 	int mWeaponDur;
 	bool wideshot;
 	int mWideshotDur;
+
 
 
 public:

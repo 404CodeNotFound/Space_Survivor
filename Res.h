@@ -39,6 +39,12 @@ extern SDL_Surface *QUIT_BUTTON_SURFACE;
 extern SDL_Surface *INSTRUCTION_SURFACE;
 extern SDL_Surface *BACK_BUTTON;
 
+extern SDL_Surface *ENEMY_BULLET;
+extern SDL_Surface *SPACESHIP_BULLET;
+extern SDL_Surface *FAT_SHIELD;
+extern SDL_Surface *SPEED_ICON;
+extern SDL_Surface *WEAPON_ICON;
+
 // två ljudeffekter.
 extern audiere::SoundEffectPtr sShootSound;
 extern audiere::SoundEffectPtr sExplosionSound;

@@ -14,6 +14,9 @@
 Rymdskepp::Rymdskepp() {
 	
 	mShipSurface = SHIP_SURFACE;
+	mShieldShadow = FAT_SHIELD;
+	mSpeedIcon = SPEED_ICON;
+	mWeaponIcon = WEAPON_ICON;
 
 	
 	// Ansiktets position och hastighet.
@@ -108,8 +111,21 @@ void Rymdskepp::Update() {
 // Utför all utritning här.
 ////////////////////////////////////////////////////////////////////////////////
 void Rymdskepp::Draw(Graphics *g) {
-	
+
+	if (shield) {
+		g->DrawImage(mShieldShadow, mX-6, mY-7);
+	}
 	g->DrawImage(mShipSurface, mX, mY);
+
+	if (weapon) {
+		g->DrawImage(mWeaponIcon, 630, 5);
+	}
+	if (speed) {
+		g->DrawImage(mSpeedIcon, 590, 5);
+	}
+	if (wideshot) {
+		g->DrawImage(mWeaponIcon, 550, 5);
+	}
 
 
 }
@@ -135,7 +151,6 @@ void Rymdskepp::Fire() {
 			mGamescreen->GenerateProjectileSpaceship(mX, mY, -1.0);
 		}
 		mGamescreen->GenerateProjectileSpaceship(mX, mY, 0); 
-
 		if (weapon)
 			mFiredelay = 5;
 		else
@@ -149,12 +164,12 @@ void Rymdskepp::Overlap(Gameobject *gameobject){
 			mHealth = mHealth - 10;
 			printf("Livnivå=%d\n", mHealth);
 		}
-		if (typeid(*gameobject) == typeid(Wideshot)) {
+	}
+	if (typeid(*gameobject) == typeid(Wideshot)) {
 			wideshot = true;
 			mWideshotDur = 300;
 			printf("Livnivå=%d\n", mHealth);
 		}
-	}
 	if (mHealth <= 0)
 		mGamescreen->KillSpaceship();
 }
@@ -165,7 +180,9 @@ int Rymdskepp::GetHealth() {
 }
 //////////////
 void Rymdskepp::SetHealth(int l) {
-	mHealth = mHealth + l;
+	if (mHealth < 100) {
+		mHealth = mHealth + l;
+	}
 }
 
 void Rymdskepp::setshield(int d) {

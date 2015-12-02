@@ -38,6 +38,12 @@ SDL_Surface *QUIT_BUTTON_SURFACE = 0;
 SDL_Surface *INSTRUCTION_SURFACE = 0;
 SDL_Surface *BACK_BUTTON = 0;
 
+SDL_Surface *ENEMY_BULLET = 0;
+SDL_Surface *SPACESHIP_BULLET = 0;
+SDL_Surface *FAT_SHIELD = 0;
+SDL_Surface *SPEED_ICON = 0;
+SDL_Surface *WEAPON_ICON = 0;
+
 // två ljudeffekter.
 audiere::SoundEffectPtr sShootSound = 0;
 audiere::SoundEffectPtr sExplosionSound = 0;
@@ -113,6 +119,17 @@ bool LoadResources() {
 	INSTRUCTION_SURFACE = SDL_LoadBMP("assets/InstructionScreen.bmp");
 	BACK_BUTTON = SDL_LoadBMP("assets/knapp_instr.bmp");
 
+	ENEMY_BULLET = SDL_LoadBMP("assets/Enemy_Bullet.bmp");
+	SPACESHIP_BULLET = SDL_LoadBMP("assets/Spaceship_Bullet.bmp");
+	FAT_SHIELD = SDL_LoadBMP("assets/FATShield.bmp");
+	SDL_SetColorKey(ENEMY_BULLET, SDL_TRUE, RGB(255, 0, 255));
+	SDL_SetColorKey(SPACESHIP_BULLET, SDL_TRUE, RGB(255, 0, 255));
+	SDL_SetColorKey(FAT_SHIELD, SDL_TRUE, RGB(255, 0, 255));
+	SPEED_ICON = SDL_LoadBMP("assets/SpeedIcon.bmp");
+	WEAPON_ICON = SDL_LoadBMP("assets/WeaponIcon.bmp");
+	SDL_SetColorKey(WEAPON_ICON, SDL_TRUE, RGB(255, 0, 255));
+	SDL_SetColorKey(SPEED_ICON, SDL_TRUE, RGB(255, 0, 255));
+
 	// audio device.
 	audiere::AudioDevicePtr sAudioDevice;
 	// audiere.
@@ -158,4 +175,9 @@ void DeleteResources() {
 	SDL_FreeSurface(QUIT_BUTTON_SURFACE);
 	SDL_FreeSurface(INSTRUCTION_SURFACE);
 	SDL_FreeSurface(BACK_BUTTON);
+	SDL_FreeSurface(ENEMY_BULLET);
+	SDL_FreeSurface(SPACESHIP_BULLET);
+	SDL_FreeSurface(FAT_SHIELD);
+	SDL_FreeSurface(SPEED_ICON);
+	SDL_FreeSurface(WEAPON_ICON);
 }
