@@ -29,6 +29,7 @@ extern SDL_Surface *LIFE_PU_SURFACE;
 extern SDL_Surface *SHIELD_PU_SURFACE;
 extern SDL_Surface *WEAPON_PU_SURFACE;
 extern SDL_Surface *SPEED_PU_SURFACE;
+extern SDL_Surface *WIDESHOT_PU_SURFACE;
 
 extern SDL_Surface *START_SURFACE;
 extern SDL_Surface *GAME_BUTTON_SURFACE;
@@ -44,6 +45,7 @@ extern SDL_Surface *SPACESHIP_BULLET;
 extern SDL_Surface *FAT_SHIELD;
 extern SDL_Surface *SPEED_ICON;
 extern SDL_Surface *WEAPON_ICON;
+extern SDL_Surface *WIDESHOT_ICON;
 
 // två ljudeffekter.
 extern audiere::SoundEffectPtr sShootSound;

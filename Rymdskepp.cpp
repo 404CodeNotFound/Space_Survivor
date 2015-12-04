@@ -17,6 +17,7 @@ Rymdskepp::Rymdskepp() {
 	mShieldShadow = FAT_SHIELD;
 	mSpeedIcon = SPEED_ICON;
 	mWeaponIcon = WEAPON_ICON;
+	mWideshotIcon = WIDESHOT_ICON;
 
 	
 	// Ansiktets position och hastighet.
@@ -124,7 +125,7 @@ void Rymdskepp::Draw(Graphics *g) {
 		g->DrawImage(mSpeedIcon, 590, 5);
 	}
 	if (wideshot) {
-		g->DrawImage(mWeaponIcon, 550, 5);
+		g->DrawImage(mWideshotIcon, 550, 5);
 	}
 
 

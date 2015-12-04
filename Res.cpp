@@ -28,6 +28,7 @@ SDL_Surface *LIFE_PU_SURFACE = 0;
 SDL_Surface *SHIELD_PU_SURFACE = 0;
 SDL_Surface *WEAPON_PU_SURFACE = 0;
 SDL_Surface *SPEED_PU_SURFACE = 0;
+SDL_Surface *WIDESHOT_PU_SURFACE = 0;
 
 SDL_Surface *START_SURFACE = 0;
 SDL_Surface *GAME_BUTTON_SURFACE = 0;
@@ -43,6 +44,7 @@ SDL_Surface *SPACESHIP_BULLET = 0;
 SDL_Surface *FAT_SHIELD = 0;
 SDL_Surface *SPEED_ICON = 0;
 SDL_Surface *WEAPON_ICON = 0;
+SDL_Surface *WIDESHOT_ICON = 0;
 
 // två ljudeffekter.
 audiere::SoundEffectPtr sShootSound = 0;
@@ -105,10 +107,12 @@ bool LoadResources() {
 	SHIELD_PU_SURFACE = SDL_LoadBMP("assets/PUShield.bmp");
 	WEAPON_PU_SURFACE = SDL_LoadBMP("assets/PUWeapon.bmp");
 	SPEED_PU_SURFACE = SDL_LoadBMP("assets/PUSpeed.bmp");
+	WIDESHOT_PU_SURFACE = SDL_LoadBMP("assets/PUWideshot.bmp");
 	SDL_SetColorKey(SPEED_PU_SURFACE, SDL_TRUE, RGB(255, 0, 255));
 	SDL_SetColorKey(LIFE_PU_SURFACE, SDL_TRUE, RGB(255, 0, 255));
 	SDL_SetColorKey(SHIELD_PU_SURFACE, SDL_TRUE, RGB(255, 0, 255));
 	SDL_SetColorKey(WEAPON_PU_SURFACE, SDL_TRUE, RGB(255, 0, 255));
+	SDL_SetColorKey(WIDESHOT_PU_SURFACE, SDL_TRUE, RGB(255, 0, 255));
 
 	START_SURFACE = SDL_LoadBMP("assets/Startscreen.bmp");
 
@@ -128,7 +132,9 @@ bool LoadResources() {
 	SDL_SetColorKey(FAT_SHIELD, SDL_TRUE, RGB(255, 0, 255));
 	SPEED_ICON = SDL_LoadBMP("assets/SpeedIcon.bmp");
 	WEAPON_ICON = SDL_LoadBMP("assets/WeaponIcon.bmp");
+	WIDESHOT_ICON = SDL_LoadBMP("assets/WideshotIcon.bmp");
 	SDL_SetColorKey(WEAPON_ICON, SDL_TRUE, RGB(255, 0, 255));
+	SDL_SetColorKey(WIDESHOT_ICON, SDL_TRUE, RGB(255, 0, 255));
 	SDL_SetColorKey(SPEED_ICON, SDL_TRUE, RGB(255, 0, 255));
 
 	// audio device.
@@ -170,6 +176,7 @@ void DeleteResources() {
 	SDL_FreeSurface(SHIELD_PU_SURFACE);
 	SDL_FreeSurface(WEAPON_PU_SURFACE);
 	SDL_FreeSurface(SPEED_PU_SURFACE);
+	SDL_FreeSurface(WIDESHOT_PU_SURFACE);
 	SDL_FreeSurface(START_SURFACE);
 	SDL_FreeSurface(GAME_BUTTON_SURFACE);
 	SDL_FreeSurface(INSTR_BUTTON_SURFACE);
@@ -182,4 +189,5 @@ void DeleteResources() {
 	SDL_FreeSurface(FAT_SHIELD);
 	SDL_FreeSurface(SPEED_ICON);
 	SDL_FreeSurface(WEAPON_ICON);
+	SDL_FreeSurface(WIDESHOT_ICON);
 }

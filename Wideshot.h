@@ -6,7 +6,7 @@
 class Wideshot : public PowerUp
 {
 private:
-	SDL_Surface * mWeaponSurface;
+	SDL_Surface * mWideshotSurface;
 
 public:
 	Wideshot(float y, float xs);

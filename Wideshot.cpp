@@ -8,9 +8,9 @@
 
 
 Wideshot::Wideshot(float y, float xs) : PowerUp(y, xs) {
-	mWeaponSurface = WEAPON_PU_SURFACE;
-	w = mWeaponSurface->w;
-	h = mWeaponSurface->h;
+	mWideshotSurface = WIDESHOT_PU_SURFACE;
+	w = mWideshotSurface->w;
+	h = mWideshotSurface->h;
 }
 
 
@@ -20,7 +20,7 @@ Wideshot::~Wideshot() {
 
 void Wideshot::Draw(Graphics *g)
 {
-	g->DrawImage(mWeaponSurface, mX, mY);
+	g->DrawImage(mWideshotSurface, mX, mY);
 }
 
 void Wideshot::Overlap(Gameobject *gameobject) {

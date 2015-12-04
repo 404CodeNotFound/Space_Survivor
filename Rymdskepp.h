@@ -12,6 +12,7 @@ private:
 	SDL_Surface *mShieldShadow;
 	SDL_Surface *mSpeedIcon;
 	SDL_Surface *mWeaponIcon;
+	SDL_Surface *mWideshotIcon;
 
 	// Position för ansikte.
 	//float mX;
