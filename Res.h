@@ -48,6 +48,7 @@ extern SDL_Surface *WEAPON_ICON;
 // två ljudeffekter.
 extern audiere::SoundEffectPtr sShootSound;
 extern audiere::SoundEffectPtr sExplosionSound;
+extern audiere::SoundEffectPtr sBabyAouch;
 // musik.
 extern audiere::OutputStreamPtr sMusic;
 extern audiere::OutputStreamPtr sDarth;

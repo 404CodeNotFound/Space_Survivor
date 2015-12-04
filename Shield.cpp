@@ -38,7 +38,8 @@ void Shield::Overlap(Gameobject *gameobject) {
 			mHealth -= 10;
 			if (mHealth <= 0){
 				mGamescreen->KillObjectPowerUp(this);
-				sExplosionSound->play();
+				//sExplosionSound->play();
+				sBabyAouch->play();
 			}
 		}
 	}
