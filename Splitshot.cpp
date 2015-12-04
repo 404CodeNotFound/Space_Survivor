@@ -1,4 +1,4 @@
-#include "ProjectileEnemy.h"
+#include "Splitshot.h"
 #include "GameApp.h"
 #include "Graphics.h"
 #include "Gamescreen.h"
@@ -10,20 +10,22 @@
 ////////////////////////////////////////////////////////////////////////////////
 // 
 ////////////////////////////////////////////////////////////////////////////////
-ProjectileEnemy::ProjectileEnemy(float x, float y, float sx, float sy) {
+Splitshot::Splitshot(float x, float y, float xs, float shipx, float shipy) {
 	// Läs in en bild av ett ansikte.
 	//mFaceSurface = SDL_LoadBMP("assets/face.bmp");
 	//SDL_SetColorKey(mFaceSurface, SDL_TRUE, RGB(255, 0, 255));
 	mBigbullet = ENEMY_BULLET;
-
+	mShipX = shipx;
+	mShipY = shipy;
 	//mBGSurface = SDL_LoadBMP("assets/background.bmp");
 
+	float temph = x - shipx;
+	float tempw = shipy - y;
 
-	// Ansiktets position och hastighet.
 	mX = x;
-	mY = y + 30;
-	mSpeedX = sx;
-	mSpeedY = sy;
+	mY = y + 40;
+	mSpeedX = xs;
+	mSpeedY = (tempw / temph) * -xs;
 
 	w = mBigbullet->w;
 	h = mBigbullet->h;
@@ -37,7 +39,7 @@ ProjectileEnemy::ProjectileEnemy(float x, float y, float sx, float sy) {
 ////////////////////////////////////////////////////////////////////////////////
 // 
 ////////////////////////////////////////////////////////////////////////////////
-ProjectileEnemy::~ProjectileEnemy() {
+Splitshot::~Splitshot() {
 	// Frigör bild.
 	//SDL_FreeSurface(mFaceSurface);
 	//SDL_FreeSurface(mBGSurface);
@@ -55,13 +57,17 @@ ProjectileEnemy::~ProjectileEnemy() {
 ////////////////////////////////////////////////////////////////////////////////
 // Anropas 100 gånger per sekund. Utför all logik här. 
 ////////////////////////////////////////////////////////////////////////////////
-void ProjectileEnemy::Update() {
+void Splitshot::Update() {
 	// Flytta ansiktet.
 	mX += mSpeedX;
 	mY += mSpeedY;
-	/*if(mX>640) {
-	mGamescreen->KillObject(this);
+	/*if() {
+		mGamescreen->KillObject(this);
 	}*/
+	if (mX <= mShipX)
+	{
+		Detonate();
+	}
 	if (mX<0) {
 		mGamescreen->KillObject(this);
 	}
@@ -73,7 +79,7 @@ void ProjectileEnemy::Update() {
 ////////////////////////////////////////////////////////////////////////////////
 // Utför all utritning här.
 ////////////////////////////////////////////////////////////////////////////////
-void ProjectileEnemy::Draw(Graphics *g) {
+void Splitshot::Draw(Graphics *g) {
 	// Rensa skärmen.
 	//g->Clear(RGB(255, 255, 255));
 	//g->DrawImage(mBGSurface, (int)mBGX, 0);
@@ -84,12 +90,26 @@ void ProjectileEnemy::Draw(Graphics *g) {
 
 }
 ////////////////////////////////7
-void ProjectileEnemy::SetSpeed(float SpeedX, float SpeedY){
+void Splitshot::SetSpeed(float SpeedX, float SpeedY){
 	mSpeedX = SpeedX;
 	mSpeedY = SpeedY;
 }
 ////////////////////////////////////
-void ProjectileEnemy::Overlap(Gameobject *gameobject) {
+void Splitshot::Overlap(Gameobject *gameobject) {
 	mGamescreen->KillObject(this);
 	//printf("Projektil dödad pga kollision!\n");
+}
+void Splitshot::Detonate()
+{
+	mGamescreen->GenerateProjectileEnemy(mX, mY, -1.5, 0);
+	mGamescreen->GenerateProjectileEnemy(mX, mY, 1.5, 0);
+	mGamescreen->GenerateProjectileEnemy(mX, mY, 0, -1.5);
+	mGamescreen->GenerateProjectileEnemy(mX, mY, 0, 1.5);
+	mGamescreen->GenerateProjectileEnemy(mX, mY, 0.75, 0.75);
+	mGamescreen->GenerateProjectileEnemy(mX, mY, -0.75, 0.75);
+	mGamescreen->GenerateProjectileEnemy(mX, mY, 0.75, -0.75);
+	mGamescreen->GenerateProjectileEnemy(mX, mY, -0.75, -0.75);
+
+	mGamescreen->KillObject(this);
+	
 }

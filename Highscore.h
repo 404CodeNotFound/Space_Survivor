@@ -31,6 +31,7 @@ private:
 	bool ready;
 	bool wehaveawinner;
 	bool releasekeys;
+	bool mReturn;
 	std::string winnername;
 	int mScore;
 

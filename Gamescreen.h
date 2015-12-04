@@ -45,6 +45,7 @@ private:
 	bool mLeft;
 	bool mRight;
 	bool mSpace;
+	bool mBossMode;
 	int points;
 	int life;
 
@@ -75,9 +76,12 @@ public:
 	virtual void Draw(Graphics *g);
 	void SetGameobject(Gameobject *gameobject);
 	void GenerateProjectileSpaceship(float x, float y, float sy);
-	void GenerateProjectileEnemy(float x, float y);
+	void GenerateProjectileEnemy(float x, float y, float sx, float sy);
+	void GenerateWallshot(float x, float y, float sx, float sy);
+	void GenerateSplitshot(float x, float y, float sx);
 	void GenerateEnemy(float y);
 	void GenerateWeaponEnemy(float y);
+	void GenerateBoss(float y);
 	void GenerateShield(float y, float xs);
 	void GenerateLife(float y, float xs);
 	void GenerateSpeed(float y, float xs);
@@ -98,6 +102,7 @@ public:
 	void BoostShield(int);
 	void BoostSpeed(int);
 	void BoostWeapon(int);
+	void DisableBoss();
 	
 };
 

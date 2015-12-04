@@ -12,6 +12,7 @@ Life::Life(float y, float xs) : PowerUp(y, xs) {
 	mLifeSurface = LIFE_PU_SURFACE;
 	w = mLifeSurface->w;
 	h = mLifeSurface->h;
+	
 	//PowerUp(x,y,xs);
 	//mFaceSurface = FACE_SURFACE;
 }
@@ -36,7 +37,6 @@ void Life::Overlap(Gameobject *gameobject) {
 			mHealth -= 10;
 			if (mHealth <= 0){
 				mGamescreen->KillObjectPowerUp(this);
-				//sExplosionSound->play();
 				sBabyAouch->play();
 			}
 		}

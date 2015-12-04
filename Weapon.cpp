@@ -34,7 +34,6 @@ void Weapon::Overlap(Gameobject *gameobject) {
 			mHealth -= 10;
 			if (mHealth <= 0){
 				mGamescreen->KillObjectPowerUp(this);
-				//sExplosionSound->play();
 				sBabyAouch->play();
 			}
 		}

@@ -12,6 +12,7 @@ SDL_Surface *BIGBULLET_SURFACE = 0;
 SDL_Surface *BULLET_SURFACE = 0;
 SDL_Surface *GAME_OVER_SURFACE = 0;
 SDL_Surface *UFO_SURFACE = 0;
+SDL_Surface *BOSS_SURFACE;
 SDL_Surface *TIO = 0;
 SDL_Surface *NIO = 0;
 SDL_Surface *ÅTTA = 0;
@@ -27,8 +28,8 @@ SDL_Surface *HIGH_SCORE_SURFACE = 0;
 SDL_Surface *LIFE_PU_SURFACE = 0;
 SDL_Surface *SHIELD_PU_SURFACE = 0;
 SDL_Surface *WEAPON_PU_SURFACE = 0;
-SDL_Surface *SPEED_PU_SURFACE = 0;
 SDL_Surface *WIDESHOT_PU_SURFACE = 0;
+SDL_Surface *SPEED_PU_SURFACE = 0;
 
 SDL_Surface *START_SURFACE = 0;
 SDL_Surface *GAME_BUTTON_SURFACE = 0;
@@ -45,7 +46,6 @@ SDL_Surface *FAT_SHIELD = 0;
 SDL_Surface *SPEED_ICON = 0;
 SDL_Surface *WEAPON_ICON = 0;
 SDL_Surface *WIDESHOT_ICON = 0;
-
 // två ljudeffekter.
 audiere::SoundEffectPtr sShootSound = 0;
 audiere::SoundEffectPtr sExplosionSound = 0;
@@ -58,7 +58,7 @@ audiere::OutputStreamPtr sDarth = 0;
 bool LoadResources() {
 	// Skriv såhär för alla bilder.
 
-	//FACE_SURFACE = SDL_LoadBMP("assets/face.bmp");
+	BOSS_SURFACE = SDL_LoadBMP("assets/face.bmp");
 	FACE_SURFACE = SDL_LoadBMP("assets/zombie_enemy.bmp");
 
 	//SHIP_SURFACE = SDL_LoadBMP("assets/small_ship_2x.bmp");
@@ -68,6 +68,7 @@ bool LoadResources() {
 	//FACE_SURFACE = SDL_LoadBMP("assets/Spaceship.bmp");
 	// Gör färgen rosa transparent.
 	SDL_SetColorKey(FACE_SURFACE, SDL_TRUE, RGB(255, 0, 255));
+	SDL_SetColorKey(BOSS_SURFACE, SDL_TRUE, RGB(255, 0, 255));
 	SDL_SetColorKey(SHIP_SURFACE, SDL_TRUE, RGB(255, 0, 255));
 	SDL_SetColorKey(UFO_SURFACE, SDL_TRUE, RGB(255, 0, 255));
 
@@ -106,8 +107,8 @@ bool LoadResources() {
 	LIFE_PU_SURFACE = SDL_LoadBMP("assets/PULife.bmp");
 	SHIELD_PU_SURFACE = SDL_LoadBMP("assets/PUShield.bmp");
 	WEAPON_PU_SURFACE = SDL_LoadBMP("assets/PUWeapon.bmp");
-	SPEED_PU_SURFACE = SDL_LoadBMP("assets/PUSpeed.bmp");
 	WIDESHOT_PU_SURFACE = SDL_LoadBMP("assets/PUWideshot.bmp");
+	SPEED_PU_SURFACE = SDL_LoadBMP("assets/PUSpeed.bmp");
 	SDL_SetColorKey(SPEED_PU_SURFACE, SDL_TRUE, RGB(255, 0, 255));
 	SDL_SetColorKey(LIFE_PU_SURFACE, SDL_TRUE, RGB(255, 0, 255));
 	SDL_SetColorKey(SHIELD_PU_SURFACE, SDL_TRUE, RGB(255, 0, 255));
@@ -134,7 +135,6 @@ bool LoadResources() {
 	WEAPON_ICON = SDL_LoadBMP("assets/WeaponIcon.bmp");
 	WIDESHOT_ICON = SDL_LoadBMP("assets/WideshotIcon.bmp");
 	SDL_SetColorKey(WEAPON_ICON, SDL_TRUE, RGB(255, 0, 255));
-	SDL_SetColorKey(WIDESHOT_ICON, SDL_TRUE, RGB(255, 0, 255));
 	SDL_SetColorKey(SPEED_ICON, SDL_TRUE, RGB(255, 0, 255));
 
 	// audio device.
@@ -160,6 +160,7 @@ void DeleteResources() {
 	SDL_FreeSurface(BIGBULLET_SURFACE);
 	SDL_FreeSurface(GAME_OVER_SURFACE);
 	SDL_FreeSurface(UFO_SURFACE);
+	SDL_FreeSurface(BOSS_SURFACE);
 	SDL_FreeSurface(TIO);
 	SDL_FreeSurface(NIO);
 	SDL_FreeSurface(ÅTTA);

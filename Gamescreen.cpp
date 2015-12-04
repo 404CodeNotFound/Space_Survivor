@@ -21,6 +21,9 @@
 #include "Speed.h"
 #include "Weapon.h"
 #include "Wideshot.h"
+#include "Boss.h"
+#include "Splitshot.h"
+#include "Wallshot.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // 
@@ -64,7 +67,7 @@ Gamescreen::Gamescreen() {
 	mLifeY = 5;
 	mScoreX = 5;
 	mScoreY = 5;
-
+	mBossMode = false;
 	//skapa rymdskepp
 
 	//SetGameobject(new Rymdskepp());
@@ -152,29 +155,36 @@ void Gamescreen::Update() {
 	if (mBGX < -800.0) mBGX += 800.0;
 	//if (mBGX < -640.0) mBGX += 640.0;
 	//if (mBGX < -1024.0) mBGX += 1024.0;
-
-	if (counter < 1500 && counter%200 == 0){
-		//randy = rand()%413;
-		//randy = rand()%704;
-		randy = rand()%493 + 40;
-		GenerateEnemy(randy);
+	if (points == 500 && !mBossMode)
+	{
+		GenerateBoss(247);
+		mBossMode = true;
+		printf("Boss Mode Engaged! ITS ON!\n");
 	}
-	else if (counter >= 1500 && counter < 3000 && counter%100 == 0) {
-		//randy = rand()%413;
-		//randy = rand()%704;
-		randy = rand()%493 + 40;
-		GenerateWeaponEnemy(randy);
-	}
-	else if (counter >= 3000 && counter%50 == 0) {
-		//randy = rand()%413;
-		//randy = rand()%704;
-		randy = rand()%493 + 40;
-		if (counter%100 == 0)
-			GenerateWeaponEnemy(randy);
-		else
+	else if (!mBossMode)
+	{
+		if (counter < 1500 && counter % 200 == 0){
+			//randy = rand()%413;
+			//randy = rand()%704;
+			randy = rand() % 493 + 40;
 			GenerateEnemy(randy);
+		}
+		else if (counter >= 1500 && counter < 3000 && counter % 100 == 0) {
+			//randy = rand()%413;
+			//randy = rand()%704;
+			randy = rand() % 493 + 40;
+			GenerateWeaponEnemy(randy);
+		}
+		else if (counter >= 3000 && counter % 50 == 0) {
+			//randy = rand()%413;
+			//randy = rand()%704;
+			randy = rand() % 493 + 40;
+			if (counter % 100 == 0)
+				GenerateWeaponEnemy(randy);
+			else
+				GenerateEnemy(randy);
+		}
 	}
-
 	if (life <= 50 && points >=100 && counter%200 == 0) {
 		randy = rand()%493 + 40;
 		if (counter % 400 == 0)
@@ -186,10 +196,12 @@ void Gamescreen::Update() {
 
 	if (points >=150 && counter%300 == 0) {
 		randy = rand()%493 + 40;
-		if (counter%600 == 0)
+		if (counter%900 == 0)
 			GenerateSpeed(randy, -1.0);
-		else
+		else if (counter%600)
 			GenerateWideshot(randy, -1.0);
+		else
+			GenerateWeapon(randy, -1.0);
 		printf("Föder powerup!");
 	}
 
@@ -333,7 +345,7 @@ void Gamescreen::SetGameobject(Gameobject *gameobject) {
 	}
 }
 //////////////////
-void Gamescreen::GenerateProjectileSpaceship(float x, float y, float sy = 0) {
+void Gamescreen::GenerateProjectileSpaceship(float x, float y, float sy) {
 	ProjectileSpaceship *tempbullet = new ProjectileSpaceship(x, y, sy);
 	tempbullet->SetGamescreen(this);
 	herobullets.push_back(tempbullet);
@@ -342,9 +354,11 @@ void Gamescreen::GenerateProjectileSpaceship(float x, float y, float sy = 0) {
 	//
 	//printf("Gave birth to projectile!\n");
 }
+
+
 ///////////////////////
-void Gamescreen::GenerateProjectileEnemy(float x, float y) {
-	ProjectileEnemy *tempbullet = new ProjectileEnemy(x, y);
+void Gamescreen::GenerateProjectileEnemy(float x, float y, float sx, float sy) {
+	ProjectileEnemy *tempbullet = new ProjectileEnemy(x, y, sx, sy);
 	tempbullet->SetGamescreen(this);
 	enemybullets.push_back(tempbullet);
 	// audiere.
@@ -352,6 +366,26 @@ void Gamescreen::GenerateProjectileEnemy(float x, float y) {
 	//
 	//printf("Gave birth to projectile!\n");
 }
+
+void Gamescreen::GenerateWallshot(float x, float y, float sx, float sy) {
+	Wallshot *tempbullet = new Wallshot(x, y, sx, sy);
+	tempbullet->SetGamescreen(this);
+	enemybullets.push_back(tempbullet);
+	// audiere.
+	sShootSound->play();
+	//
+	//printf("Gave birth to projectile!\n");
+}
+void Gamescreen::GenerateSplitshot(float x, float y, float sx) {
+	Splitshot *tempbullet = new Splitshot(x, y, sx, mGameobject->GetPosX(), mGameobject->GetPosY());
+	tempbullet->SetGamescreen(this);
+	enemybullets.push_back(tempbullet);
+	// audiere.
+	sShootSound->play();
+	//
+	//printf("Gave birth to projectile!\n");
+}
+
 /////////////////////////////
 /*void Gamescreen::KillObject(ProjectileSpaceship *projectile) {
 	auto result = std::find(killedherobullets.begin(), killedherobullets.end(), projectile);
@@ -400,6 +434,12 @@ void Gamescreen::GenerateEnemy(float y) {
 //////////////////////////////////
 void Gamescreen::GenerateWeaponEnemy(float y) {
 	WeaponEnemy *tempenemy = new WeaponEnemy(y);
+	tempenemy->SetGamescreen(this);
+	enemies.push_back(tempenemy);
+	//printf("Gave birth to enemy!\n");
+}
+void Gamescreen::GenerateBoss(float y) {
+	Enemy *tempenemy = new Boss(y);
 	tempenemy->SetGamescreen(this);
 	enemies.push_back(tempenemy);
 	//printf("Gave birth to enemy!\n");
@@ -560,4 +600,7 @@ void Gamescreen::BoostSpeed(int p) {
 void Gamescreen::BoostWeapon(int g) {
 	Rymdskepp *rp = dynamic_cast<Rymdskepp*>(mGameobject);
 	rp->SetWeapon(g);
+}
+void Gamescreen::DisableBoss(){
+	mBossMode = false;
 }

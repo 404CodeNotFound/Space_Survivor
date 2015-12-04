@@ -34,8 +34,7 @@ void Speed::Overlap(Gameobject *gameobject) {
 			mHealth -= 10;
 			if (mHealth <= 0){
 				mGamescreen->KillObjectPowerUp(this);
-				//sExplosionSound->play();
- 				sBabyAouch->play();
+				sBabyAouch->play();
 			}
 		}
 	}

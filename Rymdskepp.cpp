@@ -4,6 +4,8 @@
 #include "Res.h"
 #include "Gamescreen.h"
 #include "Wideshot.h"
+#include "Splitshot.h"
+#include "Wallshot.h"
 #include <stdio.h>
 #include <math.h>
 
@@ -18,7 +20,6 @@ Rymdskepp::Rymdskepp() {
 	mSpeedIcon = SPEED_ICON;
 	mWeaponIcon = WEAPON_ICON;
 	mWideshotIcon = WIDESHOT_ICON;
-
 	
 	// Ansiktets position och hastighet.
 	//mX = 100;
@@ -161,7 +162,11 @@ void Rymdskepp::Fire() {
 ///////////////////////
 void Rymdskepp::Overlap(Gameobject *gameobject){
 	if (!shield) {
-		if (typeid(*gameobject) == typeid(Enemy)||typeid(*gameobject) == typeid(ProjectileEnemy)) {
+		if (typeid(*gameobject) == typeid(Enemy) || 
+			typeid(*gameobject) == typeid(ProjectileEnemy) || 
+			typeid(*gameobject) == typeid(Wallshot) || 
+			typeid(*gameobject) == typeid(Splitshot) ) 
+		{
 			mHealth = mHealth - 10;
 			printf("Livnivå=%d\n", mHealth);
 		}

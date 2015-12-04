@@ -1,4 +1,4 @@
-#include "ProjectileEnemy.h"
+#include "Wallshot.h"
 #include "GameApp.h"
 #include "Graphics.h"
 #include "Gamescreen.h"
@@ -10,7 +10,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // 
 ////////////////////////////////////////////////////////////////////////////////
-ProjectileEnemy::ProjectileEnemy(float x, float y, float sx, float sy) {
+Wallshot::Wallshot(float x, float y, float sx, float sy) {
 	// Läs in en bild av ett ansikte.
 	//mFaceSurface = SDL_LoadBMP("assets/face.bmp");
 	//SDL_SetColorKey(mFaceSurface, SDL_TRUE, RGB(255, 0, 255));
@@ -20,7 +20,7 @@ ProjectileEnemy::ProjectileEnemy(float x, float y, float sx, float sy) {
 
 
 	// Ansiktets position och hastighet.
-	mX = x;
+	mX = x + 60;
 	mY = y + 30;
 	mSpeedX = sx;
 	mSpeedY = sy;
@@ -37,7 +37,7 @@ ProjectileEnemy::ProjectileEnemy(float x, float y, float sx, float sy) {
 ////////////////////////////////////////////////////////////////////////////////
 // 
 ////////////////////////////////////////////////////////////////////////////////
-ProjectileEnemy::~ProjectileEnemy() {
+Wallshot::~Wallshot() {
 	// Frigör bild.
 	//SDL_FreeSurface(mFaceSurface);
 	//SDL_FreeSurface(mBGSurface);
@@ -55,13 +55,18 @@ ProjectileEnemy::~ProjectileEnemy() {
 ////////////////////////////////////////////////////////////////////////////////
 // Anropas 100 gånger per sekund. Utför all logik här. 
 ////////////////////////////////////////////////////////////////////////////////
-void ProjectileEnemy::Update() {
+void Wallshot::Update() {
 	// Flytta ansiktet.
 	mX += mSpeedX;
 	mY += mSpeedY;
 	/*if(mX>640) {
 	mGamescreen->KillObject(this);
 	}*/
+
+	if (mX <= 630)
+		mSpeedY = 0;
+	if (mY<40.0)
+		mY = 40.0;
 	if (mX<0) {
 		mGamescreen->KillObject(this);
 	}
@@ -73,7 +78,7 @@ void ProjectileEnemy::Update() {
 ////////////////////////////////////////////////////////////////////////////////
 // Utför all utritning här.
 ////////////////////////////////////////////////////////////////////////////////
-void ProjectileEnemy::Draw(Graphics *g) {
+void Wallshot::Draw(Graphics *g) {
 	// Rensa skärmen.
 	//g->Clear(RGB(255, 255, 255));
 	//g->DrawImage(mBGSurface, (int)mBGX, 0);
@@ -84,12 +89,12 @@ void ProjectileEnemy::Draw(Graphics *g) {
 
 }
 ////////////////////////////////7
-void ProjectileEnemy::SetSpeed(float SpeedX, float SpeedY){
+void Wallshot::SetSpeed(float SpeedX, float SpeedY){
 	mSpeedX = SpeedX;
 	mSpeedY = SpeedY;
 }
 ////////////////////////////////////
-void ProjectileEnemy::Overlap(Gameobject *gameobject) {
+void Wallshot::Overlap(Gameobject *gameobject) {
 	mGamescreen->KillObject(this);
 	//printf("Projektil dödad pga kollision!\n");
 }

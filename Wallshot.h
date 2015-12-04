@@ -1,11 +1,11 @@
-#ifndef __PROJECTILE_ENEMY_H__
-#define __PROJECTILE_ENEMY_H__
+#ifndef __WALLSHOT_H__
+#define __WALLSHOT_H__
 
 #include "Gameobject.h"
 
 //struct SDL_Surface;
 
-class ProjectileEnemy : public Gameobject {
+class Wallshot : public Gameobject {
 private:
 	// Ansiktsbild.
 	SDL_Surface *mBigbullet;
@@ -24,8 +24,8 @@ private:
 
 
 public:
-	ProjectileEnemy(float x, float y, float sx, float sy);
-	~ProjectileEnemy();
+	Wallshot(float x, float y, float sx, float sy);
+	~Wallshot();
 
 	//virtual void KeyDown(SDL_Keycode keyCode);
 	//virtual void KeyUp(SDL_Keycode keyCode);

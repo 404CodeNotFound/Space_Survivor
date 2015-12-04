@@ -16,7 +16,7 @@
 //WeaponEnemy(float y) : Enemy(y), mUfoSurface{ UFO_SURFACE }, mSpeedX{ -1.0 }, mSpeedY{ -1.0}, health{ 3 } {}
 WeaponEnemy::WeaponEnemy(float y) : Enemy(y) {
 	//Enemy(y);
-
+	counter = 0;
 	mUfoSurface = UFO_SURFACE;
 	// Ansiktets position och hastighet.
 	//mX = 640;
@@ -107,7 +107,7 @@ void WeaponEnemy::SetSpeedY(float SpeedY){
 /////////////////////////7
 void WeaponEnemy::Fire() {
 //	if (mFiredelay == 0) {
-		mGamescreen->GenerateProjectileEnemy(mX, mY);
+		mGamescreen->GenerateProjectileEnemy(mX, mY, -3.0, 0);
 	//	mFiredelay = mFirerate;
 //	}
 }

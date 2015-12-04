@@ -9,6 +9,7 @@ extern SDL_Surface *EN_ANNAN_BILD;
 // Skriv såhär för alla bilder.
 extern SDL_Surface *SHIP_SURFACE;
 extern SDL_Surface *FACE_SURFACE;
+extern SDL_Surface *BOSS_SURFACE;
 extern SDL_Surface *BG_SURFACE;
 extern SDL_Surface *BULLET_SURFACE;
 extern SDL_Surface *BIGBULLET_SURFACE;
@@ -28,8 +29,8 @@ extern SDL_Surface *HIGH_SCORE_SURFACE;
 extern SDL_Surface *LIFE_PU_SURFACE;
 extern SDL_Surface *SHIELD_PU_SURFACE;
 extern SDL_Surface *WEAPON_PU_SURFACE;
-extern SDL_Surface *SPEED_PU_SURFACE;
 extern SDL_Surface *WIDESHOT_PU_SURFACE;
+extern SDL_Surface *SPEED_PU_SURFACE;
 
 extern SDL_Surface *START_SURFACE;
 extern SDL_Surface *GAME_BUTTON_SURFACE;
@@ -51,6 +52,7 @@ extern SDL_Surface *WIDESHOT_ICON;
 extern audiere::SoundEffectPtr sShootSound;
 extern audiere::SoundEffectPtr sExplosionSound;
 extern audiere::SoundEffectPtr sBabyAouch;
+
 // musik.
 extern audiere::OutputStreamPtr sMusic;
 extern audiere::OutputStreamPtr sDarth;

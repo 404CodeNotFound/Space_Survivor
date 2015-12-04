@@ -30,7 +30,7 @@ public:
 	void SetGamescreen(Gamescreen *gamescreen) {mGamescreen = gamescreen;}
 	Gamescreen *Gamescreen() {return mGamescreen;}
 	float GetPosX() {return mX;}
-	float GetPosY () {return mY;}
+	float GetPosY() {return mY;}
 	int Getw() {return w;}
 	int Geth() {return h;}
 	virtual void Fire() {}
