@@ -12,7 +12,7 @@ SDL_Surface *BIGBULLET_SURFACE = 0;
 SDL_Surface *BULLET_SURFACE = 0;
 SDL_Surface *GAME_OVER_SURFACE = 0;
 SDL_Surface *UFO_SURFACE = 0;
-SDL_Surface *BOSS_SURFACE;
+SDL_Surface *BOSS_SURFACE = 0;
 SDL_Surface *TIO = 0;
 SDL_Surface *NIO = 0;
 SDL_Surface *ÅTTA = 0;
@@ -28,8 +28,8 @@ SDL_Surface *HIGH_SCORE_SURFACE = 0;
 SDL_Surface *LIFE_PU_SURFACE = 0;
 SDL_Surface *SHIELD_PU_SURFACE = 0;
 SDL_Surface *WEAPON_PU_SURFACE = 0;
-SDL_Surface *WIDESHOT_PU_SURFACE = 0;
 SDL_Surface *SPEED_PU_SURFACE = 0;
+SDL_Surface *WIDESHOT_PU_SURFACE = 0;
 
 SDL_Surface *START_SURFACE = 0;
 SDL_Surface *GAME_BUTTON_SURFACE = 0;
@@ -46,6 +46,7 @@ SDL_Surface *FAT_SHIELD = 0;
 SDL_Surface *SPEED_ICON = 0;
 SDL_Surface *WEAPON_ICON = 0;
 SDL_Surface *WIDESHOT_ICON = 0;
+
 // två ljudeffekter.
 audiere::SoundEffectPtr sShootSound = 0;
 audiere::SoundEffectPtr sExplosionSound = 0;
@@ -53,11 +54,14 @@ audiere::SoundEffectPtr sBabyAouch = 0;
 // musik.
 audiere::OutputStreamPtr sMusic = 0;
 audiere::OutputStreamPtr sDarth = 0;
+audiere::OutputStreamPtr sStartmusic = 0;
+audiere::OutputStreamPtr sInstrmusic = 0;
 
 
 bool LoadResources() {
 	// Skriv såhär för alla bilder.
 
+	//FACE_SURFACE = SDL_LoadBMP("assets/face.bmp");
 	BOSS_SURFACE = SDL_LoadBMP("assets/face.bmp");
 	FACE_SURFACE = SDL_LoadBMP("assets/zombie_enemy.bmp");
 
@@ -107,8 +111,8 @@ bool LoadResources() {
 	LIFE_PU_SURFACE = SDL_LoadBMP("assets/PULife.bmp");
 	SHIELD_PU_SURFACE = SDL_LoadBMP("assets/PUShield.bmp");
 	WEAPON_PU_SURFACE = SDL_LoadBMP("assets/PUWeapon.bmp");
-	WIDESHOT_PU_SURFACE = SDL_LoadBMP("assets/PUWideshot.bmp");
 	SPEED_PU_SURFACE = SDL_LoadBMP("assets/PUSpeed.bmp");
+	WIDESHOT_PU_SURFACE = SDL_LoadBMP("assets/PUWideshot.bmp");
 	SDL_SetColorKey(SPEED_PU_SURFACE, SDL_TRUE, RGB(255, 0, 255));
 	SDL_SetColorKey(LIFE_PU_SURFACE, SDL_TRUE, RGB(255, 0, 255));
 	SDL_SetColorKey(SHIELD_PU_SURFACE, SDL_TRUE, RGB(255, 0, 255));
@@ -135,6 +139,7 @@ bool LoadResources() {
 	WEAPON_ICON = SDL_LoadBMP("assets/WeaponIcon.bmp");
 	WIDESHOT_ICON = SDL_LoadBMP("assets/WideshotIcon.bmp");
 	SDL_SetColorKey(WEAPON_ICON, SDL_TRUE, RGB(255, 0, 255));
+	SDL_SetColorKey(WIDESHOT_ICON, SDL_TRUE, RGB(255, 0, 255));
 	SDL_SetColorKey(SPEED_ICON, SDL_TRUE, RGB(255, 0, 255));
 
 	// audio device.
@@ -148,6 +153,8 @@ bool LoadResources() {
 	// musik.
 	sMusic = audiere::OpenSound(sAudioDevice, "assets/music.mp3", false);
 	sDarth = audiere::OpenSound(sAudioDevice, "assets/gameover.mp3", false);
+	sStartmusic = audiere::OpenSound(sAudioDevice, "assets/The_Hero.mp3", false);
+	sInstrmusic = audiere::OpenSound(sAudioDevice, "assets/Pixel.mp3", false);
 
 	return true;
 }

@@ -76,6 +76,7 @@ public:
 	virtual void Draw(Graphics *g);
 	void SetGameobject(Gameobject *gameobject);
 	void GenerateProjectileSpaceship(float x, float y, float sy);
+	//void GenerateProjectileEnemy(float x, float y);
 	void GenerateProjectileEnemy(float x, float y, float sx, float sy);
 	void GenerateWallshot(float x, float y, float sx, float sy);
 	void GenerateSplitshot(float x, float y, float sx);
@@ -96,7 +97,7 @@ public:
 	void CheckOverlapSpaceship(Gameobject *gameobject, std::list<Enemy*> enemies, std::list<Gameobject*> enemybullets, std::list<PowerUp*> powerup); 
 	//void CheckOverlapHerobullets(std::list<ProjectileSpaceship*> herobullets, std::list<Enemy*> enemies);
 	void CheckOverlapHerobullets(std::list<Gameobject*> herobullets, std::list<Enemy*> enemies, std::list<PowerUp*> powerup);
-	void PointsToPlayer();
+	void PointsToPlayer(int);
 	void KillAll();
 	void BoostLife(int);
 	void BoostShield(int);

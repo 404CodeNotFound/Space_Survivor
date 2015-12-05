@@ -16,8 +16,9 @@
 //WeaponEnemy(float y) : Enemy(y), mUfoSurface{ UFO_SURFACE }, mSpeedX{ -1.0 }, mSpeedY{ -1.0}, health{ 3 } {}
 WeaponEnemy::WeaponEnemy(float y) : Enemy(y) {
 	//Enemy(y);
-	counter = 0;
+
 	mUfoSurface = UFO_SURFACE;
+	counter = 0;
 	// Ansiktets position och hastighet.
 	//mX = 640;
 	mX = 800;
@@ -121,7 +122,7 @@ void WeaponEnemy::Overlap(Gameobject *gameobject) {
 	if (typeid(*gameobject) == typeid(ProjectileSpaceship)) {
 		health = health - 1;
 		if (health == 0) {
-			mGamescreen->PointsToPlayer();
+			mGamescreen->PointsToPlayer(10);
 			mGamescreen->KillObjectEnemy(this);
 			// audiere.
 			sExplosionSound->play();

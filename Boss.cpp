@@ -224,12 +224,14 @@ void Boss::Overlap(Gameobject *gameobject) {
 	if (typeid(*gameobject) == typeid(Rymdskepp)) {
 		mGamescreen->KillObjectEnemy(this);
 		sExplosionSound->play();
+		mGamescreen->PointsToPlayer(100);
+		mGamescreen->DisableBoss();
 		//printf("AJ!\n");
 	}
 	if (typeid(*gameobject) == typeid(ProjectileSpaceship)) {
 		health = health - 1;
 		if (health == 0) {
-			mGamescreen->PointsToPlayer();
+			mGamescreen->PointsToPlayer(100);
 			mGamescreen->KillObjectEnemy(this);
 			mGamescreen->DisableBoss();
 			// audiere.

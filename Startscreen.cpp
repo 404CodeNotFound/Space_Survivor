@@ -6,10 +6,11 @@
 #include "Gamescreen.h"
 #include "Highscore.h"
 #include "Instructions.h"
+//#include "Instruction.h"
 
 Startscreen::Startscreen() {
-	sMusic->play();
-	sMusic->setRepeat(true);
+	sStartmusic->play();
+	sStartmusic->setRepeat(true);
 	mMenuSurface = START_SURFACE;
 	//mMenuSurface = ALT_START_SURFACE;
 	mButton1 = GAME_BUTTON_SURFACE;
@@ -43,7 +44,7 @@ Startscreen::Startscreen() {
 }
 
 Startscreen::~Startscreen() {
-	sMusic->stop();
+	sStartmusic->stop();
 	printf("Startscreen destroyd \n");
 }
 
@@ -105,6 +106,7 @@ void Startscreen::KeyUp(SDL_Keycode keyCode) {
 			mBPY = (mBuY2 + 5);
 			mGame = false;
 			mInstr = true;
+			printf("Väljer Instructions!\n");
 		}
 
 		else if (mY == mBuY2) {
@@ -149,6 +151,7 @@ void Startscreen::KeyUp(SDL_Keycode keyCode) {
 			mY = mBuY2;
 			mBPY = (mBuY2 + 10);
 			mInstr = true;
+			printf("Väljer Instructions!\n");
 		}
 
 		else if (mY == mBuY4) {
@@ -171,9 +174,8 @@ void Startscreen::Update() {
 		}
 
 		else if (mY == mBuY2) {
-		if (mY == mBuY2) {
-		 GameApp()->SetScreen(new Instructions());
-		}
+			GameApp()->SetScreen(new Instructions());
+			printf("Väljer VERKLIGEN Instructions!\n");
 		}
 
 		else if (mY == mBuY3) {

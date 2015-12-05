@@ -105,7 +105,7 @@ void Enemy::Overlap(Gameobject *gameobject) {
 	if (typeid(*gameobject) == typeid(ProjectileSpaceship)) {
 		health = health - 1;
 		if (health == 0) {
-			mGamescreen->PointsToPlayer();
+			mGamescreen->PointsToPlayer(10);
 			mGamescreen->KillObjectEnemy(this);
 			// audiere.
 			sExplosionSound->play();

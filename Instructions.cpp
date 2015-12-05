@@ -6,20 +6,23 @@
 #include "Graphics.h"
 
 Instructions::Instructions() {
+	printf("Går in i Instructions konstruktor!\n");
 	mInstrSurface = INSTRUCTION_SURFACE;
-	sMusic->play();
-	sMusic->setRepeat(true);
+	mButton = BACK_BUTTON;
+	printf("Hittar bilden!\n");
+	sInstrmusic->play();
+	sInstrmusic->setRepeat(true);
 	mBGX = 0.0f;
 
 	mButtonX = 23.0f;
 	mButtonY = 533.0f;
 
-	mButton = false;
+	mReturn = false;
 	mPressed = false;
 }
 
 Instructions::~Instructions() {
-	sMusic->stop();
+	sInstrmusic->stop();
 }
 
 void Instructions::Draw(Graphics *g) {
