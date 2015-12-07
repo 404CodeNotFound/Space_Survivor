@@ -6,6 +6,7 @@
 #include "Wideshot.h"
 #include "Splitshot.h"
 #include "Wallshot.h"
+#include "WeaponEnemy.h"
 #include <stdio.h>
 #include <math.h>
 
@@ -154,7 +155,7 @@ void Rymdskepp::Fire() {
 		}
 		mGamescreen->GenerateProjectileSpaceship(mX, mY, 0); 
 		if (weapon)
-			mFiredelay = 5;
+			mFiredelay = 8;
 		else
 			mFiredelay = mFirerate; 
  	} 
@@ -163,6 +164,7 @@ void Rymdskepp::Fire() {
 void Rymdskepp::Overlap(Gameobject *gameobject){
 	if (!shield) {
 		if (typeid(*gameobject) == typeid(Enemy) || 
+			typeid(*gameobject) == typeid(WeaponEnemy) ||
 			typeid(*gameobject) == typeid(ProjectileEnemy) || 
 			typeid(*gameobject) == typeid(Wallshot) || 
 			typeid(*gameobject) == typeid(Splitshot) ) 
@@ -173,7 +175,7 @@ void Rymdskepp::Overlap(Gameobject *gameobject){
 	}
 	if (typeid(*gameobject) == typeid(Wideshot)) {
 			wideshot = true;
-			mWideshotDur = 300;
+			mWideshotDur = 600;
 			printf("Livnivå=%d\n", mHealth);
 		}
 	if (mHealth <= 0)

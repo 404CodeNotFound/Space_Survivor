@@ -30,7 +30,7 @@ void Life::Overlap(Gameobject *gameobject) {
 	if (typeid(*gameobject) == typeid(Rymdskepp)) {
 			mGamescreen->BoostLife(20);
 			mGamescreen->KillObjectPowerUp(this);
-			sExplosionSound->play();
+		//	sExplosionSound->play();
 			printf("Kollision med Life!\n");
 		}
 		if (typeid(*gameobject) == typeid(ProjectileSpaceship)) {

@@ -24,7 +24,10 @@ WeaponEnemy::WeaponEnemy(float y) : Enemy(y) {
 	mX = 800;
 	mY = y;
 	mSpeedX = -1.0;
-	mSpeedY = -1.0;
+	if (y < 247)
+		mSpeedY = -1.0;
+	else
+		mSpeedY = 1.0;
 
 	//mBGX = 0.0f;
 

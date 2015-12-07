@@ -25,7 +25,7 @@ void Weapon::Draw(Graphics *g)
 
 void Weapon::Overlap(Gameobject *gameobject) {
 	if (typeid(*gameobject) == typeid(Rymdskepp)) {
-			mGamescreen->BoostWeapon(300);
+			mGamescreen->BoostWeapon(600);
 			mGamescreen->KillObjectPowerUp(this);
 			//sExplosionSound->play();
 			printf("Kollision med Speed!\n");

@@ -29,7 +29,7 @@ void Shield::Draw(Graphics *g)
 
 void Shield::Overlap(Gameobject *gameobject) {
 	if (typeid(*gameobject) == typeid(Rymdskepp)) {
-			mGamescreen->BoostShield(300);
+			mGamescreen->BoostShield(500);
 			mGamescreen->KillObjectPowerUp(this);
 			//sExplosionSound->play();
 			printf("Kollision med Life!\n");

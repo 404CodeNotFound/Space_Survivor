@@ -25,7 +25,7 @@ void Speed::Draw(Graphics *g)
 
 void Speed::Overlap(Gameobject *gameobject) {
 	if (typeid(*gameobject) == typeid(Rymdskepp)) {
-			mGamescreen->BoostSpeed(300);
+			mGamescreen->BoostSpeed(700);
 			mGamescreen->KillObjectPowerUp(this);
 			//sExplosionSound->play();
 			printf("Kollision med Speed!\n");

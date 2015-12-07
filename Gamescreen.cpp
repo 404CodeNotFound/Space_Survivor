@@ -1,4 +1,5 @@
 #include "Gamescreen.h"
+#include "BlinkScreen.h"
 #include "Gameover.h"
 #include "GameApp.h"
 #include "Graphics.h"
@@ -32,6 +33,7 @@ Gamescreen::Gamescreen() {
 	// audiere.
 	sMusic->play();
 	sMusic->setRepeat(true);
+	//
 
 	mGameobject = 0;	
 
@@ -177,7 +179,7 @@ void Gamescreen::Update() {
 			GenerateEnemy(randy);
 	}*/
 
-	if (points != 0 && points%500 == 0 && !mBossMode)
+	if (points != 0 && points%1000 == 0 && !mBossMode)
 	{
 		GenerateBoss(247);
 		mBossMode = true;
@@ -186,42 +188,76 @@ void Gamescreen::Update() {
 	else if (!mBossMode)
 	{
 		if (counter < 1500 && counter % 200 == 0){
-			//randy = rand()%413;
-			//randy = rand()%704;
 			randy = rand() % 493 + 40;
 			GenerateEnemy(randy);
 		}
-		else if (counter >= 1500 && counter < 3000 && counter % 100 == 0) {
-			//randy = rand()%413;
-			//randy = rand()%704;
+		else if (counter >= 1500 && counter < 3000 && counter % 150 == 0) {
 			randy = rand() % 493 + 40;
 			GenerateWeaponEnemy(randy);
 		}
-		else if (counter >= 3000 && counter % 50 == 0) {
-			//randy = rand()%413;
-			//randy = rand()%704;
+		else if (counter >= 3000 && counter < 4500 && counter % 100 == 0) {
+			randy = rand() % 493 + 40;
+			if (counter % 200 == 0)
+				GenerateWeaponEnemy(randy);
+			else
+				GenerateEnemy(randy);
+		}
+		else if (counter >= 4500 && counter < 5000 && counter % 50 == 0) { //Zombie Wave
+					randy = rand() % 493 + 40;
+				GenerateEnemy(randy);
+					randy = rand() % 493 + 40;
+			
+				GenerateEnemy(randy);
+		}
+		else if (counter >= 5000 && counter < 6500 && counter % 80 == 0) {
+			randy = rand() % 493 + 40;
+			if (counter % 160 == 0)
+				GenerateWeaponEnemy(randy);
+			else
+				GenerateEnemy(randy);
+		}
+		else if (counter >= 6500 && counter < 8000 && counter % 60 == 0) {
+			randy = rand() % 493 + 40;
+			if (counter % 120 == 0)
+				GenerateWeaponEnemy(randy);
+			else
+				GenerateEnemy(randy);
+		}
+		else if (counter < 8500 && counter % 8000 == 0) { 
+			GenerateShield(randy, -1.0);
+			GenerateWideshot(randy, -1.0);
+		}
+
+		else if (counter >= 8500 && counter < 9000 && counter % 100 == 0) { // Ufo Wave
+			GenerateWeaponEnemy(50);
+			GenerateWeaponEnemy(200);
+			GenerateWeaponEnemy(350);
+			GenerateWeaponEnemy(500);
+		}
+		else if (counter >= 9000 && counter % 50 == 0) {
 			randy = rand() % 493 + 40;
 			if (counter % 100 == 0)
 				GenerateWeaponEnemy(randy);
 			else
 				GenerateEnemy(randy);
 		}
+
 	}
 
-	if (life <= 50 && points >=100 && counter%200 == 0) {
+	if (life <= 50 && points >=100 && counter%900 == 0) {
 		randy = rand()%493 + 40;
-		if (counter % 400 == 0)
+		if (counter % 2000 == 0)
 			GenerateLife(randy, -1.0);
 		else
 			GenerateShield(randy, -1.0);
 		printf("Föder powerup!");
 	}
 
-	if (points >=150 && counter%300 == 0) {
+	if (points >=150 && counter%1000 == 0) {
 		randy = rand()%493 + 40;
-		if (counter%900 == 0)
+		if (counter%3000 == 0)
 			GenerateSpeed(randy, -1.0);
-		else if (counter%600 == 0)
+		else if (counter%2000 == 0)
 			GenerateWideshot(randy, -1.0);
 		else
 			GenerateWeapon(randy, -1.0);
@@ -392,6 +428,8 @@ void Gamescreen::GenerateWallshot(float x, float y, float sx, float sy) {
 	Wallshot *tempbullet = new Wallshot(x, y, sx, sy);
 	tempbullet->SetGamescreen(this);
 	enemybullets.push_back(tempbullet);
+	// audiere.
+	//sShootSound->play();
 	//
 	//printf("Gave birth to projectile!\n");
 }
@@ -400,6 +438,7 @@ void Gamescreen::GenerateSplitshot(float x, float y, float sx) {
 	tempbullet->SetGamescreen(this);
 	enemybullets.push_back(tempbullet);
 	// audiere.
+	//sShootSound->play();
 	//
 	//printf("Gave birth to projectile!\n");
 }
