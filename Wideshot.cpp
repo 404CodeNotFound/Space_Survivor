@@ -26,7 +26,7 @@ void Wideshot::Draw(Graphics *g)
 void Wideshot::Overlap(Gameobject *gameobject) {
 	if (typeid(*gameobject) == typeid(Rymdskepp)) {
 		mGamescreen->KillObjectPowerUp(this);
-		sExplosionSound->play();
+		//sExplosionSound->play();
 		printf("Kollision med Speed!\n");
 	}
 	if (typeid(*gameobject) == typeid(ProjectileSpaceship)) {

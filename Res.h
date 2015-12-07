@@ -52,6 +52,9 @@ extern SDL_Surface *WIDESHOT_ICON;
 extern audiere::SoundEffectPtr sShootSound;
 extern audiere::SoundEffectPtr sExplosionSound;
 extern audiere::SoundEffectPtr sBabyAouch;
+extern audiere::SoundEffectPtr sSplitShot;
+extern audiere::SoundEffectPtr sWallShot;
+extern audiere::SoundEffectPtr sBossFire;
 // musik.
 extern audiere::OutputStreamPtr sMusic;
 extern audiere::OutputStreamPtr sDarth;

@@ -172,6 +172,7 @@ void Boss::Fire() {
 	mGamescreen->GenerateProjectileEnemy(mX, mY, -1.8, 0.3);
 	mGamescreen->GenerateProjectileEnemy(mX, mY, -1.6, 0.6);
 	mGamescreen->GenerateProjectileEnemy(mX, mY, -1.4, 0.9);
+	sBossFire->play();
 	//	mFiredelay = mFirerate;
 	//	}
 }
@@ -211,13 +212,14 @@ void Boss::FireWall() {
 		mGamescreen->GenerateWallshot(mX, mY, -2.0, 4.0);
 	if (mHole != 6)
 		mGamescreen->GenerateWallshot(mX, mY, -2.0, 4.5);
-	
+	sWallShot->play();
 	//	mFiredelay = mFirerate;
 	//	}
 }
 void Boss::FireSplit()
 {
 	mGamescreen->GenerateSplitshot(mX, mY, -3.2);
+	sSplitShot->play();
 }
 /////////////////////////////
 void Boss::Overlap(Gameobject *gameobject) {

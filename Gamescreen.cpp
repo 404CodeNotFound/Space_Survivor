@@ -1,5 +1,4 @@
 #include "Gamescreen.h"
-#include "BlinkScreen.h"
 #include "Gameover.h"
 #include "GameApp.h"
 #include "Graphics.h"
@@ -33,7 +32,6 @@ Gamescreen::Gamescreen() {
 	// audiere.
 	sMusic->play();
 	sMusic->setRepeat(true);
-	//
 
 	mGameobject = 0;	
 
@@ -394,8 +392,6 @@ void Gamescreen::GenerateWallshot(float x, float y, float sx, float sy) {
 	Wallshot *tempbullet = new Wallshot(x, y, sx, sy);
 	tempbullet->SetGamescreen(this);
 	enemybullets.push_back(tempbullet);
-	// audiere.
-	sShootSound->play();
 	//
 	//printf("Gave birth to projectile!\n");
 }
@@ -404,7 +400,6 @@ void Gamescreen::GenerateSplitshot(float x, float y, float sx) {
 	tempbullet->SetGamescreen(this);
 	enemybullets.push_back(tempbullet);
 	// audiere.
-	sShootSound->play();
 	//
 	//printf("Gave birth to projectile!\n");
 }

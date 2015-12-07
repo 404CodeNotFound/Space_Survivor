@@ -31,7 +31,7 @@ void Shield::Overlap(Gameobject *gameobject) {
 	if (typeid(*gameobject) == typeid(Rymdskepp)) {
 			mGamescreen->BoostShield(300);
 			mGamescreen->KillObjectPowerUp(this);
-			sExplosionSound->play();
+			//sExplosionSound->play();
 			printf("Kollision med Life!\n");
 		}
 		if (typeid(*gameobject) == typeid(ProjectileSpaceship)) {

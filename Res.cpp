@@ -51,6 +51,9 @@ SDL_Surface *WIDESHOT_ICON = 0;
 audiere::SoundEffectPtr sShootSound = 0;
 audiere::SoundEffectPtr sExplosionSound = 0;
 audiere::SoundEffectPtr sBabyAouch = 0;
+audiere::SoundEffectPtr sSplitShot = 0;
+audiere::SoundEffectPtr sWallShot = 0;
+audiere::SoundEffectPtr sBossFire = 0;
 // musik.
 audiere::OutputStreamPtr sMusic = 0;
 audiere::OutputStreamPtr sDarth = 0;
@@ -150,6 +153,9 @@ bool LoadResources() {
 	sShootSound = audiere::OpenSoundEffect(sAudioDevice, "assets/shoot.wav", audiere::SINGLE);
 	sExplosionSound = audiere::OpenSoundEffect(sAudioDevice, "assets/explosion.wav", audiere::SINGLE);
 	sBabyAouch = audiere::OpenSoundEffect(sAudioDevice, "assets/babyaouch.wav", audiere::SINGLE);
+	sSplitShot = audiere::OpenSoundEffect(sAudioDevice, "assets/laser9.wav", audiere::SINGLE);
+	sWallShot = audiere::OpenSoundEffect(sAudioDevice, "assets/laser5.wav", audiere::SINGLE);
+	sBossFire = audiere::OpenSoundEffect(sAudioDevice, "assets/laser4.wav", audiere::SINGLE);
 	// musik.
 	sMusic = audiere::OpenSound(sAudioDevice, "assets/music.mp3", false);
 	sDarth = audiere::OpenSound(sAudioDevice, "assets/gameover.mp3", false);
