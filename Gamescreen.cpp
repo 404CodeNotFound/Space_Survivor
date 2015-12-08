@@ -250,7 +250,7 @@ void Gamescreen::Update() {
 
 	if (life <= 50 && points >=100 && counter%900 == 0) {
 		randy = rand()%493 + 40;
-		if (counter % 2000 == 0)
+		if (counter % 1800 == 0)
 			GenerateLife(randy, -1.0);
 		else
 			GenerateShield(randy, -1.0);
