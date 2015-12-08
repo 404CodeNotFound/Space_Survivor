@@ -6,16 +6,14 @@
 #include "Graphics.h"
 
 Instructions::Instructions() {
-	printf("Går in i Instructions konstruktor!\n");
 	mInstrSurface = INSTRUCTION_SURFACE;
 	mButton = BACK_BUTTON;
-	printf("Hittar bilden!\n");
 	sInstrmusic->play();
 	sInstrmusic->setRepeat(true);
 	mBGX = 0.0f;
 
-	mButtonX = 23.0f;
-	mButtonY = 533.0f;
+	mButtonX = 33.0f;
+	mButtonY = 51.0f;
 
 	mReturn = false;
 	mPressed = false;

@@ -83,7 +83,7 @@ bool LoadResources() {
 
 	//BG_SURFACE = SDL_LoadBMP("assets/GamescreenBG2_2.bmp");
 	//BG_SURFACE = SDL_LoadBMP("assets/GamescreenBG_BIG.bmp");
-	BG_SURFACE = SDL_LoadBMP("assets/GamescreenNEW.bmp");
+	BG_SURFACE = SDL_LoadBMP("assets/Gamescreen.bmp");
 
 	printf("FACE %p   BG %p\n", FACE_SURFACE, BG_SURFACE);
 
@@ -98,7 +98,7 @@ bool LoadResources() {
 	//GAME_OVER_SURFACE = SDL_LoadBMP("assets/Game_Over_BIG.bmp");
 	//GAME_OVER_SURFACE = SDL_LoadBMP("assets/Game_OverNEW.bmp");
 	GAME_OVER_SURFACE = SDL_LoadBMP("assets/GameoverScreen.bmp");
-	HIGH_SCORE_SURFACE = SDL_LoadBMP("assets/Highscoreex.bmp");
+	HIGH_SCORE_SURFACE = SDL_LoadBMP("assets/HighScoreScreen.bmp");
 
 	TIO = SDL_LoadBMP("assets/liv10.bmp");
 	NIO = SDL_LoadBMP("assets/liv9.bmp");

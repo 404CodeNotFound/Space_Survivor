@@ -58,7 +58,7 @@ Gamescreen::Gamescreen() {
 	mLeft = false; 
 	mRight = false; 
 	mSpace = false; 
-
+	mQuit = false;
 
 	//Bakgrundens position
 
@@ -119,6 +119,10 @@ void Gamescreen::KeyDown(SDL_Keycode keyCode) {
 		//mGameobject->Fire();
 		mSpace = true;
 	}
+
+	if (keyCode == SDLK_q) {
+		mQuit = true;
+	}
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -144,6 +148,11 @@ void Gamescreen::KeyUp(SDL_Keycode keyCode) {
 	}
 	if (keyCode == SDLK_SPACE) {
 		mSpace = false;
+	}
+
+	if (keyCode == SDLK_q) {
+		mQuit = false;
+		GameApp()->SetScreen(new Gameover(points));
 	}
 }
 

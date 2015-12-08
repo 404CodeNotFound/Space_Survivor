@@ -6,7 +6,6 @@
 #include "Gamescreen.h"
 #include "Highscore.h"
 #include "Instructions.h"
-//#include "Instruction.h"
 
 Startscreen::Startscreen() {
 	sStartmusic->play();
@@ -28,7 +27,7 @@ Startscreen::Startscreen() {
 	mBuX = 301.0f;
 	mBuY1 = 159.0f;
 	mBuY2 = 260.0f;
-	mBuY3 = 370.0f;
+	mBuY3 = 366.0f;
 	mBuY4 = 477.0f;
 
 	mUp = false;
@@ -76,11 +75,11 @@ void Startscreen::Draw(Graphics *g) {
 	}
 
 	else if (mHighScr) {
-		g->DrawImage(HIGH_SCORE_BUTTON_SURFACE, (int)mBuX+3, mBuY3);
+		g->DrawImage(HIGH_SCORE_BUTTON_SURFACE, (int)mBuX-1, mBuY3);
 	}
 
 	else if (mQuit) {
-		g->DrawImage(QUIT_BUTTON_SURFACE, (int)mBuX+3, mBuY4);
+		g->DrawImage(QUIT_BUTTON_SURFACE, (int)mBuX, mBuY4);
 	}
 }
 
@@ -106,7 +105,6 @@ void Startscreen::KeyUp(SDL_Keycode keyCode) {
 			mBPY = (mBuY2 + 5);
 			mGame = false;
 			mInstr = true;
-			printf("Väljer Instructions!\n");
 		}
 
 		else if (mY == mBuY2) {
@@ -151,7 +149,6 @@ void Startscreen::KeyUp(SDL_Keycode keyCode) {
 			mY = mBuY2;
 			mBPY = (mBuY2 + 10);
 			mInstr = true;
-			printf("Väljer Instructions!\n");
 		}
 
 		else if (mY == mBuY4) {
@@ -174,8 +171,9 @@ void Startscreen::Update() {
 		}
 
 		else if (mY == mBuY2) {
-			GameApp()->SetScreen(new Instructions());
-			printf("Väljer VERKLIGEN Instructions!\n");
+		if (mY == mBuY2) {
+		 GameApp()->SetScreen(new Instructions());
+		}
 		}
 
 		else if (mY == mBuY3) {

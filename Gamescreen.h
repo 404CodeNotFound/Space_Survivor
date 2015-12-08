@@ -46,6 +46,7 @@ private:
 	bool mRight;
 	bool mSpace;
 	bool mBossMode;
+	bool mQuit;
 	int points;
 	int life;
 
