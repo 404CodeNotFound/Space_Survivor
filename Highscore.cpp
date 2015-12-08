@@ -90,7 +90,6 @@ Highscore::~Highscore() {
 // Anropas 100 gånger per sekund. Utför all logik här. 
 ////////////////////////////////////////////////////////////////////////////////
 void Highscore::Update() {
-
 	if (!ready && wehaveawinner) {
 		releasekeys = true;
 	}
@@ -101,7 +100,6 @@ void Highscore::Update() {
 		}
 		counter = counter + 1;
 	}
-
 	// Press left key to go to menu
 	if (mReturn) {
 		GameApp()->SetScreen(new Startscreen());
@@ -119,8 +117,8 @@ void Highscore::Draw(Graphics *g) {
 			int points = (Bestofthebest.at(i).mPoints);
 			char tmp[10];
 			sprintf(tmp, "%d", points);
-			mMyFont->WriteString(g, (Bestofthebest.at(i)).mName.c_str(), 32, 305 + i*24);
-			mMyFont->WriteString(g, tmp, 500, 305 + i*24);
+			mMyFont->WriteString(g, (Bestofthebest.at(i)).mName.c_str(), 32, 205 + i*24);
+			mMyFont->WriteString(g, tmp, 500, 205 + i*24);
 		}
 	}
 	else if (!ready && wehaveawinner) {
@@ -222,10 +220,6 @@ void Highscore::KeyDown(SDL_Keycode keyCode) {
 			Bestofthebest.insert(hit, tmpw);
 			ready = true;
 		}
-
-		//else if (keyCode == SDLK_LEFT) {
-		//  byta "knappbild"
-		//}
 	}
 }
 
