@@ -13,7 +13,7 @@ Instructions::Instructions() {
 	mBGX = 0.0f;
 
 	mButtonX = 33.0f;
-	mButtonY = 51.0f;
+	mButtonY = 520.0f;
 
 	mReturn = false;
 	mPressed = false;
