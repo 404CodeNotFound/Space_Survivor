@@ -4,8 +4,6 @@
 struct SDL_Surface;
 #include "audiere.h"
 
-extern SDL_Surface *EN_BILD;
-extern SDL_Surface *EN_ANNAN_BILD;
 // Skriv såhär för alla bilder.
 extern SDL_Surface *SHIP_SURFACE;
 extern SDL_Surface *FACE_SURFACE;
@@ -52,9 +50,11 @@ extern SDL_Surface *WIDESHOT_ICON;
 extern audiere::SoundEffectPtr sShootSound;
 extern audiere::SoundEffectPtr sExplosionSound;
 extern audiere::SoundEffectPtr sBabyAouch;
+extern audiere::SoundEffectPtr sHeart;
 extern audiere::SoundEffectPtr sSplitShot;
 extern audiere::SoundEffectPtr sWallShot;
 extern audiere::SoundEffectPtr sBossFire;
+extern audiere::SoundEffectPtr sLostLife;
 // musik.
 extern audiere::OutputStreamPtr sMusic;
 extern audiere::OutputStreamPtr sDarth;

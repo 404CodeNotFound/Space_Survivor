@@ -20,8 +20,6 @@ private:
 	// Hastighet för ansikte.
 	float mSpeedX;
 	float mSpeedY;
-	// Position för bakgrund.
-	//float mBGX;
 	//int w;
 	//int h;
 	int mFirerate; 
@@ -35,7 +33,7 @@ private:
 	int mWeaponDur;
 	bool wideshot;
 	int mWideshotDur;
-
+	int mHeartbeat;
 
 
 public:

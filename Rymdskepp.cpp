@@ -7,6 +7,7 @@
 #include "Splitshot.h"
 #include "Wallshot.h"
 #include "WeaponEnemy.h"
+#include "audiere.h"
 #include <stdio.h>
 #include <math.h>
 
@@ -22,17 +23,10 @@ Rymdskepp::Rymdskepp() {
 	mWeaponIcon = WEAPON_ICON;
 	mWideshotIcon = WIDESHOT_ICON;
 	
-	// Ansiktets position och hastighet.
-	//mX = 100;
-	//mY = 100;
-	//mX = 160;
-	//mY = 160;
 	mX = 125;
 	mY = 125;
 	mSpeedX = 0;
 	mSpeedY = 0;
-
-	//mBGX = 0.0f;
 
 	w = mShipSurface->w;
 	h = mShipSurface->h;
@@ -47,15 +41,13 @@ Rymdskepp::Rymdskepp() {
 	mWeaponDur = 0;
 	wideshot = false;
 	mWideshotDur = 0;
+	mHeartbeat = 0;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // 
 ////////////////////////////////////////////////////////////////////////////////
 Rymdskepp::~Rymdskepp() {
-	// Frigör bild.
-	//SDL_FreeSurface(mFaceSurface);
-	//SDL_FreeSurface(mBGSurface);
 	printf("Testscreen destroyed\n");
 }
 
@@ -77,15 +69,13 @@ void Rymdskepp::Update() {
 		mX = 0;
 	else if (mX > (800.0 - w))
 		mX = 800.0 - w;
-	/*else if (mX > (1024.0 - w))
-		mX = 1024.0 - w;*/
+
 	mY += mSpeedY;
 	if (mY < 40.0)
 		mY = 40.0;
 	else if (mY > 600.0 - h)
 		mY = 600.0 - h;
-	/*else if (mY > 768.0 - h)
-		mY = 768.0 - h;*/
+
 	if (mFiredelay > 0)
 		mFiredelay--;
 	if (mShieldDur > 0) {
@@ -108,6 +98,14 @@ void Rymdskepp::Update() {
 		if (mWideshotDur == 0)
 			wideshot = false;
 	}
+	if (mHealth <= 10 && mHeartbeat == 0) {
+		sHeart->play();
+		sHeart->setVolume(0.7);
+		printf("Spelar hjärtljud\n");
+		mHeartbeat = 100;
+	}
+	if (mHeartbeat > 0)
+		mHeartbeat--;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -163,13 +161,13 @@ void Rymdskepp::Fire() {
 ///////////////////////
 void Rymdskepp::Overlap(Gameobject *gameobject){
 	if (!shield) {
-		if (typeid(*gameobject) == typeid(Enemy) || 
-			typeid(*gameobject) == typeid(WeaponEnemy) ||
-			typeid(*gameobject) == typeid(ProjectileEnemy) || 
-			typeid(*gameobject) == typeid(Wallshot) || 
-			typeid(*gameobject) == typeid(Splitshot) ) 
-		{
+		if (typeid(*gameobject) == typeid(Enemy)||
+			typeid(*gameobject) == typeid(WeaponEnemy)||
+			typeid(*gameobject) == typeid(ProjectileEnemy)||
+			typeid(*gameobject) == typeid(Wallshot)||
+			typeid(*gameobject) == typeid(Splitshot)) {
 			mHealth = mHealth - 10;
+			sLostLife->play();
 			printf("Livnivå=%d\n", mHealth);
 		}
 	}
