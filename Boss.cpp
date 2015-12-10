@@ -15,11 +15,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 //WeaponEnemy(float y) : Enemy(y), mUfoSurface{ UFO_SURFACE }, mSpeedX{ -1.0 }, mSpeedY{ -1.0}, health{ 3 } {}
 Boss::Boss(float y) : Enemy(y) {
-	//Enemy(y);
 	counter = 0;
 	mBossSurface = BOSS_SURFACE;
-	// Ansiktets position och hastighet.
-	//mX = 640;
 	mX = 800;
 	mY = y;
 	mSpeedX = -0.2;
@@ -28,13 +25,10 @@ Boss::Boss(float y) : Enemy(y) {
 	mWallmode = false;
 	mWidemode = true;
 	mSplitmode = false;
-	//mBGX = 0.0f;
 
 	w = mBossSurface->w;
-	//printf("bredd = %d\n", w);
 	h = mBossSurface->h;
-	//mFirerate = 20;
-	//mFiredelay = 0;
+	
 	health = 100;
 
 }
@@ -43,10 +37,6 @@ Boss::Boss(float y) : Enemy(y) {
 // 
 ////////////////////////////////////////////////////////////////////////////////
 Boss::~Boss() {
-	// Frigör bild.
-	//SDL_FreeSurface(mFaceSurface);
-	//SDL_FreeSurface(mBGSurface);
-	//printf("Enemy destroyed\n");
 }
 
 
@@ -126,24 +116,13 @@ void Boss::Update() {
 	}
 
 
-	/*if (mX < 0)
-	mX = 0;
-	else if (mX > (640.0 - w))
-	mX = 640.0 - w;
-	mY += mSpeedY;
-	if (mY < 0)
-	mY = 0;
-	else if (mY > 480.0 - h)
-	mY = 480.0 - h;
-	if (mFiredelay > 0)
-	mFiredelay--;*/
+
 	if (mY<40.0)
 		mY = 40.0;
 	if (mX < 0) {
 		mGamescreen->KillObjectEnemy(this);
 	}
-	//mBGX = mBGX - 5.5f;
-	//if (mBGX < -640.0) mBGX += 640.0;
+
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -165,13 +144,13 @@ void Boss::SetSpeedY(float SpeedY){
 /////////////////////////7
 void Boss::Fire() {
 	//	if (mFiredelay == 0) {
-	mGamescreen->GenerateProjectileEnemy(mX, mY, -1.4, -0.9);
-	mGamescreen->GenerateProjectileEnemy(mX, mY, -1.6, -0.6);
-	mGamescreen->GenerateProjectileEnemy(mX, mY, -1.8, -0.3);
-	mGamescreen->GenerateProjectileEnemy(mX, mY, -2, 0);
-	mGamescreen->GenerateProjectileEnemy(mX, mY, -1.8, 0.3);
-	mGamescreen->GenerateProjectileEnemy(mX, mY, -1.6, 0.6);
-	mGamescreen->GenerateProjectileEnemy(mX, mY, -1.4, 0.9);
+	mGamescreen->GenerateProjectileBoss(mX, mY, -1.4, -0.9);
+	mGamescreen->GenerateProjectileBoss(mX, mY, -1.6, -0.6);
+	mGamescreen->GenerateProjectileBoss(mX, mY, -1.8, -0.3);
+	mGamescreen->GenerateProjectileBoss(mX, mY, -2, 0);
+	mGamescreen->GenerateProjectileBoss(mX, mY, -1.8, 0.3);
+	mGamescreen->GenerateProjectileBoss(mX, mY, -1.6, 0.6);
+	mGamescreen->GenerateProjectileBoss(mX, mY, -1.4, 0.9);
 	sBossFire->play();
 	//	mFiredelay = mFirerate;
 	//	}
@@ -232,8 +211,9 @@ void Boss::Overlap(Gameobject *gameobject) {
 	}
 	if (typeid(*gameobject) == typeid(ProjectileSpaceship)) {
 		health = health - 1;
+		printf("Boss Health : %d\n", health);
 		if (health == 0) {
-			mGamescreen->PointsToPlayer(100);
+			mGamescreen->PointsToPlayer(500);
 			mGamescreen->KillObjectEnemy(this);
 			mGamescreen->DisableBoss();
 			// audiere.

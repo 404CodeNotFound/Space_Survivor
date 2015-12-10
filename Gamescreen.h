@@ -78,6 +78,8 @@ public:
 	void GenerateProjectileSpaceship(float x, float y, float sy);
 	//void GenerateProjectileEnemy(float x, float y);
 	void GenerateProjectileEnemy(float x, float y, float sx, float sy);
+	void GenerateProjectileBoss(float x, float y, float sx, float sy);
+	void GenerateShrapnel(float x, float y, float sx, float sy);
 	void GenerateWallshot(float x, float y, float sx, float sy);
 	void GenerateSplitshot(float x, float y, float sx);
 	void GenerateEnemy(float y);

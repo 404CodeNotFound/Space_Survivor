@@ -6,6 +6,8 @@
 #include "Wideshot.h"
 #include "Splitshot.h"
 #include "Wallshot.h"
+#include "ProjectileBoss.h"
+#include "Shrapnel.h"
 #include "WeaponEnemy.h"
 #include "audiere.h"
 #include <stdio.h>
@@ -99,8 +101,8 @@ void Rymdskepp::Update() {
 			wideshot = false;
 	}
 	if (mHealth <= 10 && mHeartbeat == 0) {
+		sHeart->setVolume(0.2);
 		sHeart->play();
-		sHeart->setVolume(0.7);
 		printf("Spelar hjärtljud\n");
 		mHeartbeat = 100;
 	}
@@ -165,7 +167,9 @@ void Rymdskepp::Overlap(Gameobject *gameobject){
 			typeid(*gameobject) == typeid(WeaponEnemy)||
 			typeid(*gameobject) == typeid(ProjectileEnemy)||
 			typeid(*gameobject) == typeid(Wallshot)||
-			typeid(*gameobject) == typeid(Splitshot)) {
+			typeid(*gameobject) == typeid(Splitshot) ||
+			typeid(*gameobject) == typeid(ProjectileBoss) ||
+			typeid(*gameobject) == typeid(Shrapnel)) {
 			mHealth = mHealth - 10;
 			sLostLife->play();
 			printf("Livnivå=%d\n", mHealth);

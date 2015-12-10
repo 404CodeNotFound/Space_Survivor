@@ -14,7 +14,7 @@ Splitshot::Splitshot(float x, float y, float xs, float shipx, float shipy) {
 	// Läs in en bild av ett ansikte.
 	//mFaceSurface = SDL_LoadBMP("assets/face.bmp");
 	//SDL_SetColorKey(mFaceSurface, SDL_TRUE, RGB(255, 0, 255));
-	mBigbullet = ENEMY_BULLET;
+	mBigbullet = ROUND_BULLET;
 	mShipX = shipx;
 	mShipY = shipy;
 	//mBGSurface = SDL_LoadBMP("assets/background.bmp");
@@ -101,14 +101,14 @@ void Splitshot::Overlap(Gameobject *gameobject) {
 }
 void Splitshot::Detonate()
 {
-	mGamescreen->GenerateProjectileEnemy(mX, mY, -1.5, 0);
-	mGamescreen->GenerateProjectileEnemy(mX, mY, 1.5, 0);
-	mGamescreen->GenerateProjectileEnemy(mX, mY, 0, -1.5);
-	mGamescreen->GenerateProjectileEnemy(mX, mY, 0, 1.5);
-	mGamescreen->GenerateProjectileEnemy(mX, mY, 0.75, 0.75);
-	mGamescreen->GenerateProjectileEnemy(mX, mY, -0.75, 0.75);
-	mGamescreen->GenerateProjectileEnemy(mX, mY, 0.75, -0.75);
-	mGamescreen->GenerateProjectileEnemy(mX, mY, -0.75, -0.75);
+	mGamescreen->GenerateShrapnel(mX, mY, -1.5, 0);
+	mGamescreen->GenerateShrapnel(mX, mY, 1.5, 0);
+	mGamescreen->GenerateShrapnel(mX, mY, 0, -1.5);
+	mGamescreen->GenerateShrapnel(mX, mY, 0, 1.5);
+	mGamescreen->GenerateShrapnel(mX, mY, 0.75, 0.75);
+	mGamescreen->GenerateShrapnel(mX, mY, -0.75, 0.75);
+	mGamescreen->GenerateShrapnel(mX, mY, 0.75, -0.75);
+	mGamescreen->GenerateShrapnel(mX, mY, -0.75, -0.75);
 
 	mGamescreen->KillObject(this);
 	

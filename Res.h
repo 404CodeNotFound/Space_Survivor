@@ -41,6 +41,9 @@ extern SDL_Surface *BACK_BUTTON;
 
 extern SDL_Surface *ENEMY_BULLET;
 extern SDL_Surface *SPACESHIP_BULLET;
+extern SDL_Surface *GREEN_BULLET;
+extern SDL_Surface *FIRE_BOMB;
+extern SDL_Surface *ROUND_BULLET;
 extern SDL_Surface *FAT_SHIELD;
 extern SDL_Surface *SPEED_ICON;
 extern SDL_Surface *WEAPON_ICON;

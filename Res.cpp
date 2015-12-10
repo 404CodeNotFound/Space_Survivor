@@ -41,7 +41,10 @@ SDL_Surface *INSTRUCTION_SURFACE = 0;
 SDL_Surface *BACK_BUTTON = 0;
 
 SDL_Surface *ENEMY_BULLET = 0;
+SDL_Surface *GREEN_BULLET = 0;
 SDL_Surface *SPACESHIP_BULLET = 0;
+SDL_Surface *FIRE_BOMB = 0;
+SDL_Surface *ROUND_BULLET = 0;
 SDL_Surface *FAT_SHIELD = 0;
 SDL_Surface *SPEED_ICON = 0;
 SDL_Surface *WEAPON_ICON = 0;
@@ -121,14 +124,21 @@ bool LoadResources() {
 	HIGH_SCORE_BUTTON_SURFACE = SDL_LoadBMP("assets/high_scores_pressed.bmp");
 	QUIT_BUTTON_SURFACE = SDL_LoadBMP("assets/quit_pressed.bmp");
 
-	INSTRUCTION_SURFACE = SDL_LoadBMP("assets/InstructionScreen.bmp");
+	INSTRUCTION_SURFACE = SDL_LoadBMP("assets/InstructionScreenNEW.bmp");
 	BACK_BUTTON = SDL_LoadBMP("assets/knapp_instr.bmp");
 
 	ENEMY_BULLET = SDL_LoadBMP("assets/Enemy_Bullet.bmp");
 	SPACESHIP_BULLET = SDL_LoadBMP("assets/Spaceship_Bullet.bmp");
+	GREEN_BULLET = SDL_LoadBMP("assets/GreenBullet.bmp");
+	FIRE_BOMB = SDL_LoadBMP("assets/FireBomb.bmp");
+	ROUND_BULLET = SDL_LoadBMP("assets/RoundBullet.bmp");
+
 	FAT_SHIELD = SDL_LoadBMP("assets/FATShield.bmp");
 	SDL_SetColorKey(ENEMY_BULLET, SDL_TRUE, RGB(255, 0, 255));
 	SDL_SetColorKey(SPACESHIP_BULLET, SDL_TRUE, RGB(255, 0, 255));
+	SDL_SetColorKey(GREEN_BULLET, SDL_TRUE, RGB(255, 0, 255));
+	SDL_SetColorKey(FIRE_BOMB, SDL_TRUE, RGB(255, 0, 255));
+	SDL_SetColorKey(ROUND_BULLET, SDL_TRUE, RGB(255, 0, 255));
 	SDL_SetColorKey(FAT_SHIELD, SDL_TRUE, RGB(255, 0, 255));
 	SPEED_ICON = SDL_LoadBMP("assets/SpeedIcon.bmp");
 	WEAPON_ICON = SDL_LoadBMP("assets/WeaponIcon.bmp");
@@ -179,6 +189,7 @@ void DeleteResources() {
 	SDL_FreeSurface(TVÅ);
 	SDL_FreeSurface(ETT);
 	SDL_FreeSurface(BULLET_SURFACE);
+
 	SDL_FreeSurface(HIGH_SCORE_SURFACE);
 	SDL_FreeSurface(LIFE_PU_SURFACE);
 	SDL_FreeSurface(SHIELD_PU_SURFACE);
@@ -194,6 +205,9 @@ void DeleteResources() {
 	SDL_FreeSurface(BACK_BUTTON);
 	SDL_FreeSurface(ENEMY_BULLET);
 	SDL_FreeSurface(SPACESHIP_BULLET);
+	SDL_FreeSurface(GREEN_BULLET);
+	SDL_FreeSurface(FIRE_BOMB);
+	SDL_FreeSurface(ROUND_BULLET);
 	SDL_FreeSurface(FAT_SHIELD);
 	SDL_FreeSurface(SPEED_ICON);
 	SDL_FreeSurface(WEAPON_ICON);

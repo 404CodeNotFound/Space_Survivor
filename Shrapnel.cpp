@@ -1,4 +1,4 @@
-#include "Wallshot.h"
+#include "Shrapnel.h"
 #include "GameApp.h"
 #include "Graphics.h"
 #include "Gamescreen.h"
@@ -10,17 +10,17 @@
 ////////////////////////////////////////////////////////////////////////////////
 // 
 ////////////////////////////////////////////////////////////////////////////////
-Wallshot::Wallshot(float x, float y, float sx, float sy) {
+Shrapnel::Shrapnel(float x, float y, float sx, float sy) {
 	// Läs in en bild av ett ansikte.
 	//mFaceSurface = SDL_LoadBMP("assets/face.bmp");
 	//SDL_SetColorKey(mFaceSurface, SDL_TRUE, RGB(255, 0, 255));
-	mBigbullet = FIRE_BOMB;
+	mBigbullet = ROUND_BULLET;
 
 	//mBGSurface = SDL_LoadBMP("assets/background.bmp");
 
 
 	// Ansiktets position och hastighet.
-	mX = x + 60;
+	mX = x;
 	mY = y + 30;
 	mSpeedX = sx;
 	mSpeedY = sy;
@@ -37,7 +37,7 @@ Wallshot::Wallshot(float x, float y, float sx, float sy) {
 ////////////////////////////////////////////////////////////////////////////////
 // 
 ////////////////////////////////////////////////////////////////////////////////
-Wallshot::~Wallshot() {
+Shrapnel::~Shrapnel() {
 	// Frigör bild.
 	//SDL_FreeSurface(mFaceSurface);
 	//SDL_FreeSurface(mBGSurface);
@@ -55,18 +55,13 @@ Wallshot::~Wallshot() {
 ////////////////////////////////////////////////////////////////////////////////
 // Anropas 100 gånger per sekund. Utför all logik här. 
 ////////////////////////////////////////////////////////////////////////////////
-void Wallshot::Update() {
+void Shrapnel::Update() {
 	// Flytta ansiktet.
 	mX += mSpeedX;
 	mY += mSpeedY;
 	/*if(mX>640) {
 	mGamescreen->KillObject(this);
 	}*/
-
-	if (mX <= 630)
-		mSpeedY = 0;
-	if (mY<40.0)
-		mY = 40.0;
 	if (mX<0) {
 		mGamescreen->KillObject(this);
 	}
@@ -78,7 +73,7 @@ void Wallshot::Update() {
 ////////////////////////////////////////////////////////////////////////////////
 // Utför all utritning här.
 ////////////////////////////////////////////////////////////////////////////////
-void Wallshot::Draw(Graphics *g) {
+void Shrapnel::Draw(Graphics *g) {
 	// Rensa skärmen.
 	//g->Clear(RGB(255, 255, 255));
 	//g->DrawImage(mBGSurface, (int)mBGX, 0);
@@ -89,12 +84,12 @@ void Wallshot::Draw(Graphics *g) {
 
 }
 ////////////////////////////////7
-void Wallshot::SetSpeed(float SpeedX, float SpeedY){
+void Shrapnel::SetSpeed(float SpeedX, float SpeedY){
 	mSpeedX = SpeedX;
 	mSpeedY = SpeedY;
 }
 ////////////////////////////////////
-void Wallshot::Overlap(Gameobject *gameobject) {
+void Shrapnel::Overlap(Gameobject *gameobject) {
 	mGamescreen->KillObject(this);
 	//printf("Projektil dödad pga kollision!\n");
 }

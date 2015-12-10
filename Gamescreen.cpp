@@ -24,6 +24,8 @@
 #include "Boss.h"
 #include "Splitshot.h"
 #include "Wallshot.h"
+#include "ProjectileBoss.h"
+#include "Shrapnel.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // 
@@ -228,7 +230,9 @@ void Gamescreen::Update() {
 				GenerateEnemy(randy);
 		}
 		else if (counter < 8500 && counter % 8000 == 0) { 
+			randy = rand() % 493 + 40;
 			GenerateShield(randy, -1.0);
+			randy = rand() % 493 + 40;
 			GenerateWideshot(randy, -1.0);
 		}
 
@@ -248,13 +252,18 @@ void Gamescreen::Update() {
 
 	}
 
-	if (life <= 50 && points >=100 && counter%900 == 0) {
+	if (life <= 50 && points >=100 && counter%800 == 0) {
 		randy = rand()%493 + 40;
-		if (counter % 1800 == 0)
+		if (counter % 1600 == 0)
 			GenerateLife(randy, -1.0);
 		else
 			GenerateShield(randy, -1.0);
 		printf("Föder powerup!");
+	}
+
+	if (life <= 30 && points >= 100 && counter % 1000 == 0){
+		randy = rand() % 493 + 40;
+		GenerateLife(randy, -1.0);
 	}
 
 	if (points >=150 && counter%1000 == 0) {
@@ -420,6 +429,24 @@ void Gamescreen::GenerateProjectileSpaceship(float x, float y, float sy) {
 ///////////////////////
 void Gamescreen::GenerateProjectileEnemy(float x, float y, float sx, float sy) {
 	ProjectileEnemy *tempbullet = new ProjectileEnemy(x, y, sx, sy);
+	tempbullet->SetGamescreen(this);
+	enemybullets.push_back(tempbullet);
+	// audiere.
+	sShootSound->play();
+	//
+	//printf("Gave birth to projectile!\n");
+}
+void Gamescreen::GenerateProjectileBoss(float x, float y, float sx, float sy) {
+	ProjectileBoss *tempbullet = new ProjectileBoss(x, y, sx, sy);
+	tempbullet->SetGamescreen(this);
+	enemybullets.push_back(tempbullet);
+	// audiere.
+	sShootSound->play();
+	//
+	//printf("Gave birth to projectile!\n");
+}
+void Gamescreen::GenerateShrapnel(float x, float y, float sx, float sy) {
+	Shrapnel *tempbullet = new Shrapnel(x, y, sx, sy);
 	tempbullet->SetGamescreen(this);
 	enemybullets.push_back(tempbullet);
 	// audiere.
