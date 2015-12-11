@@ -4,18 +4,14 @@
 #include "Enemy.h"
 #include "Res.h"
 
-//struct SDL_Surface;
 
 class WeaponEnemy : public Enemy {
 private:
-	// Ansiktsbild.
 	SDL_Surface *mUfoSurface;
 
 	float mSpeedX;
 	float mSpeedY;
 
-	//int w;
-	//int h;
 	int counter;
 	int mFirerate;
 	int mFiredelay;
@@ -24,7 +20,6 @@ private:
 
 
 public:
-	//WeaponEnemy(float y) : Enemy(y), mUfoSurface{ UFO_SURFACE }, mSpeedX{ -1.0 }, mSpeedY{ -1.0}, health{ 3 } {}
 	WeaponEnemy(float y);
 	~WeaponEnemy();
 

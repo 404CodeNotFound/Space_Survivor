@@ -50,22 +50,14 @@ Rymdskepp::Rymdskepp() {
 // 
 ////////////////////////////////////////////////////////////////////////////////
 Rymdskepp::~Rymdskepp() {
-	printf("Testscreen destroyed\n");
+	printf("Spaceship destroyed\n");
 }
-
-////////////////////////////////////////////////////////////////////////////////
-// 
-////////////////////////////////////////////////////////////////////////////////
-
-////////////////////////////////////////////////////////////////////////////////
-// 
-////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////
 // Anropas 100 gånger per sekund. Utför all logik här. 
 ////////////////////////////////////////////////////////////////////////////////
 void Rymdskepp::Update() {
-	// Flytta ansiktet.
+
 	mX += mSpeedX;
 	if (mX < 0)
 		mX = 0;
@@ -103,7 +95,6 @@ void Rymdskepp::Update() {
 	if (mHealth <= 10 && mHeartbeat == 0) {
 		sHeart->setVolume(0.2);
 		sHeart->play();
-		printf("Spelar hjärtljud\n");
 		mHeartbeat = 100;
 	}
 	if (mHeartbeat > 0)
@@ -167,8 +158,8 @@ void Rymdskepp::Overlap(Gameobject *gameobject){
 			typeid(*gameobject) == typeid(WeaponEnemy)||
 			typeid(*gameobject) == typeid(ProjectileEnemy)||
 			typeid(*gameobject) == typeid(Wallshot)||
-			typeid(*gameobject) == typeid(Splitshot) ||
-			typeid(*gameobject) == typeid(ProjectileBoss) ||
+			typeid(*gameobject) == typeid(Splitshot)||
+			typeid(*gameobject) == typeid(ProjectileBoss)||
 			typeid(*gameobject) == typeid(Shrapnel)) {
 			mHealth = mHealth - 10;
 			sLostLife->play();

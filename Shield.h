@@ -9,7 +9,6 @@ private:
 	SDL_Surface * mShieldSurface;
 
 public:
-	//Shield(float x, float y, float xs) : PowerUp(x, y, xs) {};
 	Shield(float y, float xs);
 	~Shield();
 	void Draw(Graphics *g);

@@ -14,8 +14,6 @@ class Font;
 
 class Gamescreen : public Screen {
 private:
-	// Ansiktsbild.
-	//SDL_Surface *mFaceSurface;
 	SDL_Surface *mBGSurface;
 	SDL_Surface *mTio;
 	SDL_Surface *mNio;
@@ -30,7 +28,7 @@ private:
 
 	Font *mMyFont;
 
-	// Position för ansikte.
+	// Position för score och lifebar.
 	int mLifeX;
 	int mLifeY;
 	int mScoreX;
@@ -51,11 +49,7 @@ private:
 
 	//pekare till rymdskepp
 	Gameobject *mGameobject;
-	//lista med pekare till rymdskeppets projektiler
-	/*std::list<ProjectileSpaceship*> herobullets;
-	std::list<ProjectileSpaceship*> killedherobullets;
-	std::list<ProjectileEnemy*> enemybullets;
-	std::list<ProjectileEnemy*> killedenemybullets;*/
+	//listor med pekare till övriga gameobjects
 	std::list<Gameobject*> herobullets;
 	std::list<Gameobject*> killedherobullets;
 	std::list<Gameobject*> enemybullets;
@@ -76,7 +70,6 @@ public:
 	virtual void Draw(Graphics *g);
 	void SetGameobject(Gameobject *gameobject);
 	void GenerateProjectileSpaceship(float x, float y, float sy);
-	//void GenerateProjectileEnemy(float x, float y);
 	void GenerateProjectileEnemy(float x, float y, float sx, float sy);
 	void GenerateProjectileBoss(float x, float y, float sx, float sy);
 	void GenerateShrapnel(float x, float y, float sx, float sy);
@@ -90,14 +83,12 @@ public:
 	void GenerateSpeed(float y, float xs);
 	void GenerateWeapon(float y, float xs);
 	void GenerateWideshot(float y, float xs);
-	//void KillObject(ProjectileSpaceship *projectile);
 	void KillObject(Gameobject *gameobject);
 	void KillObjectEnemy(Enemy *enemy);
 	void KillObjectPowerUp(PowerUp *powerup);
 	void KillSpaceship();
 	void FinalKill();
 	void CheckOverlapSpaceship(Gameobject *gameobject, std::list<Enemy*> enemies, std::list<Gameobject*> enemybullets, std::list<PowerUp*> powerup); 
-	//void CheckOverlapHerobullets(std::list<ProjectileSpaceship*> herobullets, std::list<Enemy*> enemies);
 	void CheckOverlapHerobullets(std::list<Gameobject*> herobullets, std::list<Enemy*> enemies, std::list<PowerUp*> powerup);
 	void PointsToPlayer(int);
 	void KillAll();

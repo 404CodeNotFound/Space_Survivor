@@ -11,7 +11,7 @@ Startscreen::Startscreen() {
 	sStartmusic->play();
 	sStartmusic->setRepeat(true);
 	mMenuSurface = START_SURFACE;
-	//mMenuSurface = ALT_START_SURFACE;
+
 	mButton1 = GAME_BUTTON_SURFACE;
 	mButton2 = INSTR_BUTTON_SURFACE;
 	mButton3 = HIGH_SCORE_BUTTON_SURFACE;
@@ -64,7 +64,6 @@ void Startscreen::KeyEvent() {
 void Startscreen::Draw(Graphics *g) {
 	g->DrawImage(mMenuSurface, (int)mBGX, 0);
 	g->DrawImage(SHIP_SURFACE, (int)mBPX, mBPY);
-	//g->DrawImage(GAME_BUTTON_SURFACE, (int)mBPX, mBuY1);
 
 	if (mGame) {
 		g->DrawImage(GAME_BUTTON_SURFACE, (int)mBuX, mBuY1);
@@ -171,9 +170,7 @@ void Startscreen::Update() {
 		}
 
 		else if (mY == mBuY2) {
-		if (mY == mBuY2) {
-		 GameApp()->SetScreen(new Instructions());
-		}
+			GameApp()->SetScreen(new Instructions());
 		}
 
 		else if (mY == mBuY3) {

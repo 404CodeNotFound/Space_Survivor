@@ -9,7 +9,6 @@
 MyGameApp::MyGameApp() {
 	SetTitle("My Game");
 	SetSize(800, 600);
-	//SetSize(1024, 768);
 	LoadResources();
 	SetScreen(new Startscreen());
 }

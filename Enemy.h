@@ -7,14 +7,11 @@
 
 class Enemy : public Gameobject {
 private:
-	// Ansiktsbild.
 	SDL_Surface *mFaceSurface;
 
 	float mSpeedX;
 	float mSpeedY;
 	
-	//int w;
-	//int h;
 	int mFirerate; 
 	int mFiredelay; 
 	int health;

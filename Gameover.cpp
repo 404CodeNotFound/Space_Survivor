@@ -20,8 +20,6 @@ Gameover::Gameover(int points) {
 	sDarth->play();
 	sDarth->setRepeat(false);
 
-	//Bakgrundens position
-
 	mBGX = 0.0f;
 	counter = 0;
 	mPoints = points;

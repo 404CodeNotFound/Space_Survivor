@@ -8,12 +8,8 @@ struct SDL_Surface;
 
 class Gameover : public Screen {
 private:
-	
-	//SDL_Surface *mBGSurface;
 	SDL_Surface *mGameoverSurface;
 
-	
-	// Position för bakgrund.
 	float mBGX;
 	int counter;
 	int mPoints;

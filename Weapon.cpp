@@ -27,7 +27,6 @@ void Weapon::Overlap(Gameobject *gameobject) {
 	if (typeid(*gameobject) == typeid(Rymdskepp)) {
 			mGamescreen->BoostWeapon(600);
 			mGamescreen->KillObjectPowerUp(this);
-			//sExplosionSound->play();
 			printf("Kollision med Speed!\n");
 		}
 		if (typeid(*gameobject) == typeid(ProjectileSpaceship)) {

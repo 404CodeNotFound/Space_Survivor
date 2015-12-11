@@ -50,7 +50,7 @@ SDL_Surface *SPEED_ICON = 0;
 SDL_Surface *WEAPON_ICON = 0;
 SDL_Surface *WIDESHOT_ICON = 0;
 
-// två ljudeffekter.
+// ljudeffekter.
 audiere::SoundEffectPtr sShootSound = 0;
 audiere::SoundEffectPtr sExplosionSound = 0;
 audiere::SoundEffectPtr sBabyAouch = 0;
@@ -83,14 +83,6 @@ bool LoadResources() {
 
 	
 	BG_SURFACE = SDL_LoadBMP("assets/Gamescreen.bmp");
-
-	//printf("FACE %p   BG %p\n", FACE_SURFACE, BG_SURFACE);
-	//printf("BG STORLEK %d %d\n", BG_SURFACE->w, BG_SURFACE->h);
-	
-	BULLET_SURFACE = SDL_LoadBMP("assets/bullet.bmp");
-	SDL_SetColorKey(BULLET_SURFACE, SDL_TRUE, RGB(255, 0, 255));
-	BIGBULLET_SURFACE = SDL_LoadBMP("assets/bullet_2x.bmp");
-	SDL_SetColorKey(BIGBULLET_SURFACE, SDL_TRUE, RGB(255, 0, 255));
 
 	GAME_OVER_SURFACE = SDL_LoadBMP("assets/GameoverScreen.bmp");
 	HIGH_SCORE_SURFACE = SDL_LoadBMP("assets/HighScoreScreen.bmp");
@@ -132,7 +124,7 @@ bool LoadResources() {
 	GREEN_BULLET = SDL_LoadBMP("assets/GreenBullet.bmp");
 	FIRE_BOMB = SDL_LoadBMP("assets/FireBomb.bmp");
 	ROUND_BULLET = SDL_LoadBMP("assets/RoundBullet.bmp");
-
+	
 	FAT_SHIELD = SDL_LoadBMP("assets/FATShield.bmp");
 	SDL_SetColorKey(ENEMY_BULLET, SDL_TRUE, RGB(255, 0, 255));
 	SDL_SetColorKey(SPACESHIP_BULLET, SDL_TRUE, RGB(255, 0, 255));
@@ -174,7 +166,7 @@ void DeleteResources() {
 	SDL_FreeSurface(FACE_SURFACE);
 	SDL_FreeSurface(BG_SURFACE);
 	SDL_FreeSurface(SHIP_SURFACE);
-	SDL_FreeSurface(BIGBULLET_SURFACE);
+	//SDL_FreeSurface(BIGBULLET_SURFACE);
 	SDL_FreeSurface(GAME_OVER_SURFACE);
 	SDL_FreeSurface(UFO_SURFACE);
 	SDL_FreeSurface(BOSS_SURFACE);
@@ -188,8 +180,7 @@ void DeleteResources() {
 	SDL_FreeSurface(TRE);
 	SDL_FreeSurface(TVÅ);
 	SDL_FreeSurface(ETT);
-	SDL_FreeSurface(BULLET_SURFACE);
-
+	//SDL_FreeSurface(BULLET_SURFACE);
 	SDL_FreeSurface(HIGH_SCORE_SURFACE);
 	SDL_FreeSurface(LIFE_PU_SURFACE);
 	SDL_FreeSurface(SHIELD_PU_SURFACE);

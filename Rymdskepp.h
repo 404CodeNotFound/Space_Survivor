@@ -3,25 +3,18 @@
 
 #include "Gameobject.h"
 
-//struct SDL_Surface;
 
 class Rymdskepp : public Gameobject {
 private:
-	// Ansiktsbild.
 	SDL_Surface *mShipSurface;
 	SDL_Surface *mShieldShadow;
 	SDL_Surface *mSpeedIcon;
 	SDL_Surface *mWeaponIcon;
 	SDL_Surface *mWideshotIcon;
 
-	// Position för ansikte.
-	//float mX;
-	//float mY;
-	// Hastighet för ansikte.
 	float mSpeedX;
 	float mSpeedY;
-	//int w;
-	//int h;
+	
 	int mFirerate; 
 	int mFiredelay; 
 	int mHealth;
@@ -40,8 +33,6 @@ public:
 	Rymdskepp();
 	~Rymdskepp();
 
-	//virtual void KeyDown(SDL_Keycode keyCode);
-	//virtual void KeyUp(SDL_Keycode keyCode);
 	virtual void Update();
 	virtual void SetSpeedX(float SpeedX);
 	virtual void SetSpeedY(float SpeedY);

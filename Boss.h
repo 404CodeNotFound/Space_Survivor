@@ -5,17 +5,16 @@
 #include "Res.h"
 
 //struct SDL_Surface;
+class Font;
 
 class Boss : public Enemy {
 private:
-	// Ansiktsbild.
 	SDL_Surface *mBossSurface;
+	Font *mMyFont;
 
 	float mSpeedX;
 	float mSpeedY;
 
-	//int w;
-	//int h;
 	int counter;
 	int mFirerate;
 	int mFiredelay;
@@ -29,7 +28,6 @@ private:
 
 
 public:
-	//WeaponEnemy(float y) : Enemy(y), mUfoSurface{ UFO_SURFACE }, mSpeedX{ -1.0 }, mSpeedY{ -1.0}, health{ 3 } {}
 	Boss(float y);
 	~Boss();
 
@@ -41,6 +39,7 @@ public:
 	void FireWall();
 	void FireSplit();
 	virtual void Overlap(Gameobject *gameobejct);
+	int GetBossHealth();
 };
 
 #endif

@@ -15,26 +15,15 @@
 
 PowerUp::PowerUp(float y, float xs)
 {
-	//mPowerSurface = powPic;
-	// Ansiktets position och hastighet.
 	mX = 800;
-	//mX = 1024;
 	mY = y;
 	mSpeedX = xs;
 	mSpeedY = 0;
 	mHealth = 30;
-	//mBGX = 0.0f;
-
-	//w = mPowerSurface->w;
-	//printf("bredd = %d\n", w);
-	//h = mPowerSurface->h;
-
 }
 
 
-PowerUp::~PowerUp()
-{
-
+PowerUp::~PowerUp() {
 }
 void PowerUp::Update()
 {

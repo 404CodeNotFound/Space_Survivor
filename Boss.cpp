@@ -5,6 +5,7 @@
 #include "Rymdskepp.h"
 #include "Gamescreen.h"
 #include "audiere.h"
+#include "Font.h"
 #include <stdio.h>
 #include <math.h>
 #include <typeinfo>
@@ -13,10 +14,10 @@
 ////////////////////////////////////////////////////////////////////////////////
 // 
 ////////////////////////////////////////////////////////////////////////////////
-//WeaponEnemy(float y) : Enemy(y), mUfoSurface{ UFO_SURFACE }, mSpeedX{ -1.0 }, mSpeedY{ -1.0}, health{ 3 } {}
 Boss::Boss(float y) : Enemy(y) {
 	counter = 0;
 	mBossSurface = BOSS_SURFACE;
+	mMyFont = new Font("assets/font_fire.bmp");
 	mX = 800;
 	mY = y;
 	mSpeedX = -0.2;
@@ -37,6 +38,7 @@ Boss::Boss(float y) : Enemy(y) {
 // 
 ////////////////////////////////////////////////////////////////////////////////
 Boss::~Boss() {
+	delete mMyFont;
 }
 
 
@@ -44,7 +46,6 @@ Boss::~Boss() {
 // Anropas 100 gånger per sekund. Utför all logik här. 
 ////////////////////////////////////////////////////////////////////////////////
 void Boss::Update() {
-	// Flytta ansiktet.
 	mX += mSpeedX;
 	mY += mSpeedY;
 	counter++;
@@ -53,8 +54,6 @@ void Boss::Update() {
 		mSpeedX = 0;
 		mSpeedY = -0.5;
 	}
-
-
 
 	if (mWallmode)
 		{
@@ -115,8 +114,6 @@ void Boss::Update() {
 		}
 	}
 
-
-
 	if (mY<40.0)
 		mY = 40.0;
 	if (mX < 0) {
@@ -132,6 +129,12 @@ void Boss::Draw(Graphics *g) {
 
 	g->DrawImage(mBossSurface, mX, mY);
 
+	if (health > 0) {
+		char tmp[64];
+		sprintf(tmp, "BOSSLIFE: %d", health);
+		mMyFont->WriteString(g, tmp, 300, 5);
+	}
+
 }
 ////////////////////////////////7
 void Boss::SetSpeedX(float SpeedX){
@@ -143,7 +146,6 @@ void Boss::SetSpeedY(float SpeedY){
 }
 /////////////////////////7
 void Boss::Fire() {
-	//	if (mFiredelay == 0) {
 	mGamescreen->GenerateProjectileBoss(mX, mY, -1.4, -0.9);
 	mGamescreen->GenerateProjectileBoss(mX, mY, -1.6, -0.6);
 	mGamescreen->GenerateProjectileBoss(mX, mY, -1.8, -0.3);
@@ -152,11 +154,8 @@ void Boss::Fire() {
 	mGamescreen->GenerateProjectileBoss(mX, mY, -1.6, 0.6);
 	mGamescreen->GenerateProjectileBoss(mX, mY, -1.4, 0.9);
 	sBossFire->play();
-	//	mFiredelay = mFirerate;
-	//	}
 }
 void Boss::FireWall() {
-	//	if (mFiredelay == 0) {
 	mHole = rand() % 7;
 
 	if (mHole != 0)
@@ -192,8 +191,6 @@ void Boss::FireWall() {
 	if (mHole != 6)
 		mGamescreen->GenerateWallshot(mX, mY, -2.0, 4.5);
 	sWallShot->play();
-	//	mFiredelay = mFirerate;
-	//	}
 }
 void Boss::FireSplit()
 {
@@ -207,7 +204,6 @@ void Boss::Overlap(Gameobject *gameobject) {
 		sExplosionSound->play();
 		mGamescreen->PointsToPlayer(100);
 		mGamescreen->DisableBoss();
-		//printf("AJ!\n");
 	}
 	if (typeid(*gameobject) == typeid(ProjectileSpaceship)) {
 		health = health - 1;
@@ -220,4 +216,8 @@ void Boss::Overlap(Gameobject *gameobject) {
 			sExplosionSound->play();
 		}
 	}
+}
+///////////////////
+int Boss::GetBossHealth() {
+	return health;
 }

@@ -49,7 +49,7 @@ extern SDL_Surface *SPEED_ICON;
 extern SDL_Surface *WEAPON_ICON;
 extern SDL_Surface *WIDESHOT_ICON;
 
-// två ljudeffekter.
+// ljudeffekter.
 extern audiere::SoundEffectPtr sShootSound;
 extern audiere::SoundEffectPtr sExplosionSound;
 extern audiere::SoundEffectPtr sBabyAouch;

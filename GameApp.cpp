@@ -2,7 +2,6 @@
 #include "Screen.h"
 #include "Graphics.h"
 #include "SDL.h"
-//#include "SDL_ttf.h"
 #include <stdio.h>
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -11,11 +10,7 @@
 GameApp::GameApp() {
 	mWindow = 0;
 	mWindowSurface = 0;
-	//mWidth = 640;
-	//mWidth = 1024;
 	mWidth = 800;
-	//mHeight = 480;
-	//mHeight = 768;
 	mHeight = 600;
 	mTitle = "GameApp";
 	mShouldTerminate = false;
@@ -124,7 +119,6 @@ bool GameApp::Run() {
 	SDL_DestroyWindow(mWindow);
 	mWindow = 0;
 	SDL_Quit();
-	//TTF_Quit();
 
 	return true;
 }

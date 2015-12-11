@@ -11,15 +11,8 @@
 // 
 ////////////////////////////////////////////////////////////////////////////////
 ProjectileSpaceship::ProjectileSpaceship(float x, float y, float sy = 0) {
-	// Läs in en bild av ett ansikte.
-	//mFaceSurface = SDL_LoadBMP("assets/face.bmp");
-	//SDL_SetColorKey(mFaceSurface, SDL_TRUE, RGB(255, 0, 255));
 	mBigbullet = SPACESHIP_BULLET;
 
-	//mBGSurface = SDL_LoadBMP("assets/background.bmp");
-
-
-	// Ansiktets position och hastighet.
 	mX = x + 64;
 	mY = y + 22;
 	mSpeedX = 3.0;
@@ -27,36 +20,18 @@ ProjectileSpaceship::ProjectileSpaceship(float x, float y, float sy = 0) {
 
 	w = mBigbullet->w;
 	h = mBigbullet->h;
-	//printf("bredd = %d\n", w);
-
-	//mBGX = 0.0f;
-
-
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // 
 ////////////////////////////////////////////////////////////////////////////////
 ProjectileSpaceship::~ProjectileSpaceship() {
-	// Frigör bild.
-	//SDL_FreeSurface(mFaceSurface);
-	//SDL_FreeSurface(mBGSurface);
-	//printf("Herobullet destroyed\n");
 }
-
-////////////////////////////////////////////////////////////////////////////////
-// 
-////////////////////////////////////////////////////////////////////////////////
-
-////////////////////////////////////////////////////////////////////////////////
-// 
-////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////
 // Anropas 100 gånger per sekund. Utför all logik här. 
 ////////////////////////////////////////////////////////////////////////////////
 void ProjectileSpaceship::Update() {
-	// Flytta ansiktet.
 	mX += mSpeedX;
 	mY += mSpeedY;
 	if (mY<40.0)
@@ -64,24 +39,13 @@ void ProjectileSpaceship::Update() {
 	if(mX>800) {
 		mGamescreen->KillObject(this);
 	}
-	/*if(mX>1024) {
-		mGamescreen->KillObject(this);
-	}*/
-
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // Utför all utritning här.
 ////////////////////////////////////////////////////////////////////////////////
 void ProjectileSpaceship::Draw(Graphics *g) {
-	// Rensa skärmen.
-	//g->Clear(RGB(255, 255, 255));
-	//g->DrawImage(mBGSurface, (int)mBGX, 0);
-	//g->DrawImage(mBGSurface, (int)(mBGX + 640.0), 0);
-	// Rita ut ansikte.
 	g->DrawImage(mBigbullet, mX, mY);
-
-
 }
 ////////////////////////////////7
 void ProjectileSpaceship::SetSpeed(float SpeedX, float SpeedY){
@@ -91,5 +55,4 @@ void ProjectileSpaceship::SetSpeed(float SpeedX, float SpeedY){
 ////////////////////////////////////
 void ProjectileSpaceship::Overlap(Gameobject *gameobject) {
 	mGamescreen->KillObject(this);
-	//printf("Projektil dödad pga kollision!\n");
 }

@@ -14,7 +14,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 Highscore::Highscore(int score) {
 
-	//Läs in bakgrundsbild
 	ready = false;
 	wehaveawinner = false;
 	releasekeys = false;
@@ -23,9 +22,6 @@ Highscore::Highscore(int score) {
 	mMyFont = new Font("assets/font_fire.bmp");
 	mScore = score;
 	printf("Score:, %d", mScore);
-	//audiere
-
-	//Bakgrundens position
 
 	mBGX = 0.0f;
 	counter = 0;
@@ -45,11 +41,6 @@ Highscore::Highscore(int score) {
 	}
 	fclose(file);
 
-	/*for (int i = 0; i < 10; ++i) {
-		printf("%s %d\n", (Bestofthebest.at(i)).mName.c_str(), (Bestofthebest.at(i)).mPoints);
-	}
-	int tio = (Bestofthebest.at(9)).mPoints;
-	printf("Tian:, %d", tio);*/
 	if (mScore > (Bestofthebest.at(9)).mPoints) {
 		wehaveawinner = true;
 		printf("We have a winner!");
@@ -79,8 +70,7 @@ Highscore::~Highscore() {
 			printf("Till fil:, %d %s\n", points, (Bestofthebest.at(i)).mName.c_str());
 	}
 	fclose(file);
-	delete mMyFont;;
-	// audiere.
+	delete mMyFont;
 	
 	printf("Highscore destroyed\n");
 }
@@ -130,82 +120,160 @@ void Highscore::Draw(Graphics *g) {
 void Highscore::KeyDown(SDL_Keycode keyCode) {
 	if(releasekeys) {
 		if (keyCode == SDLK_a) {
-			winnername = winnername + 'A';
+			if (winnername.length() < 11)
+				winnername = winnername + 'A';
+			else
+				winnername = winnername;
 		}
 		else if (keyCode == SDLK_b) {
-			winnername = winnername + 'B';
+			if (winnername.length() < 11)
+				winnername = winnername + 'B';
+			else
+				winnername = winnername;
 		}
 		else if (keyCode == SDLK_c) {
-			winnername = winnername + 'C';
+			if (winnername.length() < 11)
+				winnername = winnername + 'C';
+			else
+				winnername = winnername;
 		}
 		else if (keyCode == SDLK_d) {
-			winnername = winnername + 'D';
+			if (winnername.length() < 11)
+				winnername = winnername + 'D';
+			else
+				winnername = winnername;
 		}
 		else if (keyCode == SDLK_e) {
-			winnername = winnername + 'E';
+			if (winnername.length() < 11)
+				winnername = winnername + 'E';
+			else
+				winnername = winnername;
 		}
 		else if (keyCode == SDLK_f) {
-			winnername = winnername + 'F';
+			if (winnername.length() < 11)
+				winnername = winnername + 'F';
+			else
+				winnername = winnername;
 		}
 		else if (keyCode == SDLK_g) {
-			winnername = winnername + 'G';
+			if (winnername.length() < 11)
+				winnername = winnername + 'G';
+			else
+				winnername = winnername;
 		}
 		else if (keyCode == SDLK_h) {
-			winnername = winnername + 'H';
+			if (winnername.length() < 11)
+				winnername = winnername + 'H';
+			else
+				winnername = winnername;
 		}
 		else if (keyCode == SDLK_i) {
-			winnername = winnername + 'I';
+			if (winnername.length() < 11)
+				winnername = winnername + 'I';
+			else
+				winnername = winnername;
 		}
 		else if (keyCode == SDLK_j) {
-			winnername = winnername + 'J';
+			if (winnername.length() < 11)
+				winnername = winnername + 'J';
+			else
+				winnername = winnername;
 		}
 		else if (keyCode == SDLK_k) {
-			winnername = winnername + 'K';
+			if (winnername.length() < 11)
+				winnername = winnername + 'K';
+			else
+				winnername = winnername;
 		}
 		else if (keyCode == SDLK_l) {
-			winnername = winnername + 'L';
+			if (winnername.length() < 11)
+				winnername = winnername + 'L';
+			else
+				winnername = winnername;
 		}
 		else if (keyCode == SDLK_m) {
-			winnername = winnername + 'M';
+			if (winnername.length() < 11)
+				winnername = winnername + 'M';
+			else
+				winnername = winnername;
 		}
 		else if (keyCode == SDLK_n) {
-			winnername = winnername + 'N';
+			if (winnername.length() < 11)
+				winnername = winnername + 'N';
+			else
+				winnername = winnername;
 		}
 		else if (keyCode == SDLK_o) {
-			winnername = winnername + 'O';
+			if (winnername.length() < 11)
+				winnername = winnername + 'O';
+			else
+				winnername = winnername;
 		}
 		else if (keyCode == SDLK_p) {
-			winnername = winnername + 'P';
+			if (winnername.length() < 11)
+				winnername = winnername + 'P';
+			else
+				winnername = winnername;
 		}
 		else if (keyCode == SDLK_q) {
-			winnername = winnername + 'Q';
+			if (winnername.length() < 11)
+				winnername = winnername + 'Q';
+			else
+				winnername = winnername;
 		}
 		else if (keyCode == SDLK_r) {
-			winnername = winnername + 'R';
+			if (winnername.length() < 11)
+				winnername = winnername + 'R';
+			else
+				winnername = winnername;
 		}
 		else if (keyCode == SDLK_s) {
-			winnername = winnername + 'S';
+			if (winnername.length() < 11)
+				winnername = winnername + 'S';
+			else
+				winnername = winnername;
 		}
 		else if (keyCode == SDLK_t) {
-			winnername = winnername + 'T';
+			if (winnername.length() < 11)
+				winnername = winnername + 'T';
+			else
+				winnername = winnername;
 		}
 		else if (keyCode == SDLK_u) {
-			winnername = winnername + 'U';
+			if (winnername.length() < 11)
+				winnername = winnername + 'U';
+			else
+				winnername = winnername;
 		}
 		else if (keyCode == SDLK_v) {
-			winnername = winnername + 'V';
+			if (winnername.length() < 11)
+				winnername = winnername + 'V';
+			else
+				winnername = winnername;
 		}
 		else if (keyCode == SDLK_w) {
-			winnername = winnername + 'W';
+			if (winnername.length() < 11)
+				winnername = winnername + 'W';
+			else
+				winnername = winnername;
 		}
 		else if (keyCode == SDLK_x) {
-			winnername = winnername + 'X';
+			if (winnername.length() < 11)
+				winnername = winnername + 'X';
+			else
+				winnername = winnername;
 		}
 		else if (keyCode == SDLK_y) {
-			winnername = winnername + 'Y';
+			if (winnername.length() < 11)
+				winnername = winnername + 'Y';
+			else
+				winnername = winnername;
 		}
 		else if (keyCode == SDLK_z) {
-			winnername = winnername + 'Z';
+			if (winnername.length() < 11)
+				winnername = winnername + 'Z';
+			else
+				winnername = winnername;
 		}
 		else if (keyCode == SDLK_BACKSPACE) {
 			if (winnername.length() > 0) {

@@ -5,7 +5,6 @@
 #include "SDL.h"
 #include "GameApp.h"
 
-//struct SDL_Surface;
 
 class Startscreen : public Screen {
 public:
@@ -21,7 +20,7 @@ public:
 
 private:
 	SDL_Surface *mMenuSurface;
-	//SDL_Surface *mHighscrSurface;
+	
 	SDL_Surface *mButtonPointer;
 	SDL_Surface *mButton;
 	SDL_Surface *mButton1;
