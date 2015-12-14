@@ -135,6 +135,10 @@ void Gamescreen::KeyUp(SDL_Keycode keyCode) {
 	if (keyCode == SDLK_SPACE) {
 		mSpace = false;
 	}
+	if (keyCode == SDLK_q) {
+		GameApp()->SetScreen(new Gameover(points)); 
+	} 
+
 }
 
 ////////////////////////////////////////////////////////////////////////////////
